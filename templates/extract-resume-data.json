@@ -1,0 +1,94 @@
+{
+  "name": "Extract Resume Data",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Resume Data\n\nRecruiting teams and HR platforms use this recipe to automate resume screening. Upload a resume in PDF or DOCX format and receive structured JSON with candidate name, email, work history, and skills \u2014 ready for your ATS or candidate pipeline.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "9ff8f73c-a387-4f6b-b9c0-3be0d7602f6c",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "9268c275-4ae6-4e58-bf98-1b51dbcbb45a",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a5b6c7d8-e9f0-1234-abcd-345678901abc",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Full name of the candidate\"},{\"name\":\"email\",\"type\":\"EMAIL\",\"description\":\"Candidate email address\"},{\"name\":\"experience\",\"type\":\"ARRAY\",\"description\":\"Work experience entries\",\"item_schema\":{\"fields\":[{\"name\":\"company\",\"type\":\"TEXT\",\"description\":\"Employer or company name\"},{\"name\":\"role\",\"type\":\"TEXT\",\"description\":\"Job title or role\"},{\"name\":\"start_date\",\"type\":\"DATE\",\"description\":\"Start date of employment\"},{\"name\":\"end_date\",\"type\":\"DATE\",\"description\":\"End date of employment\"}]}},{\"name\":\"skills\",\"type\":\"ARRAY\",\"description\":\"List of candidate skills\",\"item_schema\":{\"fields\":[{\"name\":\"skill\",\"type\":\"TEXT\",\"description\":\"Skill name\"}]}}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "resume.pdf",
+              "fileUrl": "https://example.com/resumes/resume.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "b6c7d8e9-f0a1-2345-bcde-456789012bcd",
+      "name": "Extract Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

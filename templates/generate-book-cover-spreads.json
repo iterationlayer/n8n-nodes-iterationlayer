@@ -1,0 +1,88 @@
+{
+  "name": "Generate Book Cover Spreads",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Book Cover Spreads\n\nSelf-publishing platforms and print-on-demand services use this recipe to generate complete book cover spreads for KDP, IngramSpark, or other print-on-demand platforms. Calculate spine width from page count, compose back cover text with an ISBN barcode, add a rotated spine title, and place the front cover image \u2014 all in one API call at 300 DPI. Output is RGB (PNG, JPEG, or WebP); CMYK conversion for print-ready files can be done as a separate post-processing step.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "fd237e28-1b9f-4710-8eb0-3ba45f5d22da",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "425da277-5d57-4eea-ac6e-6ba2438911cc",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "6e005a8f-c567-47db-9ece-698d2410926d",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 3826,
+        "heightInPx": 2775,
+        "outputFormat": "png",
+        "layersJson": "[\n  {\n    \"index\": 0,\n    \"type\": \"solid-color\",\n    \"hex_color\": \"#1B2838\"\n  },\n  {\n    \"index\": 1,\n    \"type\": \"image\",\n    \"buffer\": \"<base64-encoded-front-cover>\",\n    \"position\": {\n      \"x\": 1988.0,\n      \"y\": 0.0\n    },\n    \"dimensions\": {\n      \"width\": 1838,\n      \"height\": 2775\n    }\n  },\n  {\n    \"index\": 2,\n    \"type\": \"text\",\n    \"text\": \"A THRILLER NOVEL\",\n    \"font_name\": \"Montserrat\",\n    \"font_size_in_px\": 30,\n    \"text_color\": \"#94A3B8\",\n    \"font_weight\": \"bold\",\n    \"text_align\": \"center\",\n    \"position\": {\n      \"x\": 150.0,\n      \"y\": 225.0\n    },\n    \"dimensions\": {\n      \"width\": 1575,\n      \"height\": 50\n    }\n  },\n  {\n    \"index\": 3,\n    \"type\": \"text\",\n    \"text\": \"The Last Algorithm\",\n    \"font_name\": \"PlayfairDisplay\",\n    \"font_size_in_px\": 72,\n    \"text_color\": \"#FFFFFF\",\n    \"font_weight\": \"bold\",\n    \"text_align\": \"center\",\n    \"position\": {\n      \"x\": 150.0,\n      \"y\": 325.0\n    },\n    \"dimensions\": {\n      \"width\": 1575,\n      \"height\": 150\n    }\n  },\n  {\n    \"index\": 4,\n    \"type\": \"text\",\n    \"text\": \"A rogue AI researcher discovers that the optimization algorithm she created has already escaped the lab \\u2014 and it is rewriting the rules of global finance. Now she has 72 hours to shut it down before it becomes impossible to stop.\",\n    \"font_name\": \"Lora\",\n    \"font_size_in_px\": 28,\n    \"text_color\": \"#CBD5E1\",\n    \"text_align\": \"center\",\n    \"position\": {\n      \"x\": 200.0,\n      \"y\": 600.0\n    },\n    \"dimensions\": {\n      \"width\": 1475,\n      \"height\": 500\n    }\n  },\n  {\n    \"index\": 5,\n    \"type\": \"text\",\n    \"text\": \"ELENA VASQUEZ\",\n    \"font_name\": \"Montserrat\",\n    \"font_size_in_px\": 32,\n    \"text_color\": \"#94A3B8\",\n    \"text_align\": \"center\",\n    \"position\": {\n      \"x\": 150.0,\n      \"y\": 1200.0\n    },\n    \"dimensions\": {\n      \"width\": 1575,\n      \"height\": 50\n    }\n  },\n  {\n    \"index\": 6,\n    \"type\": \"solid-color\",\n    \"hex_color\": \"#FFFFFF\",\n    \"position\": {\n      \"x\": 225.0,\n      \"y\": 2250.0\n    },\n    \"dimensions\": {\n      \"width\": 450,\n      \"height\": 350\n    }\n  },\n  {\n    \"index\": 7,\n    \"type\": \"barcode\",\n    \"value\": \"9781234567890\",\n    \"format\": \"ean13\",\n    \"position\": {\n      \"x\": 250.0,\n      \"y\": 2275.0\n    },\n    \"dimensions\": {\n      \"width\": 400,\n      \"height\": 250\n    },\n    \"foreground_hex_color\": \"#000000\",\n    \"background_hex_color\": \"#FFFFFF\"\n  },\n  {\n    \"index\": 8,\n    \"type\": \"text\",\n    \"text\": \"The Last Algorithm\",\n    \"font_name\": \"Montserrat\",\n    \"font_size_in_px\": 24,\n    \"text_color\": \"#FFFFFF\",\n    \"font_weight\": \"bold\",\n    \"text_align\": \"center\",\n    \"vertical_align\": \"center\",\n    \"rotation_in_degrees\": -90,\n    \"position\": {\n      \"x\": 1838.0,\n      \"y\": 375.0\n    },\n    \"dimensions\": {\n      \"width\": 150,\n      \"height\": 2025\n    }\n  },\n  {\n    \"index\": 9,\n    \"type\": \"text\",\n    \"text\": \"ELENA VASQUEZ\",\n    \"font_name\": \"Montserrat\",\n    \"font_size_in_px\": 18,\n    \"text_color\": \"#CBD5E1\",\n    \"text_align\": \"center\",\n    \"vertical_align\": \"center\",\n    \"rotation_in_degrees\": -90,\n    \"position\": {\n      \"x\": 1838.0,\n      \"y\": 150.0\n    },\n    \"dimensions\": {\n      \"width\": 150,\n      \"height\": 225\n    }\n  }\n]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "f7745cd4-8d8f-41d0-a30a-7e98ed00c78b",
+      "name": "Generate Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

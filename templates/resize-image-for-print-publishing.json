@@ -1,0 +1,105 @@
+{
+  "name": "Resize Image for Print Publishing",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Resize Image for Print Publishing\n\nSelf-publishers and book production teams use this recipe to prepare manuscript images for KDP or IngramSpark. Constrain images to the printable area (1500x2400 pixels for a 6x9 inch page at 300 DPI), sharpen after downscale, and convert to JPEG at high quality \u2014 ready for interior pages.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "474c9048-ca01-43e7-b05f-2692707102ea",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Transform Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "0ef17e6f-9466-40c3-9cdb-acadbf57e915",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d0e1f2a3-b4c5-4d6e-7f8a-0b1c2d3e4f5a",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "diagram-03.png",
+        "fileUrl": "https://storage.example.com/book/diagram-03.png",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "resize",
+              "widthInPx": 1500,
+              "heightInPx": 2400,
+              "fit": "inside"
+            },
+            {
+              "operationType": "sharpen",
+              "sigma": 0.5
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "jpeg",
+              "quality": 95
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d",
+      "name": "Transform Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transform Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

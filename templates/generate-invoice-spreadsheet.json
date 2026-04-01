@@ -1,0 +1,86 @@
+{
+  "name": "Generate Invoice Spreadsheet",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Invoice Spreadsheet\n\nFinance teams and billing platforms use this recipe to generate branded invoice spreadsheets on demand. Define your company details, line items with quantities and rates, and let formulas compute subtotals, tax, and totals automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "d0026990-ad95-4745-a481-2199d50c24cb",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "4afecc35-37f6-4e82-bb86-898c4907cd93",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "4bc113c8-8784-4a0e-975b-17afed077051",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Invoice #2026-0187\",\n    \"columns\": [\n      {\n        \"name\": \"Description\",\n        \"width\": 35\n      },\n      {\n        \"name\": \"Quantity\",\n        \"width\": 12\n      },\n      {\n        \"name\": \"Unit Price\",\n        \"width\": 15\n      },\n      {\n        \"name\": \"Amount\",\n        \"width\": 15\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"Acme Consulting LLC \\u2014 Invoice #2026-0187\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 14\n          },\n          \"from_col\": 0,\n          \"to_col\": 3\n        }\n      ],\n      [\n        {\n          \"value\": \"Bill To: Northwind Industries, 1200 Industrial Blvd, Denver, CO 80202\",\n          \"from_col\": 0,\n          \"to_col\": 3\n        }\n      ],\n      [\n        {\n          \"value\": \"Date: March 21, 2026 | Due: April 20, 2026\",\n          \"from_col\": 0,\n          \"to_col\": 3\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"Brand Strategy Workshop (2 days)\"\n        },\n        {\n          \"value\": 1,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 8500,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 8500,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"UI/UX Design Sprint (5 days)\"\n        },\n        {\n          \"value\": 1,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 15000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 15000,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"Frontend Development (120 hrs)\"\n        },\n        {\n          \"value\": 120,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 175,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 21000,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"QA & User Acceptance Testing (40 hrs)\"\n        },\n        {\n          \"value\": 40,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 150,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 6000,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Subtotal\",\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": \"=SUM(D5:D8)\",\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Tax (8.25%)\",\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": \"=D10*0.0825\",\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Total Due\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 13\n          }\n        },\n        {\n          \"value\": \"=D10+D11\",\n          \"format\": \"currency\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 13\n          }\n        }\n      ]\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#2B579A\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "26dd7925-5d27-437c-86ea-066d7bf09f96",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

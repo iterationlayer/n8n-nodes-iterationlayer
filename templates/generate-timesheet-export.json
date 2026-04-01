@@ -1,0 +1,86 @@
+{
+  "name": "Generate Timesheet Export",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Timesheet Export\n\nProject management and freelancing platforms use this recipe to export logged hours as XLSX for client billing or payroll processing. Define your time entries with projects, tasks, and rates, and let formulas compute per-entry amounts and totals automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "8b654845-8369-4258-a409-e078f3b278ea",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "5f3c945c-466a-44ca-8ea6-02af9852c5a7",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "0c9ab43b-38fb-458f-9471-96a62ec23b05",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Timesheet \\u2014 March 17\\u201321, 2026\",\n    \"columns\": [\n      {\n        \"name\": \"Date\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Project\",\n        \"width\": 28\n      },\n      {\n        \"name\": \"Task\",\n        \"width\": 32\n      },\n      {\n        \"name\": \"Hours\",\n        \"width\": 10\n      },\n      {\n        \"name\": \"Hourly Rate\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Amount\",\n        \"width\": 14\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"2026-03-17\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Oakwood E-Commerce Redesign\"\n        },\n        {\n          \"value\": \"Homepage wireframes\"\n        },\n        {\n          \"value\": 4.5,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 125,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-17\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Oakwood E-Commerce Redesign\"\n        },\n        {\n          \"value\": \"Stakeholder feedback meeting\"\n        },\n        {\n          \"value\": 1.5,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 125,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-18\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Oakwood E-Commerce Redesign\"\n        },\n        {\n          \"value\": \"Product listing page design\"\n        },\n        {\n          \"value\": 6.0,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 125,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-18\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Meridian Mobile App\"\n        },\n        {\n          \"value\": \"API integration debugging\"\n        },\n        {\n          \"value\": 2.0,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 150,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-19\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Meridian Mobile App\"\n        },\n        {\n          \"value\": \"Push notification service setup\"\n        },\n        {\n          \"value\": 5.0,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 150,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-19\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Oakwood E-Commerce Redesign\"\n        },\n        {\n          \"value\": \"Checkout flow prototype\"\n        },\n        {\n          \"value\": 3.0,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 125,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-20\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Meridian Mobile App\"\n        },\n        {\n          \"value\": \"User authentication flow\"\n        },\n        {\n          \"value\": 7.0,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 150,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-21\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Oakwood E-Commerce Redesign\"\n        },\n        {\n          \"value\": \"Design review and revisions\"\n        },\n        {\n          \"value\": 3.5,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 125,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-21\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Meridian Mobile App\"\n        },\n        {\n          \"value\": \"QA testing and bug fixes\"\n        },\n        {\n          \"value\": 4.0,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 150,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Total\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        }\n      ]\n    ],\n    \"formulas\": [\n      {\n        \"row\": 1,\n        \"col\": 5,\n        \"expression\": \"=D2*E2\"\n      },\n      {\n        \"row\": 2,\n        \"col\": 5,\n        \"expression\": \"=D3*E3\"\n      },\n      {\n        \"row\": 3,\n        \"col\": 5,\n        \"expression\": \"=D4*E4\"\n      },\n      {\n        \"row\": 4,\n        \"col\": 5,\n        \"expression\": \"=D5*E5\"\n      },\n      {\n        \"row\": 5,\n        \"col\": 5,\n        \"expression\": \"=D6*E6\"\n      },\n      {\n        \"row\": 6,\n        \"col\": 5,\n        \"expression\": \"=D7*E7\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 5,\n        \"expression\": \"=D8*E8\"\n      },\n      {\n        \"row\": 8,\n        \"col\": 5,\n        \"expression\": \"=D9*E9\"\n      },\n      {\n        \"row\": 9,\n        \"col\": 5,\n        \"expression\": \"=D10*E10\"\n      },\n      {\n        \"row\": 11,\n        \"col\": 3,\n        \"expression\": \"=SUM(D2:D10)\"\n      },\n      {\n        \"row\": 11,\n        \"col\": 5,\n        \"expression\": \"=SUM(F2:F10)\"\n      }\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#0D47A1\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "ab98eaa1-d340-4fda-aff8-50021c741c68",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "name": "Remove Background and Generate Product Card",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Remove Background and Generate Product Card\n\nE-commerce sellers and marketplace teams take a raw product photo, remove the background to get a clean cutout, then compose it into a branded listing card with the product name, price, and brand \u2014 ready for Amazon, Shopify, or social media.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "345823ee-3beb-412a-97be-00a5d219e9f5",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Remove Background\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "f00f7d1c-d454-4ff3-86cd-6ee5cebbb132",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Product Card\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "e69408b7-dc7e-4053-8ff2-735134e6c12a",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "b9c0d1e2-f3a4-5678-9b23-567890123456",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "wallet-raw.jpg",
+        "fileUrl": "https://cdn.example.com/products/wallet-raw.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "removeBackground"
+            },
+            {
+              "operationType": "resize",
+              "widthInPx": 600,
+              "heightInPx": 600,
+              "resizeMode": "contain"
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "png"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "c0d1e2f3-a4b5-6789-0c34-678901234567",
+      "name": "Remove Background",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 900,
+        "heightInPx": 900,
+        "outputFormat": "png",
+        "layersJson": "[\n  {\n    \"index\": 0,\n    \"type\": \"solid-color\",\n    \"hex_color\": \"#F5F5F5\"\n  },\n  {\n    \"index\": 1,\n    \"type\": \"solid-color\",\n    \"hex_color\": \"#FFFFFF\",\n    \"position\": { \"x\": 30, \"y\": 30 },\n    \"dimensions\": { \"width\": 840, \"height\": 840 },\n    \"border_radius\": 12\n  },\n  {\n    \"index\": 2,\n    \"type\": \"image\",\n    \"file\": {\n      \"type\": \"base64\",\n      \"name\": \"product-clean.png\",\n      \"base64\": \"<buffer from step 1>\"\n    },\n    \"position\": { \"x\": 150, \"y\": 80 },\n    \"dimensions\": { \"width\": 600, \"height\": 600 }\n  },\n  {\n    \"index\": 3,\n    \"type\": \"text\",\n    \"text\": \"CRAFTWELL GOODS\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 12,\n    \"font_weight\": \"regular\",\n    \"text_color\": \"#94A3B8\",\n    \"text_align\": \"left\",\n    \"vertical_align\": \"center\",\n    \"position\": { \"x\": 48, \"y\": 718 },\n    \"dimensions\": { \"width\": 500, \"height\": 20 }\n  },\n  {\n    \"index\": 4,\n    \"type\": \"text\",\n    \"text\": \"Full-Grain Leather Bifold Wallet\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 22,\n    \"font_weight\": \"bold\",\n    \"text_color\": \"#0F172A\",\n    \"text_align\": \"left\",\n    \"vertical_align\": \"center\",\n    \"position\": { \"x\": 48, \"y\": 746 },\n    \"dimensions\": { \"width\": 600, \"height\": 36 }\n  },\n  {\n    \"index\": 5,\n    \"type\": \"text\",\n    \"text\": \"$89.00\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 28,\n    \"font_weight\": \"bold\",\n    \"text_color\": \"#B45309\",\n    \"text_align\": \"left\",\n    \"vertical_align\": \"center\",\n    \"position\": { \"x\": 48, \"y\": 790 },\n    \"dimensions\": { \"width\": 300, \"height\": 44 }\n  }\n]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "d1e2f3a4-b5c6-7890-1d45-789012345678",
+      "name": "Generate Product Card",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Remove Background",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Background": {
+      "main": [
+        [
+          {
+            "node": "Generate Product Card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

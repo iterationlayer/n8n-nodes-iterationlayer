@@ -1,0 +1,88 @@
+{
+  "name": "Watermark an Image",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Watermark an Image\n\nPhotography studios and content platforms use this recipe to protect an image. Use the Image Generation API to composite a base photo with a semi-transparent text watermark overlay \u2014 ready for publishing with brand protection built in.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "9049670b-9497-40cd-b116-5546e05689ac",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "eeb9ad8f-c871-42bf-a922-3743978f8cf5",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "db37dbb5-6d26-42d3-8562-bd9118648edd",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 1200,
+        "heightInPx": 800,
+        "outputFormat": "png",
+        "layersJson": "[\n  {\n    \"index\": 0,\n    \"type\": \"image\",\n    \"buffer\": \"<base64-encoded-photo>\"\n  },\n  {\n    \"index\": 1,\n    \"type\": \"text\",\n    \"text\": \"\\u00a9 2026 Your Brand\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 48,\n    \"text_color\": \"#FFFFFF\",\n    \"text_align\": \"center\",\n    \"vertical_align\": \"center\",\n    \"position\": {\n      \"x\": 0.0,\n      \"y\": 0.0\n    },\n    \"dimensions\": {\n      \"width\": 1200,\n      \"height\": 800\n    },\n    \"opacity\": 30,\n    \"rotation_in_degrees\": -30.0\n  }\n]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "66c9ebb5-6532-463c-9980-3cb8b07d7e35",
+      "name": "Generate Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

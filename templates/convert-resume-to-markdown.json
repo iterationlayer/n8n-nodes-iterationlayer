@@ -1,0 +1,86 @@
+{
+  "name": "Convert Resume to Markdown",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Convert Resume to Markdown\n\nRecruiting platforms and HR automation tools use this recipe to convert candidate resumes to structured markdown before feeding them into LLM screening, comparison, or extraction workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "f3eb0ee8-29a6-4e97-9561-e25585c40171",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Convert Document to Markdown\nResource: **Document to Markdown**\n\nConfigure the Document to Markdown parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "281fedea-1917-4786-8f97-e6cb02f31045",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "4abc0d95-5348-4afe-9f0a-7d40078184d2",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentToMarkdown",
+        "fileInputMode": "url",
+        "fileName": "resume.pdf",
+        "fileUrl": "https://example.com/candidates/jane-doe-resume.pdf"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "bfd7632c-6703-4c1c-87e2-7dfb7a35475b",
+      "name": "Convert Document to Markdown",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Convert Document to Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

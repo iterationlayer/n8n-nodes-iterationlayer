@@ -1,0 +1,86 @@
+{
+  "name": "Generate Employee Report",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Employee Report\n\nHR departments and people operations teams use this recipe to generate employee roster reports for headcount reviews, compensation analysis, or compliance audits. Each row captures key employee details with properly formatted salary and date columns.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "464e3509-1d90-4d31-8856-fbacfeab16c4",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "b30cb5ff-3e27-41d6-8ece-620e1b2a8a02",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "3047e092-4aae-416f-abf4-43bf223b5703",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Employee Roster\",\n    \"columns\": [\n      {\n        \"name\": \"Employee ID\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Full Name\",\n        \"width\": 22\n      },\n      {\n        \"name\": \"Department\",\n        \"width\": 18\n      },\n      {\n        \"name\": \"Title\",\n        \"width\": 28\n      },\n      {\n        \"name\": \"Hire Date\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Annual Salary\",\n        \"width\": 16\n      },\n      {\n        \"name\": \"Location\",\n        \"width\": 18\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"EMP-1042\"\n        },\n        {\n          \"value\": \"Sarah Mitchell\"\n        },\n        {\n          \"value\": \"Engineering\"\n        },\n        {\n          \"value\": \"Senior Software Engineer\"\n        },\n        {\n          \"value\": \"2022-06-15\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": 142000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"San Francisco, CA\"\n        }\n      ],\n      [\n        {\n          \"value\": \"EMP-1078\"\n        },\n        {\n          \"value\": \"David Nakamura\"\n        },\n        {\n          \"value\": \"Product\"\n        },\n        {\n          \"value\": \"Product Manager\"\n        },\n        {\n          \"value\": \"2023-01-09\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": 128000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"New York, NY\"\n        }\n      ],\n      [\n        {\n          \"value\": \"EMP-1103\"\n        },\n        {\n          \"value\": \"Amara Osei\"\n        },\n        {\n          \"value\": \"Design\"\n        },\n        {\n          \"value\": \"Lead UX Designer\"\n        },\n        {\n          \"value\": \"2023-04-22\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": 121000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Austin, TX\"\n        }\n      ],\n      [\n        {\n          \"value\": \"EMP-1156\"\n        },\n        {\n          \"value\": \"Carlos Reyes\"\n        },\n        {\n          \"value\": \"Engineering\"\n        },\n        {\n          \"value\": \"DevOps Engineer\"\n        },\n        {\n          \"value\": \"2024-02-12\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": 135000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Denver, CO\"\n        }\n      ],\n      [\n        {\n          \"value\": \"EMP-1189\"\n        },\n        {\n          \"value\": \"Lin Wei\"\n        },\n        {\n          \"value\": \"Marketing\"\n        },\n        {\n          \"value\": \"Growth Marketing Lead\"\n        },\n        {\n          \"value\": \"2024-08-05\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": 115000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Chicago, IL\"\n        }\n      ],\n      [\n        {\n          \"value\": \"EMP-1201\"\n        },\n        {\n          \"value\": \"Rachel Andersen\"\n        },\n        {\n          \"value\": \"Finance\"\n        },\n        {\n          \"value\": \"Financial Analyst\"\n        },\n        {\n          \"value\": \"2025-01-13\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": 98000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"San Francisco, CA\"\n        }\n      ]\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#1F4E79\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "033ed035-a051-466d-bb7e-ee2242219b14",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

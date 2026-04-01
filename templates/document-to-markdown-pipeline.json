@@ -1,0 +1,86 @@
+{
+  "name": "Convert Document to Markdown",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Convert Document to Markdown\n\nDevelopment teams and content platforms use this recipe to convert documents for RAG ingestion, knowledge base import, or content migration. Upload any supported document and receive clean Markdown with preserved structure.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "d902e1d3-3586-4e18-a7d4-924ce672fb85",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Convert Document to Markdown\nResource: **Document to Markdown**\n\nConfigure the Document to Markdown parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "97bf1b2f-4c80-4cc5-8f57-f14bbc06babe",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "2b7f6978-fcf3-4080-a209-ed3a7b1e211b",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentToMarkdown",
+        "fileInputMode": "url",
+        "fileName": "quarterly-report.pdf",
+        "fileUrl": "https://example.com/reports/quarterly-report-q1-2026.pdf"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "f3d36e4a-b4eb-46f1-8e01-1b0552552064",
+      "name": "Convert Document to Markdown",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Convert Document to Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

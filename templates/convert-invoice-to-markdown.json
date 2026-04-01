@@ -1,0 +1,86 @@
+{
+  "name": "Convert Invoice to Markdown",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Convert Invoice to Markdown\n\nFinance teams and automation platforms use this recipe to convert PDF invoices to clean markdown before feeding them into LLM workflows, archiving pipelines, or custom extraction scripts.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "c4b38344-4a6e-4ebb-b65e-a6118abb7899",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Convert Document to Markdown\nResource: **Document to Markdown**\n\nConfigure the Document to Markdown parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "2c5678bc-d6c6-47a3-bc3d-0ba493ba94e0",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "85f3117c-db42-4e82-8399-219775030e5b",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentToMarkdown",
+        "fileInputMode": "url",
+        "fileName": "invoice.pdf",
+        "fileUrl": "https://example.com/invoices/2026-001.pdf"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "7c9a6489-8cb0-42fe-9712-b3deaa0e2755",
+      "name": "Convert Document to Markdown",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Convert Document to Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

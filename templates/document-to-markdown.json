@@ -1,0 +1,86 @@
+{
+  "name": "document-to-markdown",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## document-to-markdown\n\nDocument to Markdown\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "904098ce-3507-4b1a-a2e9-6196602d65c6",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Convert Document to Markdown\nResource: **Document to Markdown**\n\nConfigure the Document to Markdown parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "153f7d23-3d00-490c-96a6-50611223ac2e",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d4e5f6a7-b8c9-0123-def0-456789012345",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentToMarkdown",
+        "fileInputMode": "url",
+        "fileName": "quarterly-report.pdf",
+        "fileUrl": "https://example.com/reports/quarterly-report.pdf"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "e5f6a7b8-c9d0-1234-ef01-567890123456",
+      "name": "Convert Document to Markdown",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Convert Document to Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

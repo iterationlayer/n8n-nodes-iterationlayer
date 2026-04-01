@@ -1,0 +1,88 @@
+{
+  "name": "Generate A+ Content Banner",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate A+ Content Banner\n\nSelf-publishing authors and book marketing teams use this recipe to generate Amazon A+ Content banners at the standard 970x600 module size. Compose a book cover image, title text, series name, genre label, and availability badge \u2014 ready to upload to Amazon Author Central.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "559fde02-4e03-4197-a2af-a8ed47636035",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "18e11dfd-dd4f-400c-983e-df6bf61e33c9",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a1b2c3d4-1111-4000-8000-000000000001",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 970,
+        "heightInPx": 600,
+        "outputFormat": "png",
+        "layersJson": "[{\"index\":0,\"type\":\"gradient\",\"gradient_type\":\"linear\",\"angle_in_degrees\":135.0,\"colors\":[{\"hex_color\":\"#1B2838\",\"position\":0.0},{\"hex_color\":\"#2D3A4A\",\"position\":100.0}],\"position\":{\"x\":0.0,\"y\":0.0},\"dimensions\":{\"width\":970,\"height\":600}},{\"index\":1,\"type\":\"image\",\"buffer\":\"<base64-encoded-book-cover>\",\"position\":{\"x\":60.0,\"y\":60.0},\"dimensions\":{\"width\":320,\"height\":480}},{\"index\":2,\"type\":\"text\",\"text\":\"THE ASHWORTH CHRONICLES\",\"font_name\":\"Montserrat\",\"font_size_in_px\":14,\"text_color\":\"#94A3B8\",\"font_weight\":\"bold\",\"position\":{\"x\":440.0,\"y\":80.0},\"dimensions\":{\"width\":480,\"height\":24}},{\"index\":3,\"type\":\"text\",\"text\":\"The Long Silence\",\"font_name\":\"PlayfairDisplay\",\"font_size_in_px\":44,\"text_color\":\"#FFFFFF\",\"font_weight\":\"bold\",\"position\":{\"x\":440.0,\"y\":120.0},\"dimensions\":{\"width\":480,\"height\":110}},{\"index\":4,\"type\":\"text\",\"text\":\"Elizabeth Ashworth\",\"font_name\":\"Lora\",\"font_size_in_px\":20,\"text_color\":\"#CBD5E1\",\"position\":{\"x\":440.0,\"y\":250.0},\"dimensions\":{\"width\":480,\"height\":32}},{\"index\":5,\"type\":\"solid-color\",\"hex_color\":\"#6C63FF\",\"position\":{\"x\":440.0,\"y\":320.0},\"dimensions\":{\"width\":120,\"height\":32}},{\"index\":6,\"type\":\"text\",\"text\":\"THRILLER\",\"font_name\":\"Montserrat\",\"font_size_in_px\":12,\"text_color\":\"#FFFFFF\",\"font_weight\":\"bold\",\"text_align\":\"center\",\"vertical_align\":\"center\",\"position\":{\"x\":440.0,\"y\":320.0},\"dimensions\":{\"width\":120,\"height\":32}},{\"index\":7,\"type\":\"solid-color\",\"hex_color\":\"#22C55E\",\"position\":{\"x\":440.0,\"y\":480.0},\"dimensions\":{\"width\":180,\"height\":40}},{\"index\":8,\"type\":\"text\",\"text\":\"Available Now\",\"font_name\":\"Montserrat\",\"font_size_in_px\":14,\"text_color\":\"#FFFFFF\",\"font_weight\":\"bold\",\"text_align\":\"center\",\"vertical_align\":\"center\",\"position\":{\"x\":440.0,\"y\":480.0},\"dimensions\":{\"width\":180,\"height\":40}}]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "a1b2c3d4-1111-4000-8000-000000000002",
+      "name": "Generate Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

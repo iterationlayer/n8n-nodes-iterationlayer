@@ -1,0 +1,105 @@
+{
+  "name": "Optimize Product Image for Shopify",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Optimize Product Image for Shopify\n\nShopify merchants and agencies use this recipe to normalize supplier product photos for their storefront. One API call resizes to the recommended square format, sharpens for display clarity, and outputs WebP \u2014 smaller files, faster load times, better Core Web Vitals.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "927e5238-21a3-401a-9dbb-bd2678f698ba",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Transform Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "f77f66fe-a46f-4c03-bc95-086b19b17e3d",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "f6a7b8c9-d0e1-4f2a-3b4c-6d7e8f9a0b1c",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "product.jpg",
+        "fileUrl": "https://example.com/products/raw/sneaker-042.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "resize",
+              "widthInPx": 2048,
+              "heightInPx": 2048,
+              "fit": "contain"
+            },
+            {
+              "operationType": "sharpen",
+              "sigma": 1.2
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "webp",
+              "quality": 85
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f",
+      "name": "Transform Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transform Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

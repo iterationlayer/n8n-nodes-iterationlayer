@@ -1,0 +1,95 @@
+{
+  "name": "Convert Image Format",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Convert Image Format\n\nWeb development teams and CDN operators use this recipe to convert an image to a modern format like WebP for faster page loads. Upload an image and convert it to your target format with precise quality control \u2014 ready for optimized delivery.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "ef1f7bf2-b40a-4c97-bee0-17be627ca355",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Transform Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "2eb211c1-e0ce-48d1-9d35-353159ce546b",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "image.png",
+        "fileUrl": "https://example.com/image.png",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "convert",
+              "convertFormat": "webp",
+              "quality": 85
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c",
+      "name": "Transform Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transform Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

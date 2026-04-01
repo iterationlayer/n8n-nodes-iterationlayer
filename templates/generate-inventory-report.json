@@ -1,0 +1,86 @@
+{
+  "name": "Generate Inventory Report",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Inventory Report\n\nE-commerce platforms and warehouse management systems use this recipe to export current stock levels, reorder points, and inventory valuation to XLSX for purchasing teams. Define your product catalog with quantities and costs, and let formulas compute total value per item automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "4e89e082-3e95-417a-9afb-f6230649de45",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "856b2fe2-a643-4095-93f9-d424c7e49a15",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d68c1d3f-afce-4339-9f02-952244fafcb5",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Inventory Report \\u2014 March 2026\",\n    \"columns\": [\n      {\n        \"name\": \"SKU\",\n        \"width\": 16\n      },\n      {\n        \"name\": \"Product Name\",\n        \"width\": 35\n      },\n      {\n        \"name\": \"Category\",\n        \"width\": 18\n      },\n      {\n        \"name\": \"Qty In Stock\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Reorder Point\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Unit Cost\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Total Value\",\n        \"width\": 16\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"EL-1001\"\n        },\n        {\n          \"value\": \"Wireless Bluetooth Headphones\"\n        },\n        {\n          \"value\": \"Electronics\"\n        },\n        {\n          \"value\": 342,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 100,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 24.99,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"EL-1002\"\n        },\n        {\n          \"value\": \"USB-C Charging Cable (2m)\"\n        },\n        {\n          \"value\": \"Electronics\"\n        },\n        {\n          \"value\": 1580,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 500,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 3.49,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"CL-2010\"\n        },\n        {\n          \"value\": \"Men's Cotton Crew T-Shirt (Black, L)\"\n        },\n        {\n          \"value\": \"Clothing\"\n        },\n        {\n          \"value\": 87,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 150,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 6.75,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"CL-2015\"\n        },\n        {\n          \"value\": \"Women's Running Shorts (Navy, M)\"\n        },\n        {\n          \"value\": \"Clothing\"\n        },\n        {\n          \"value\": 214,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 80,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 11.2,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"HG-3005\"\n        },\n        {\n          \"value\": \"Stainless Steel Water Bottle (750ml)\"\n        },\n        {\n          \"value\": \"Home & Garden\"\n        },\n        {\n          \"value\": 463,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 200,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 8.5,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"EL-1018\"\n        },\n        {\n          \"value\": \"Portable Power Bank (10000mAh)\"\n        },\n        {\n          \"value\": \"Electronics\"\n        },\n        {\n          \"value\": 56,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 75,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 18.3,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null\n        }\n      ]\n    ],\n    \"formulas\": [\n      {\n        \"row\": 1,\n        \"col\": 6,\n        \"expression\": \"=D2*F2\"\n      },\n      {\n        \"row\": 2,\n        \"col\": 6,\n        \"expression\": \"=D3*F3\"\n      },\n      {\n        \"row\": 3,\n        \"col\": 6,\n        \"expression\": \"=D4*F4\"\n      },\n      {\n        \"row\": 4,\n        \"col\": 6,\n        \"expression\": \"=D5*F5\"\n      },\n      {\n        \"row\": 5,\n        \"col\": 6,\n        \"expression\": \"=D6*F6\"\n      },\n      {\n        \"row\": 6,\n        \"col\": 6,\n        \"expression\": \"=D7*F7\"\n      }\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#1B5E20\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "5f85dfc0-c158-4920-a08f-e7817aebdb4b",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

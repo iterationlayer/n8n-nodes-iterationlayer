@@ -1,0 +1,94 @@
+{
+  "name": "Extract Receipt Data",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Receipt Data\n\nFinance teams and expense management apps use this recipe to automate receipt processing. Upload a receipt photo or PDF and receive structured JSON with merchant name, date, individual items, and total \u2014 ready for an expense report or reimbursement workflow.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "4bdb62b6-66d8-4616-a7e1-6e8f48477da7",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "0c6511af-1417-4e1f-9fbb-73f019a130c3",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "c1d2e3f4-a5b6-7890-cdef-901234567cde",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"merchant_name\",\"type\":\"TEXT\",\"description\":\"Name of the merchant or store\"},{\"name\":\"date\",\"type\":\"DATE\",\"description\":\"Date of the transaction\"},{\"name\":\"items\",\"type\":\"ARRAY\",\"description\":\"Individual line items on the receipt\",\"item_schema\":{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Item name or description\"},{\"name\":\"amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Item price\"}]}},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total amount charged\"},{\"name\":\"currency\",\"type\":\"CURRENCY_CODE\",\"description\":\"Currency code (e.g. USD, EUR)\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "receipt.pdf",
+              "fileUrl": "https://example.com/receipts/purchase-receipt.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "d2e3f4a5-b6c7-8901-defa-012345678def",
+      "name": "Extract Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

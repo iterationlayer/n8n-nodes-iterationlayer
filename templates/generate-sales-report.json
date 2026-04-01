@@ -1,0 +1,86 @@
+{
+  "name": "generate-sales-report",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## generate-sales-report\n\nGenerate Sales Report\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "eea510c5-d962-47ec-a698-b6808047a7b3",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Sales Report Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "c5f2c6c4-4835-4327-803c-dda7c04d0ff2",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "c9d0e1f2-a3b4-5678-2345-901234567890",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Quarterly Sales\",\n    \"columns\": [\n      {\n        \"name\": \"Quarter\",\n        \"width\": 15\n      },\n      {\n        \"name\": \"Revenue\",\n        \"width\": 20\n      },\n      {\n        \"name\": \"Expenses\",\n        \"width\": 20\n      },\n      {\n        \"name\": \"Net Profit\",\n        \"width\": 20\n      },\n      {\n        \"name\": \"Growth\",\n        \"width\": 15\n      }\n    ],\n    \"rows\": [\n      [\"Q1\", \"$1,250,000\", \"$890,000\", \"$360,000\", \"+12%\"],\n      [\"Q2\", \"$1,480,000\", \"$920,000\", \"$560,000\", \"+18%\"],\n      [\"Q3\", \"$1,620,000\", \"$950,000\", \"$670,000\", \"+9%\"],\n      [\"Q4\", \"$1,890,000\", \"$1,010,000\", \"$880,000\", \"+17%\"]\n    ]\n  },\n  {\n    \"name\": \"Summary\",\n    \"columns\": [\n      {\n        \"name\": \"Metric\",\n        \"width\": 30\n      },\n      {\n        \"name\": \"Value\",\n        \"width\": 20\n      }\n    ],\n    \"rows\": [\n      [\"Total Annual Revenue\", \"$6,240,000\"],\n      [\"Total Annual Net Profit\", \"$2,470,000\"]\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"headerStyle\": {\n    \"fontWeight\": \"bold\",\n    \"backgroundColor\": \"#1a1a1a\",\n    \"color\": \"#ffffff\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "d0e1f2a3-b4c5-6789-3456-012345678901",
+      "name": "Generate Sales Report Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Sales Report Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

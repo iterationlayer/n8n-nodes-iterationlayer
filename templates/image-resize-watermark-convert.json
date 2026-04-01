@@ -1,0 +1,155 @@
+{
+  "name": "Resize, Watermark, and Convert Image",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Resize, Watermark, and Convert Image\n\nE-commerce teams and content platforms use this recipe to process product images for web. Resize to standard dimensions, add brand watermark, and convert to WebP \u2014 in two API calls with no image processing infrastructure.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "ff8fd426-80e9-4d97-b534-b997ec1f6eab",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Resize and Sharpen\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "4a44d3f6-06b1-4418-ba71-6def1ca74e97",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Add Watermark and Convert\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "03b33364-4198-42e9-ba9d-61f82588fcce",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "e6f7a8b9-c0d1-2345-6e90-234567890123",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "product-hero.jpg",
+        "fileUrl": "https://cdn.example.com/products/product-hero.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "resize",
+              "widthInPx": 1200,
+              "heightInPx": 1200,
+              "resizeMode": "cover"
+            },
+            {
+              "operationType": "sharpen",
+              "sigma": 0.5
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "png"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "f7a8b9c0-d1e2-3456-7f01-345678901234",
+      "name": "Resize and Sharpen",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 1200,
+        "heightInPx": 1200,
+        "outputFormat": "webp",
+        "layersJson": "[\n  {\n    \"index\": 0,\n    \"type\": \"solid-color\",\n    \"hex_color\": \"#FFFFFF\"\n  },\n  {\n    \"index\": 1,\n    \"type\": \"image\",\n    \"file\": {\n      \"type\": \"base64\",\n      \"name\": \"product-resized.png\",\n      \"base64\": \"<buffer from step 1>\"\n    },\n    \"position\": { \"x\": 0, \"y\": 0 },\n    \"dimensions\": { \"width\": 1200, \"height\": 1200 }\n  },\n  {\n    \"index\": 2,\n    \"type\": \"text\",\n    \"text\": \"\\u00a9 Riviera Home Goods\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 16,\n    \"font_weight\": \"regular\",\n    \"text_color\": \"#FFFFFF\",\n    \"text_align\": \"right\",\n    \"vertical_align\": \"center\",\n    \"position\": { \"x\": 900, \"y\": 1160 },\n    \"dimensions\": { \"width\": 280, \"height\": 24 },\n    \"opacity\": 60\n  }\n]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "a8b9c0d1-e2f3-4567-8a12-456789012345",
+      "name": "Add Watermark and Convert",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Resize and Sharpen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resize and Sharpen": {
+      "main": [
+        [
+          {
+            "node": "Add Watermark and Convert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

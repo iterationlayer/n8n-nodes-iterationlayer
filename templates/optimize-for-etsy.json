@@ -1,0 +1,104 @@
+{
+  "name": "Optimize Product Image for Etsy",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Optimize Product Image for Etsy\n\nEtsy sellers and multi-channel commerce platforms use this recipe to normalize product photos for Etsy listings. AI smart crop detects the subject and frames it correctly before resizing \u2014 no manual cropping, no products cut off at the edges.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "8f0d3b99-5925-478a-ba02-5a971053ca07",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Transform Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "10d32f56-4bbb-4332-8c0b-57d1c1ff92bb",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "e5f6a7b8-c9d0-4e1f-2a3b-5c6d7e8f9a0b",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "product.jpg",
+        "fileUrl": "https://example.com/products/raw/candle-019.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "smart_crop",
+              "widthInPx": 2000,
+              "heightInPx": 2000
+            },
+            {
+              "operationType": "sharpen",
+              "sigma": 1.0
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "jpeg",
+              "quality": 90
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "b8c9d0e1-f2a3-4b4c-5d6e-7f8a9b0c1d2e",
+      "name": "Transform Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transform Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

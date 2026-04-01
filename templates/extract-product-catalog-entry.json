@@ -1,0 +1,94 @@
+{
+  "name": "Extract Product Catalog Entry",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Product Catalog Entry\n\nE-commerce teams and marketplace operators use this recipe to digitize a supplier catalog entry. Upload a catalog PDF and receive structured JSON with product name, SKU, price, and description \u2014 ready for import into your product database or storefront.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "6be80463-1d4d-4c67-a929-9c7f382a599c",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "c23ebb20-4aef-4e8a-93d8-a12acaf9de39",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "c5d6e7f8-a9b0-1234-cdef-345678901cde",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"products\",\"type\":\"ARRAY\",\"description\":\"List of products in the catalog\",\"item_schema\":{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Product name\"},{\"name\":\"sku\",\"type\":\"TEXT\",\"description\":\"Stock keeping unit identifier\"},{\"name\":\"price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Product price\"},{\"name\":\"description\",\"type\":\"TEXTAREA\",\"description\":\"Product description\"}]}}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "catalog.pdf",
+              "fileUrl": "https://example.com/catalogs/supplier-catalog.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "d6e7f8a9-b0c1-2345-defa-456789012def",
+      "name": "Extract Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

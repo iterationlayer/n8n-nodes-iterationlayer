@@ -1,0 +1,104 @@
+{
+  "name": "Extract Customs Declaration",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Customs Declaration\n\nFreight forwarders and customs brokers use this recipe to automate declaration processing. Upload a commercial invoice, packing list, and bill of lading in one API call \u2014 receive a unified customs record with shipper, consignee, goods description, HS codes, weights, and declared values.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "c4414550-c43e-4423-b40a-d0ea01b504b4",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "6c3d22ba-8551-48ca-8924-df2cb20bd73e",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a7b8c9d0-e1f2-3456-abcd-567890123456",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"shipper\",\"type\":\"OBJECT\",\"description\":\"Shipper details\",\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Shipper company name\"},{\"name\":\"address\",\"type\":\"TEXT\",\"description\":\"Shipper address\"},{\"name\":\"country\",\"type\":\"TEXT\",\"description\":\"Shipper country\"}]},{\"name\":\"consignee\",\"type\":\"OBJECT\",\"description\":\"Consignee details\",\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Consignee company name\"},{\"name\":\"address\",\"type\":\"TEXT\",\"description\":\"Consignee address\"},{\"name\":\"country\",\"type\":\"TEXT\",\"description\":\"Consignee country\"}]},{\"name\":\"goods\",\"type\":\"ARRAY\",\"description\":\"List of goods in the shipment\",\"item_schema\":{\"fields\":[{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Description of the goods\"},{\"name\":\"hs_code\",\"type\":\"TEXT\",\"description\":\"Harmonized System code\"},{\"name\":\"quantity\",\"type\":\"INTEGER\",\"description\":\"Number of units\"},{\"name\":\"weight_in_kg\",\"type\":\"NUMBER\",\"description\":\"Weight in kilograms\"},{\"name\":\"declared_value\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Declared customs value\"}]}},{\"name\":\"total_weight_in_kg\",\"type\":\"NUMBER\",\"description\":\"Total shipment weight in kilograms\"},{\"name\":\"total_declared_value\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total declared customs value\"},{\"name\":\"currency\",\"type\":\"TEXT\",\"description\":\"Currency code for declared values\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "commercial-invoice.pdf",
+              "fileUrl": "https://example.com/docs/commercial-invoice.pdf"
+            },
+            {
+              "fileInputMode": "url",
+              "fileName": "packing-list.pdf",
+              "fileUrl": "https://example.com/docs/packing-list.pdf"
+            },
+            {
+              "fileInputMode": "url",
+              "fileName": "bill-of-lading.pdf",
+              "fileUrl": "https://example.com/docs/bill-of-lading.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "b8c9d0e1-f2a3-4567-bcde-678901234567",
+      "name": "Extract Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

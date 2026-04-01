@@ -1,0 +1,88 @@
+{
+  "name": "Generate Product Listing Image",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Product Listing Image\n\nE-commerce teams and marketplace sellers use this recipe to generate a listing image with consistent branding. Combine a product photo with a price badge and title text \u2014 ready for a marketplace listing or promotional campaign.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "07e4902e-c9aa-4b0d-8a75-e2f0ec55b4fc",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "e66e21eb-44f3-43d2-b1a0-6a24fefc045e",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a7b8c9d0-7777-4000-8000-000000000001",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 800,
+        "heightInPx": 800,
+        "outputFormat": "png",
+        "layersJson": "[{\"index\":0,\"type\":\"solid-color\",\"hex_color\":\"#F5F5F5\"},{\"index\":1,\"type\":\"image\",\"buffer\":\"<base64-encoded-product-photo>\",\"position\":{\"x\":50.0,\"y\":50.0}},{\"index\":2,\"type\":\"solid-color\",\"hex_color\":\"#E53935\",\"position\":{\"x\":560.0,\"y\":50.0},\"dimensions\":{\"width\":190,\"height\":60}},{\"index\":3,\"type\":\"text\",\"text\":\"$49.99\",\"font_name\":\"Roboto\",\"font_size_in_px\":32,\"text_color\":\"#FFFFFF\",\"font_weight\":\"bold\",\"text_align\":\"center\",\"position\":{\"x\":560.0,\"y\":55.0},\"dimensions\":{\"width\":190,\"height\":50}},{\"index\":4,\"type\":\"text\",\"text\":\"Premium Wireless Headphones\",\"font_name\":\"Inter\",\"font_size_in_px\":28,\"text_color\":\"#1a1a1a\",\"text_align\":\"center\",\"position\":{\"x\":50.0,\"y\":700.0},\"dimensions\":{\"width\":700,\"height\":50}}]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "a7b8c9d0-7777-4000-8000-000000000002",
+      "name": "Generate Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

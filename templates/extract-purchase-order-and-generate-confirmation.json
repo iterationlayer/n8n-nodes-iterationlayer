@@ -1,0 +1,141 @@
+{
+  "name": "Extract a Purchase Order and Generate a Confirmation",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract a Purchase Order and Generate a Confirmation\n\nB2B suppliers and manufacturers use this pipeline to automatically process inbound purchase orders and return a formatted confirmation PDF \u2014 acknowledging line items, delivery date, and total \u2014 without manual re-entry.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "acc63bdf-6459-43ef-8513-a8937f1b0a1d",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Purchase Order\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "b2954aa1-a811-433a-946f-3acefda1515b",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Order Confirmation\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "8f523f93-f85d-47d8-a62e-395d8096e36d",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a0b1c2d3-e4f5-6789-0abc-def012345678",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "[\n  {\n    \"name\": \"customer_name\",\n    \"type\": \"TEXT\",\n    \"description\": \"Name of the customer or buying company\"\n  },\n  {\n    \"name\": \"po_number\",\n    \"type\": \"TEXT\",\n    \"description\": \"Purchase order number\"\n  },\n  {\n    \"name\": \"po_date\",\n    \"type\": \"DATE\",\n    \"description\": \"Date the PO was issued\"\n  },\n  {\n    \"name\": \"requested_delivery_date\",\n    \"type\": \"DATE\",\n    \"description\": \"Requested delivery date\"\n  },\n  {\n    \"name\": \"billing_address\",\n    \"type\": \"TEXT\",\n    \"description\": \"Customer billing address\"\n  },\n  {\n    \"name\": \"shipping_address\",\n    \"type\": \"TEXT\",\n    \"description\": \"Delivery address\"\n  },\n  {\n    \"name\": \"line_items\",\n    \"type\": \"ARRAY\",\n    \"description\": \"Individual line items on the purchase order\",\n    \"children\": [\n      {\n        \"name\": \"product_sku\",\n        \"type\": \"TEXT\",\n        \"description\": \"Product SKU or item code\"\n      },\n      {\n        \"name\": \"product_name\",\n        \"type\": \"TEXT\",\n        \"description\": \"Product name or description\"\n      },\n      {\n        \"name\": \"quantity\",\n        \"type\": \"INTEGER\",\n        \"description\": \"Quantity ordered\"\n      },\n      {\n        \"name\": \"unit_price\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Price per unit\"\n      },\n      {\n        \"name\": \"line_total\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Total for this line item\"\n      }\n    ]\n  },\n  {\n    \"name\": \"currency\",\n    \"type\": \"CURRENCY_CODE\",\n    \"description\": \"Order currency\"\n  },\n  {\n    \"name\": \"po_total\",\n    \"type\": \"CURRENCY_AMOUNT\",\n    \"description\": \"Total order value\"\n  }\n]",
+        "files": {
+          "fileValues": [
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/purchase-orders/po-northstar-retail.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "b1c2d3e4-f5a6-7890-1bcd-ef0123456789",
+      "name": "Extract Purchase Order",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "pdf",
+        "documentJson": "{\n  \"metadata\": {\n    \"title\": \"Order Confirmation \u2014 {{ $json.po_number }}\",\n    \"author\": \"Meridian Manufacturing Co.\"\n  },\n  \"page\": {\n    \"size\": { \"preset\": \"A4\" },\n    \"margins\": {\n      \"top_in_pt\": 54,\n      \"right_in_pt\": 54,\n      \"bottom_in_pt\": 54,\n      \"left_in_pt\": 54\n    }\n  },\n  \"content\": [\n    { \"type\": \"headline\", \"level\": \"h1\", \"text\": \"Meridian Manufacturing Co.\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"1840 Industrial Parkway\\nColumbus, OH 43201\\norders@meridian-mfg.com\" }] },\n    { \"type\": \"separator\" },\n    { \"type\": \"headline\", \"level\": \"h2\", \"text\": \"Order Confirmation\" },\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [\n        { \"text\": \"Order confirmed for: \", \"font_weight\": \"bold\" },\n        { \"text\": \"{{ $json.customer_name }}\\n\" },\n        { \"text\": \"PO Number: \", \"font_weight\": \"bold\" },\n        { \"text\": \"{{ $json.po_number }}\\n\" },\n        { \"text\": \"PO Date: \", \"font_weight\": \"bold\" },\n        { \"text\": \"{{ $json.po_date }}\\n\" },\n        { \"text\": \"Estimated Delivery: \", \"font_weight\": \"bold\" },\n        { \"text\": \"{{ $json.requested_delivery_date }}\" }\n      ]\n    },\n    {\n      \"type\": \"table\",\n      \"headers\": [\n        { \"text\": \"SKU\" },\n        { \"text\": \"Product\" },\n        { \"text\": \"Qty\" },\n        { \"text\": \"Unit Price\" },\n        { \"text\": \"Line Total\" }\n      ],\n      \"rows\": \"{{ $json.line_items }}\"\n    },\n    { \"type\": \"separator\" },\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [{ \"text\": \"Order Total: {{ $json.currency }} {{ $json.po_total }}\", \"font_weight\": \"bold\" }]\n    },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"Questions? Contact orders@meridian-mfg.com\" }] }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "c2d3e4f5-a6b7-8901-2cde-f01234567890",
+      "name": "Generate Order Confirmation",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Purchase Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Purchase Order": {
+      "main": [
+        [
+          {
+            "node": "Generate Order Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

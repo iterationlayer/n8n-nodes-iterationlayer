@@ -1,0 +1,86 @@
+{
+  "name": "Generate Billing Statement",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Billing Statement\n\nSubscription SaaS platforms use this recipe to generate monthly billing statements as XLSX for enterprise customers who need them for internal accounting and procurement. Define your charges, overages, and credits, and let formulas handle subtotals, tax, and totals automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "be6af81d-13b3-4e80-baae-ad9f3664031e",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "7cc399fe-4ffe-41fd-b760-9ba76612417c",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "0b75aa47-44e7-4fb4-8467-a19847a5e03b",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Statement \\u2014 March 2026\",\n    \"columns\": [\n      {\n        \"name\": \"Date\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Description\",\n        \"width\": 40\n      },\n      {\n        \"name\": \"Quantity\",\n        \"width\": 12\n      },\n      {\n        \"name\": \"Unit Price\",\n        \"width\": 15\n      },\n      {\n        \"name\": \"Amount\",\n        \"width\": 15\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"CloudMetrics Inc. \\u2014 Billing Statement\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 14\n          },\n          \"from_col\": 0,\n          \"to_col\": 4\n        }\n      ],\n      [\n        {\n          \"value\": \"Customer: Pinnacle Retail Group | Account #ACT-78412\",\n          \"from_col\": 0,\n          \"to_col\": 4\n        }\n      ],\n      [\n        {\n          \"value\": \"Billing Period: March 1\\u201331, 2026 | Due: April 15, 2026\",\n          \"from_col\": 0,\n          \"to_col\": 4\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-01\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Business Plan \\u2014 Monthly Subscription\"\n        },\n        {\n          \"value\": 1,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 499,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 499,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-01\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Additional Seats (15 seats)\"\n        },\n        {\n          \"value\": 15,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 12,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 180,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-15\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"API Overage \\u2014 52,000 extra requests\"\n        },\n        {\n          \"value\": 52,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 0.5,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 26,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-15\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Storage Overage \\u2014 120 GB above plan\"\n        },\n        {\n          \"value\": 120,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 0.15,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 18,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"2026-03-01\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Annual Loyalty Credit\"\n        },\n        {\n          \"value\": 1,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": -50,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": -50,\n          \"format\": \"currency\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Subtotal\",\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Tax (9.5%)\",\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"\"\n        },\n        {\n          \"value\": \"Total Due\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 13\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 13\n          }\n        }\n      ]\n    ],\n    \"formulas\": [\n      {\n        \"row\": 10,\n        \"col\": 4,\n        \"expression\": \"=SUM(E5:E9)\"\n      },\n      {\n        \"row\": 11,\n        \"col\": 4,\n        \"expression\": \"=E11*0.095\"\n      },\n      {\n        \"row\": 12,\n        \"col\": 4,\n        \"expression\": \"=E11+E12\"\n      }\n    ],\n    \"merged_cells\": [\n      {\n        \"start_row\": 0,\n        \"start_col\": 0,\n        \"end_row\": 0,\n        \"end_col\": 4\n      },\n      {\n        \"start_row\": 1,\n        \"start_col\": 0,\n        \"end_row\": 1,\n        \"end_col\": 4\n      },\n      {\n        \"start_row\": 2,\n        \"start_col\": 0,\n        \"end_row\": 2,\n        \"end_col\": 4\n      }\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#4A148C\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "59d8c1e0-1c23-4ef6-8ac9-601d193c7516",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "name": "Generate Sales Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Sales Dashboard\n\nSaaS companies and analytics teams use this recipe to generate periodic financial dashboards. Two worksheets capture quarterly revenue by product line and operating expenses, with formulas computing totals and merged header cells for a polished executive-ready layout.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "1aced21f-65a5-4b99-bd99-d2d71a425c3d",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "fc5a8300-5436-4aeb-8049-41fb128f9b40",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a8e323b1-e07b-4415-b619-1c3cfc3df2ab",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Revenue\",\n    \"columns\": [\n      {\n        \"name\": \"Product Line\",\n        \"width\": 24\n      },\n      {\n        \"name\": \"Q1 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Q2 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Q3 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Q4 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Annual Total\",\n        \"width\": 16\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"2026 Revenue by Product Line\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 14\n          },\n          \"from_col\": 0,\n          \"to_col\": 5\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"Platform Subscriptions\"\n        },\n        {\n          \"value\": 245000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 268000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 291000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 312000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"API Usage (Pay-as-you-go)\"\n        },\n        {\n          \"value\": 89000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 102000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 118000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 134000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"Enterprise Contracts\"\n        },\n        {\n          \"value\": 180000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 180000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 240000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 240000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"Professional Services\"\n        },\n        {\n          \"value\": 45000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 52000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 48000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 61000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"Quarterly Total\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        }\n      ]\n    ],\n    \"formulas\": [\n      {\n        \"row\": 2,\n        \"col\": 5,\n        \"expression\": \"=SUM(B3:E3)\"\n      },\n      {\n        \"row\": 3,\n        \"col\": 5,\n        \"expression\": \"=SUM(B4:E4)\"\n      },\n      {\n        \"row\": 4,\n        \"col\": 5,\n        \"expression\": \"=SUM(B5:E5)\"\n      },\n      {\n        \"row\": 5,\n        \"col\": 5,\n        \"expression\": \"=SUM(B6:E6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 1,\n        \"expression\": \"=SUM(B3:B6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 2,\n        \"expression\": \"=SUM(C3:C6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 3,\n        \"expression\": \"=SUM(D3:D6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 4,\n        \"expression\": \"=SUM(E3:E6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 5,\n        \"expression\": \"=SUM(F3:F6)\"\n      }\n    ],\n    \"merged_cells\": [\n      {\n        \"start_row\": 0,\n        \"start_col\": 0,\n        \"end_row\": 0,\n        \"end_col\": 5\n      }\n    ]\n  },\n  {\n    \"name\": \"Expenses\",\n    \"columns\": [\n      {\n        \"name\": \"Category\",\n        \"width\": 24\n      },\n      {\n        \"name\": \"Q1 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Q2 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Q3 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Q4 2026\",\n        \"width\": 14\n      },\n      {\n        \"name\": \"Annual Total\",\n        \"width\": 16\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"2026 Operating Expenses\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 14\n          },\n          \"from_col\": 0,\n          \"to_col\": 5\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"Cloud Infrastructure\"\n        },\n        {\n          \"value\": 42000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 45000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 48000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 51000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"Salaries & Benefits\"\n        },\n        {\n          \"value\": 320000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 320000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 345000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 345000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"Marketing & Advertising\"\n        },\n        {\n          \"value\": 28000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 35000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 32000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 40000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"Office & Operations\"\n        },\n        {\n          \"value\": 18000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 18000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 19000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 19000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        }\n      ],\n      [\n        {\n          \"value\": \"\"\n        }\n      ],\n      [\n        {\n          \"value\": \"Quarterly Total\",\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true\n          }\n        },\n        {\n          \"value\": null,\n          \"styles\": {\n            \"is_bold\": true,\n            \"font_size_in_pt\": 12\n          }\n        }\n      ]\n    ],\n    \"formulas\": [\n      {\n        \"row\": 2,\n        \"col\": 5,\n        \"expression\": \"=SUM(B3:E3)\"\n      },\n      {\n        \"row\": 3,\n        \"col\": 5,\n        \"expression\": \"=SUM(B4:E4)\"\n      },\n      {\n        \"row\": 4,\n        \"col\": 5,\n        \"expression\": \"=SUM(B5:E5)\"\n      },\n      {\n        \"row\": 5,\n        \"col\": 5,\n        \"expression\": \"=SUM(B6:E6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 1,\n        \"expression\": \"=SUM(B3:B6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 2,\n        \"expression\": \"=SUM(C3:C6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 3,\n        \"expression\": \"=SUM(D3:D6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 4,\n        \"expression\": \"=SUM(E3:E6)\"\n      },\n      {\n        \"row\": 7,\n        \"col\": 5,\n        \"expression\": \"=SUM(F3:F6)\"\n      }\n    ],\n    \"merged_cells\": [\n      {\n        \"start_row\": 0,\n        \"start_col\": 0,\n        \"end_row\": 0,\n        \"end_col\": 5\n      }\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#4472C4\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "2742ea6e-75be-4c3e-bddb-d44ba6237643",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

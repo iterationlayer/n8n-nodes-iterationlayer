@@ -1,0 +1,150 @@
+{
+  "name": "Extract Contracts to a Register",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Contracts to a Register\n\nLegal operations teams and in-house counsel use this pipeline to turn a batch of signed PDFs into a maintained contract register \u2014 ready for compliance reviews, renewals tracking, and audits \u2014 without manual data entry.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "817d2c3b-1b09-4d93-993f-6b466fdd9b89",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Contract Terms\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "91efeebc-ac6d-459d-b38e-891c552b4cb4",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Contract Register\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "c0707b92-a66d-4779-9446-da458c28772f",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "1a2b3c4d-5e6f-7890-abcd-ef0123456789",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "[\n  {\n    \"name\": \"contracts\",\n    \"type\": \"ARRAY\",\n    \"description\": \"One entry per contract file\",\n    \"children\": [\n      {\n        \"name\": \"contract_title\",\n        \"type\": \"TEXT\",\n        \"description\": \"Title or subject of the contract\"\n      },\n      {\n        \"name\": \"counterparty\",\n        \"type\": \"TEXT\",\n        \"description\": \"Name of the other contracting party\"\n      },\n      {\n        \"name\": \"effective_date\",\n        \"type\": \"DATE\",\n        \"description\": \"Date the contract becomes effective\"\n      },\n      {\n        \"name\": \"expiry_date\",\n        \"type\": \"DATE\",\n        \"description\": \"Date the contract expires or ends\"\n      },\n      {\n        \"name\": \"contract_value\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Total or annual contract value if stated\"\n      },\n      {\n        \"name\": \"currency\",\n        \"type\": \"CURRENCY_CODE\",\n        \"description\": \"Currency of contract value\"\n      },\n      {\n        \"name\": \"auto_renewal\",\n        \"type\": \"BOOLEAN\",\n        \"description\": \"Whether the contract auto-renews\"\n      },\n      {\n        \"name\": \"governing_law\",\n        \"type\": \"TEXT\",\n        \"description\": \"Jurisdiction or governing law\"\n      }\n    ]\n  }\n]",
+        "files": {
+          "fileValues": [
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/contracts/msa-cloudpeak-solutions.pdf"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/contracts/nda-vertex-analytics.pdf"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/contracts/sow-ironbridge-consulting.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "2b3c4d5e-6f7a-8901-bcde-f12345678901",
+      "name": "Extract Contract Terms",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Contract Register\",\n    \"columns\": [\n      { \"name\": \"Title\", \"width\": 28 },\n      { \"name\": \"Counterparty\", \"width\": 24 },\n      { \"name\": \"Effective Date\", \"width\": 14 },\n      { \"name\": \"Expiry Date\", \"width\": 14 },\n      { \"name\": \"Value\", \"width\": 14 },\n      { \"name\": \"Currency\", \"width\": 10 },\n      { \"name\": \"Auto-Renewal\", \"width\": 14 },\n      { \"name\": \"Governing Law\", \"width\": 18 }\n    ],\n    \"rows\": \"{{ $json.contracts }}\"\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"is_bold\": true,\n    \"background_color\": \"#1E3A5F\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "3c4d5e6f-7a8b-9012-cdef-234567890123",
+      "name": "Generate Contract Register",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Contract Terms",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Contract Terms": {
+      "main": [
+        [
+          {
+            "node": "Generate Contract Register",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

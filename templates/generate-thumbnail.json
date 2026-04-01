@@ -1,0 +1,101 @@
+{
+  "name": "Generate Thumbnail",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Thumbnail\n\nWeb developers and CMS platforms use this recipe to generate a thumbnail from a high-resolution image. Upload one image, resize it to a target dimension, and convert to WebP \u2014 ready for galleries, cards, and preview grids.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "9f1bcab1-5fac-4660-8ed7-2bf3cca026b9",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Transform Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "6d86540a-cfdf-4c45-9df6-d83ab7b638c4",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "fbd67c8f-6e2b-45a2-bbb4-a03313963845",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "hero-image.jpg",
+        "fileUrl": "https://example.com/hero-image.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "resize",
+              "widthInPx": 300,
+              "heightInPx": 200,
+              "fit": "cover"
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "webp",
+              "quality": 80
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "77a29fe5-007f-40cb-b42c-3a18070e3f68",
+      "name": "Transform Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transform Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "Generate DOCX Contract",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate DOCX Contract\n\nLegal teams and SaaS companies use this recipe to generate a service agreement programmatically. Define the contracting parties, scope of work, payment terms, and legal clauses \u2014 delivered as an editable DOCX file ready for review and signature.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "c670e9aa-7ddf-4f78-b539-542dd863cbfb",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Document\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "e07bb931-b8de-43ec-bad9-b50b9b9cfe34",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "dc4d30ba-1453-4946-8dcc-67f00487322d",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "docx",
+        "documentJson": "{\n  \"metadata\": {\n    \"title\": \"SaaS Consulting Services Agreement\",\n    \"author\": \"Evergreen Digital Solutions\"\n  },\n  \"page\": {\n    \"size\": {\n      \"preset\": \"A4\"\n    },\n    \"margins\": {\n      \"top_in_pt\": 72,\n      \"right_in_pt\": 72,\n      \"bottom_in_pt\": 72,\n      \"left_in_pt\": 72\n    }\n  },\n  \"styles\": {\n    \"text\": {\n      \"font_family\": \"Helvetica\",\n      \"font_size_in_pt\": 11.0,\n      \"line_height\": 1.5,\n      \"color\": \"#333333\"\n    },\n    \"headline\": {\n      \"font_family\": \"Helvetica\",\n      \"font_size_in_pt\": 24.0,\n      \"color\": \"#111111\",\n      \"spacing_before_in_pt\": 12.0,\n      \"spacing_after_in_pt\": 6.0,\n      \"font_weight\": \"bold\"\n    },\n    \"link\": {\n      \"color\": \"#0066CC\",\n      \"is_underlined\": true\n    },\n    \"list\": {\n      \"text_style\": {\n        \"font_family\": \"Helvetica\",\n        \"font_size_in_pt\": 11.0,\n        \"line_height\": 1.5,\n        \"color\": \"#333333\"\n      },\n      \"marker_color\": \"#333333\",\n      \"marker_gap_in_pt\": 8.0\n    },\n    \"table\": {\n      \"header\": {\n        \"background_color\": \"#333333\",\n        \"text_color\": \"#FFFFFF\",\n        \"font_size_in_pt\": 11.0,\n        \"font_weight\": \"bold\"\n      },\n      \"body\": {\n        \"background_color\": \"#FFFFFF\",\n        \"text_color\": \"#333333\",\n        \"font_size_in_pt\": 11.0\n      },\n      \"border\": {\n        \"outer\": {\n          \"top\": {\n            \"color\": \"#CCCCCC\",\n            \"width_in_pt\": 1.0\n          },\n          \"right\": {\n            \"color\": \"#CCCCCC\",\n            \"width_in_pt\": 1.0\n          },\n          \"bottom\": {\n            \"color\": \"#CCCCCC\",\n            \"width_in_pt\": 1.0\n          },\n          \"left\": {\n            \"color\": \"#CCCCCC\",\n            \"width_in_pt\": 1.0\n          }\n        },\n        \"inner\": {\n          \"horizontal\": {\n            \"color\": \"#EEEEEE\",\n            \"width_in_pt\": 0.5\n          },\n          \"vertical\": {\n            \"color\": \"#EEEEEE\",\n            \"width_in_pt\": 0.5\n          }\n        }\n      }\n    },\n    \"grid\": {\n      \"background_color\": \"#FFFFFF\",\n      \"border_color\": \"#CCCCCC\",\n      \"border_width_in_pt\": 0.0,\n      \"gap_in_pt\": 12.0\n    },\n    \"separator\": {\n      \"color\": \"#CCCCCC\",\n      \"thickness_in_pt\": 1.0,\n      \"spacing_before_in_pt\": 12.0,\n      \"spacing_after_in_pt\": 12.0\n    },\n    \"image\": {\n      \"border_color\": \"#000000\",\n      \"border_width_in_pt\": 0.0\n    }\n  },\n  \"header\": [\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [\n        {\n          \"text\": \"CONFIDENTIAL \\u2014 Evergreen Digital Solutions\",\n          \"font_weight\": \"bold\"\n        }\n      ]\n    }\n  ],\n  \"footer\": [\n    {\n      \"type\": \"grid\",\n      \"columns\": [\n        {\n          \"column_span\": 6,\n          \"blocks\": [\n            {\n              \"type\": \"paragraph\",\n              \"runs\": [\n                {\n                  \"text\": \"SaaS Consulting Services Agreement\"\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"column_span\": 6,\n          \"blocks\": [\n            {\n              \"type\": \"page-number\",\n              \"text_alignment\": \"right\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"content\": [\n    {\n      \"type\": \"headline\",\n      \"level\": \"h1\",\n      \"text\": \"SaaS Consulting Services Agreement\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [\n        {\n          \"text\": \"This SaaS Consulting Services Agreement (the \\\"Agreement\\\") is entered into as of \"\n        },\n        {\n          \"text\": \"March 1,\\n              2026\",\n          \"font_weight\": \"bold\"\n        },\n        {\n          \"text\": \" (the \\\"Effective Date\\\") by and between the following parties.\"\n        }\n      ]\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"1. Parties\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [\n        {\n          \"text\": \"Provider: \",\n          \"font_weight\": \"bold\"\n        },\n        {\n          \"text\": \"Evergreen Digital Solutions Inc.,\\n              a Delaware corporation with its principal office at 500 Market Street,\\n              Suite 1200,\\n              San Francisco,\\n              CA 94105 (\\\"Provider\\\").\"\n        }\n      ]\n    },\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [\n        {\n          \"text\": \"Client: \",\n          \"font_weight\": \"bold\"\n        },\n        {\n          \"text\": \"Cascade Health Systems LLC,\\n              a Washington limited liability company with its principal office at 2200 Westlake Avenue,\\n              Seattle,\\n              WA 98109 (\\\"Client\\\").\"\n        }\n      ]\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"2. Scope of Work\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"markdown\": \"Provider agrees to deliver the following consulting services to Client during the term of this Agreement:\"\n    },\n    {\n      \"type\": \"list\",\n      \"variant\": \"ordered\",\n      \"items\": [\n        {\n          \"text\": \"Platform Architecture Review \\u2014 Comprehensive audit of Client's existing SaaS infrastructure,\\n              including database performance,\\n              API design,\\n              and microservices topology. Deliverable: Architecture Assessment Report.\"\n        },\n        {\n          \"text\": \"Data Migration Planning \\u2014 Design and document a phased migration strategy for transitioning Client's legacy patient records system to Provider's cloud-native platform. Deliverable: Migration Runbook.\"\n        },\n        {\n          \"text\": \"Custom Integration Development \\u2014 Build and deploy integrations between Client's EHR system and Provider's analytics dashboard,\\n              including HL7 FHIR-compliant data pipelines. Deliverable: Deployed integration with documentation.\"\n        },\n        {\n          \"text\": \"Staff Training & Enablement \\u2014 Conduct four half-day training sessions for Client's engineering and operations teams covering platform administration,\\n              monitoring,\\n              and incident response. Deliverable: Training materials and recorded sessions.\"\n        }\n      ]\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"3. Term and Termination\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"markdown\": \"This Agreement shall commence on the Effective Date and continue for a period of **twelve (12) months** unless terminated earlier in accordance with this section. Either party may terminate this Agreement for convenience upon **sixty (60) days** written notice to the other party. Either party may terminate this Agreement immediately upon written notice if the other party materially breaches any provision and fails to cure such breach within **thirty (30) days** of receiving written notice.\"\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"4. Compensation and Payment Terms\"\n    },\n    {\n      \"type\": \"table\",\n      \"column_widths_in_percent\": [\n        40,\n        25,\n        20,\n        15\n      ],\n      \"header\": {\n        \"cells\": [\n          {\n            \"text\": \"Milestone\"\n          },\n          {\n            \"text\": \"Deliverable\"\n          },\n          {\n            \"text\": \"Due Date\",\n            \"horizontal_alignment\": \"center\"\n          },\n          {\n            \"text\": \"Amount\",\n            \"horizontal_alignment\": \"right\"\n          }\n        ]\n      },\n      \"rows\": [\n        {\n          \"cells\": [\n            {\n              \"text\": \"Project Kickoff\"\n            },\n            {\n              \"text\": \"Architecture Report\"\n            },\n            {\n              \"text\": \"Apr 15,\\n                  2026\",\n              \"horizontal_alignment\": \"center\"\n            },\n            {\n              \"text\": \"$45,\\n                  000\",\n              \"horizontal_alignment\": \"right\"\n            }\n          ]\n        },\n        {\n          \"cells\": [\n            {\n              \"text\": \"Migration Planning\"\n            },\n            {\n              \"text\": \"Migration Runbook\"\n            },\n            {\n              \"text\": \"Jun 1,\\n                  2026\",\n              \"horizontal_alignment\": \"center\"\n            },\n            {\n              \"text\": \"$35,\\n                  000\",\n              \"horizontal_alignment\": \"right\"\n            }\n          ]\n        },\n        {\n          \"cells\": [\n            {\n              \"text\": \"Integration Development\"\n            },\n            {\n              \"text\": \"Deployed Integration\"\n            },\n            {\n              \"text\": \"Sep 30,\\n                  2026\",\n              \"horizontal_alignment\": \"center\"\n            },\n            {\n              \"text\": \"$85,\\n                  000\",\n              \"horizontal_alignment\": \"right\"\n            }\n          ]\n        },\n        {\n          \"cells\": [\n            {\n              \"text\": \"Training & Enablement\"\n            },\n            {\n              \"text\": \"Training Materials\"\n            },\n            {\n              \"text\": \"Nov 15,\\n                  2026\",\n              \"horizontal_alignment\": \"center\"\n            },\n            {\n              \"text\": \"$25,\\n                  000\",\n              \"horizontal_alignment\": \"right\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"type\": \"paragraph\",\n      \"runs\": [\n        {\n          \"text\": \"Total Contract Value: \",\n          \"font_weight\": \"bold\"\n        },\n        {\n          \"text\": \"$190,\\n              000. Invoices are due within thirty (30) days of receipt. Late payments shall accrue interest at a rate of 1.5% per month.\"\n        }\n      ]\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"5. Confidentiality\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"markdown\": \"Each party agrees to hold in strict confidence all Confidential Information received from the other party. \\\"Confidential Information\\\" means any non-public technical,\\n            business,\\n            or financial information disclosed by either party,\\n            whether in writing,\\n            orally,\\n            or by inspection. This obligation shall survive termination of this Agreement for a period of **three (3) years**.\"\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"6. Limitation of Liability\"\n    },\n    {\n      \"type\": \"paragraph\",\n      \"markdown\": \"In no event shall either party be liable for any indirect,\\n            incidental,\\n            special,\\n            consequential,\\n            or punitive damages. Provider's total aggregate liability under this Agreement shall not exceed the **total fees paid by Client** under this Agreement during the twelve (12) months preceding the claim.\"\n    },\n    {\n      \"type\": \"separator\"\n    },\n    {\n      \"type\": \"headline\",\n      \"level\": \"h2\",\n      \"text\": \"7. Signatures\"\n    },\n    {\n      \"type\": \"grid\",\n      \"columns\": [\n        {\n          \"column_span\": 6,\n          \"blocks\": [\n            {\n              \"type\": \"paragraph\",\n              \"runs\": [\n                {\n                  \"text\": \"For Evergreen Digital Solutions Inc.\\n\\n\\n\",\n                  \"font_weight\": \"bold\"\n                },\n                {\n                  \"text\": \"________________________________\\nName: James Whitfield\\nTitle: Chief Executive Officer\\nDate: ________________________\"\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"column_span\": 6,\n          \"blocks\": [\n            {\n              \"type\": \"paragraph\",\n              \"runs\": [\n                {\n                  \"text\": \"For Cascade Health Systems LLC\\n\\n\\n\",\n                  \"font_weight\": \"bold\"\n                },\n                {\n                  \"text\": \"________________________________\\nName: Dr. Priya Ramanathan\\nTitle: Chief Operating Officer\\nDate: ________________________\"\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "5f70879d-d272-4e67-8ad4-88b7f16b143f",
+      "name": "Generate Document",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

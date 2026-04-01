@@ -1,0 +1,85 @@
+{
+  "name": "markdown-to-pdf",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## markdown-to-pdf\n\nMarkdown to Styled PDF\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "01bea8f5-b68f-4a7c-a422-a77d3d70daaa",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate PDF from Markdown\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "a5cfbbed-1974-4575-8350-9d9e603703c3",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "e1f2a3b4-c5d6-7890-4567-123456789012",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "pdf",
+        "documentJson": "{\n  \"header\": {\n    \"height_in_pt\": 40,\n    \"blocks\": [\n      {\n        \"type\": \"paragraph\",\n        \"text\": \"My Company \u2014 Internal Document\",\n        \"font_size_in_pt\": 9,\n        \"color\": \"#999999\",\n        \"margin_left_in_pt\": 50,\n        \"margin_top_in_pt\": 15\n      }\n    ]\n  },\n  \"footer\": {\n    \"height_in_pt\": 40,\n    \"blocks\": [\n      {\n        \"type\": \"paragraph\",\n        \"text\": \"Page {{page_number}} of {{total_pages}}\",\n        \"font_size_in_pt\": 9,\n        \"color\": \"#999999\",\n        \"text_align\": \"center\",\n        \"margin_left_in_pt\": 50,\n        \"margin_right_in_pt\": 50,\n        \"margin_top_in_pt\": 10\n      }\n    ]\n  },\n  \"pages\": [\n    {\n      \"width_in_pt\": 595,\n      \"height_in_pt\": 842,\n      \"blocks\": [\n        {\n          \"type\": \"paragraph\",\n          \"markdown\": \"# Project Status Update\",\n          \"font_size_in_pt\": 28,\n          \"font_weight\": \"bold\",\n          \"color\": \"#1a1a1a\",\n          \"margin_top_in_pt\": 60,\n          \"margin_left_in_pt\": 50,\n          \"margin_right_in_pt\": 50\n        },\n        {\n          \"type\": \"paragraph\",\n          \"markdown\": \"## Executive Summary\\n\\nThis document provides an overview of the current project status, key milestones achieved, and upcoming deliverables for **Q1 2026**.\\n\\nAll teams are on track to meet their quarterly objectives.\",\n          \"font_size_in_pt\": 12,\n          \"color\": \"#333333\",\n          \"line_height\": 1.6,\n          \"margin_top_in_pt\": 20,\n          \"margin_left_in_pt\": 50,\n          \"margin_right_in_pt\": 50\n        },\n        {\n          \"type\": \"paragraph\",\n          \"markdown\": \"## Key Milestones\\n\\n- **Platform Launch**: Successfully deployed v2.0 to production\\n- **User Onboarding**: Completed redesign of the onboarding flow\\n- **API Integration**: Shipped new partner API with full documentation\\n- **Performance**: Reduced p95 latency from 450ms to 120ms\",\n          \"font_size_in_pt\": 12,\n          \"color\": \"#333333\",\n          \"line_height\": 1.6,\n          \"margin_top_in_pt\": 20,\n          \"margin_left_in_pt\": 50,\n          \"margin_right_in_pt\": 50\n        },\n        {\n          \"type\": \"paragraph\",\n          \"markdown\": \"## Next Steps\\n\\n1. Finalize **billing migration** to new payment processor\\n2. Launch *beta program* for enterprise customers\\n3. Complete security audit and SOC 2 Type II certification\\n4. Roll out automated monitoring dashboards\",\n          \"font_size_in_pt\": 12,\n          \"color\": \"#333333\",\n          \"line_height\": 1.6,\n          \"margin_top_in_pt\": 20,\n          \"margin_left_in_pt\": 50,\n          \"margin_right_in_pt\": 50\n        },\n        {\n          \"type\": \"paragraph\",\n          \"markdown\": \"---\\n\\n*Document generated automatically via Iteration Layer.*\",\n          \"font_size_in_pt\": 10,\n          \"color\": \"#999999\",\n          \"margin_top_in_pt\": 40,\n          \"margin_left_in_pt\": 50,\n          \"margin_right_in_pt\": 50\n        }\n      ]\n    }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "f2a3b4c5-d6e7-8901-5678-234567890123",
+      "name": "Generate PDF from Markdown",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate PDF from Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

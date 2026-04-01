@@ -1,0 +1,50 @@
+{
+  "name": "n8n-nodes-iterationlayer",
+  "version": "1.0.0",
+  "description": "n8n community node for the Iteration Layer API — document extraction, image transformation, image generation, and document generation.",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Iteration Layer",
+    "email": "support@iterationlayer.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iterationlayer/n8n-nodes-iterationlayer"
+  },
+  "homepage": "https://iterationlayer.com/docs/n8n",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/IterationLayerApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/IterationLayer/IterationLayer.node.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && cp src/nodes/IterationLayer/iterationlayer.svg dist/nodes/IterationLayer/",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src __tests__",
+    "format": "biome format --write src __tests__ *.ts *.json",
+    "format:check": "biome format src __tests__ *.ts *.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "n8n-workflow": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.6",
+    "@types/node": "22.19.15",
+    "n8n-workflow": "1.72.0",
+    "typescript": "5.8.3",
+    "vitest": "4.0.18"
+  }
+}

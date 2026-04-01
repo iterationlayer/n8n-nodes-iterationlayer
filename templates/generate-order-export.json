@@ -1,0 +1,86 @@
+{
+  "name": "Generate Order Export",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Order Export\n\nE-commerce platforms and fulfillment teams use this recipe to export order data for accounting, warehouse operations, or third-party integrations. Generate a clean CSV with order details, customer info, and shipping status ready for import into any system.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "48fa6a75-d1fa-4f40-ab7e-9f8fcfa6f6da",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "9f832f4d-0871-49ad-8ee7-9eea831ca1b2",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "ea892ed0-2e79-42d5-9631-0cda081c99d3",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "csv",
+        "sheetsJson": "[\n  {\n    \"name\": \"Orders\",\n    \"columns\": [\n      {\n        \"name\": \"Order ID\"\n      },\n      {\n        \"name\": \"Date\"\n      },\n      {\n        \"name\": \"Customer\"\n      },\n      {\n        \"name\": \"Email\"\n      },\n      {\n        \"name\": \"Items\"\n      },\n      {\n        \"name\": \"Subtotal\"\n      },\n      {\n        \"name\": \"Shipping\"\n      },\n      {\n        \"name\": \"Total\"\n      },\n      {\n        \"name\": \"Status\"\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"ORD-38291\"\n        },\n        {\n          \"value\": \"2026-03-18\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Elena Rodriguez\"\n        },\n        {\n          \"value\": \"elena.r@gmail.com\"\n        },\n        {\n          \"value\": 3,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 189.97,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 12.99,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 202.96,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Shipped\"\n        }\n      ],\n      [\n        {\n          \"value\": \"ORD-38292\"\n        },\n        {\n          \"value\": \"2026-03-18\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"James Whitfield\"\n        },\n        {\n          \"value\": \"j.whitfield@outlook.com\"\n        },\n        {\n          \"value\": 1,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 549.0,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 0,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 549.0,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Processing\"\n        }\n      ],\n      [\n        {\n          \"value\": \"ORD-38293\"\n        },\n        {\n          \"value\": \"2026-03-19\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Priya Sharma\"\n        },\n        {\n          \"value\": \"priya.sharma@company.io\"\n        },\n        {\n          \"value\": 5,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 74.95,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 8.99,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 83.94,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Delivered\"\n        }\n      ],\n      [\n        {\n          \"value\": \"ORD-38294\"\n        },\n        {\n          \"value\": \"2026-03-19\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Marcus Chen\"\n        },\n        {\n          \"value\": \"mchen@protonmail.com\"\n        },\n        {\n          \"value\": 2,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 329.98,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 15.99,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 345.97,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Shipped\"\n        }\n      ],\n      [\n        {\n          \"value\": \"ORD-38295\"\n        },\n        {\n          \"value\": \"2026-03-20\",\n          \"format\": \"date\"\n        },\n        {\n          \"value\": \"Aisha Okafor\"\n        },\n        {\n          \"value\": \"aisha.o@gmail.com\"\n        },\n        {\n          \"value\": 1,\n          \"format\": \"number\"\n        },\n        {\n          \"value\": 89.0,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 5.99,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 94.99,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": \"Pending\"\n        }\n      ]\n    ]\n  }\n]",
+        "sheetStylesJson": "{}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "05de560e-e7b9-434d-a31c-687ac4be7853",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

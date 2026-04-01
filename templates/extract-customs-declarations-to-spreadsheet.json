@@ -1,0 +1,150 @@
+{
+  "name": "Extract Customs Declarations to Spreadsheet",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Customs Declarations to Spreadsheet\n\nImport operations and trade compliance teams receive customs declaration documents for every inbound shipment and need to log HS codes, declared values, and duty amounts for compliance reporting and cost reconciliation. This pipeline extracts the key fields from each declaration and writes them into a formatted XLSX duty tracker.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "8719816b-8100-441b-ad4e-4171ae3b585d",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Declaration Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "883c0bca-0a24-4d06-ba03-8ee134c8a714",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Import Duty Log\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "11b08cf6-37c0-414c-b1db-9beed2c32d41",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "4d5e6f7a-8b9c-0123-def0-345678901234",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "[\n  {\n    \"name\": \"declarations\",\n    \"type\": \"ARRAY\",\n    \"description\": \"One entry per customs declaration document\",\n    \"children\": [\n      {\n        \"name\": \"declaration_number\",\n        \"type\": \"TEXT\",\n        \"description\": \"Customs declaration reference number\"\n      },\n      {\n        \"name\": \"declaration_date\",\n        \"type\": \"DATE\",\n        \"description\": \"Date of customs declaration\"\n      },\n      {\n        \"name\": \"country_of_origin\",\n        \"type\": \"TEXT\",\n        \"description\": \"Country where goods were manufactured\"\n      },\n      {\n        \"name\": \"hs_code\",\n        \"type\": \"TEXT\",\n        \"description\": \"Harmonized System tariff code\"\n      },\n      {\n        \"name\": \"goods_description\",\n        \"type\": \"TEXT\",\n        \"description\": \"Description of imported goods\"\n      },\n      {\n        \"name\": \"declared_value\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Customs declared value of goods\"\n      },\n      {\n        \"name\": \"currency\",\n        \"type\": \"CURRENCY_CODE\",\n        \"description\": \"Currency of declared value\"\n      },\n      {\n        \"name\": \"duty_amount\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Duty assessed on this declaration\"\n      }\n    ]\n  }\n]",
+        "files": {
+          "fileValues": [
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/customs/declaration-cn-electronics.pdf"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/customs/declaration-de-machinery.pdf"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/customs/declaration-vn-textiles.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "5e6f7a8b-9c0d-1234-ef01-456789012345",
+      "name": "Extract Declaration Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Import Duty Log \u2014 Q1 2026\",\n    \"columns\": [\n      { \"name\": \"Declaration #\", \"width\": 18 },\n      { \"name\": \"Date\", \"width\": 12 },\n      { \"name\": \"Origin\", \"width\": 14 },\n      { \"name\": \"HS Code\", \"width\": 14 },\n      { \"name\": \"Description\", \"width\": 30 },\n      { \"name\": \"Declared Value\", \"width\": 16 },\n      { \"name\": \"Duty\", \"width\": 14 },\n      { \"name\": \"Currency\", \"width\": 10 }\n    ],\n    \"rows\": \"{{ $json.declarations }}\"\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#374151\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "6f7a8b9c-0d1e-2345-f012-567890123456",
+      "name": "Generate Import Duty Log",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Declaration Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Declaration Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Import Duty Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

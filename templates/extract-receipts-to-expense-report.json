@@ -1,0 +1,150 @@
+{
+  "name": "Extract Receipts and Generate Expense Report",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Receipts and Generate Expense Report\n\nEmployees and finance teams submit photos or scans of receipts and need them consolidated into an expense report for reimbursement or bookkeeping. This recipe extracts structured data from all receipts in a single call, then generates a formatted XLSX report with a SUM total row ready for approval.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "9cc45c48-7954-4c7b-9881-fda7062440df",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Receipt Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "0a70efa1-bf36-4984-bb29-d4a877ba5c27",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Expense Report\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "0653a2cc-d045-4e05-ad49-f85b05f5399e",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d3e4f5a6-b7c8-9012-3def-012345678901",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "[\n  {\n    \"name\": \"receipts\",\n    \"type\": \"ARRAY\",\n    \"description\": \"One entry per receipt file\",\n    \"children\": [\n      {\n        \"name\": \"merchant\",\n        \"type\": \"TEXT\",\n        \"description\": \"Merchant or vendor name\"\n      },\n      {\n        \"name\": \"date\",\n        \"type\": \"DATE\",\n        \"description\": \"Transaction date\"\n      },\n      {\n        \"name\": \"amount\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Total amount paid\"\n      },\n      {\n        \"name\": \"currency\",\n        \"type\": \"CURRENCY_CODE\",\n        \"description\": \"Transaction currency\"\n      },\n      {\n        \"name\": \"category\",\n        \"type\": \"ENUM\",\n        \"description\": \"Expense category\",\n        \"values\": [\"Meals\", \"Travel\", \"Accommodation\", \"Software\", \"Office Supplies\", \"Other\"]\n      }\n    ]\n  }\n]",
+        "files": {
+          "fileValues": [
+            {
+              "inputMode": "url",
+              "fileUrl": "https://cdn.example.com/receipts/dinner-jan14.jpg"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://cdn.example.com/receipts/taxi-jan15.jpg"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://cdn.example.com/receipts/hotel-jan15.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "e4f5a6b7-c8d9-0123-4ef0-123456789012",
+      "name": "Extract Receipt Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Expense Report \u2014 January 2026\",\n    \"columns\": [\n      { \"name\": \"Date\", \"width\": 12 },\n      { \"name\": \"Merchant\", \"width\": 28 },\n      { \"name\": \"Category\", \"width\": 18 },\n      { \"name\": \"Amount\", \"width\": 14 },\n      { \"name\": \"Currency\", \"width\": 10 },\n      { \"name\": \"Notes\", \"width\": 24 }\n    ],\n    \"rows\": \"{{ $json.receipts }}\"\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"is_bold\": true,\n    \"background_color\": \"#2D6A4F\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "f5a6b7c8-d9e0-1234-5f01-234567890123",
+      "name": "Generate Expense Report",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Receipt Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Receipt Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Expense Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

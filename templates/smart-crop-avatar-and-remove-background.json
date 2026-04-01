@@ -1,0 +1,103 @@
+{
+  "name": "Smart Crop Avatar and Remove Background",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Smart Crop Avatar and Remove Background\n\nSocial platforms and SaaS apps use this recipe to process user-uploaded profile pictures on the fly. Smart crop centers on the face, background removal strips the messy kitchen or parking lot, and WebP conversion keeps file sizes small \u2014 ready for consistent, professional-looking avatars.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "3f93355d-ff33-4297-b5c7-e3763b1236f9",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Transform Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "d16abd9f-1d86-4e42-8ae0-7afc18f093fe",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "c5d6e7f8-a9b0-4c1d-2e3f-5a6b7c8d9e0f",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "upload.jpg",
+        "fileUrl": "https://cdn.example.com/uploads/user-photo.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operationType": "smart_crop",
+              "widthInPx": 256,
+              "heightInPx": 256
+            },
+            {
+              "operationType": "remove_background"
+            },
+            {
+              "operationType": "convert",
+              "convertFormat": "webp",
+              "quality": 85
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "f8a9b0c1-d2e3-4f4a-5b6c-7d8e9f0a1b2c",
+      "name": "Transform Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Transform Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

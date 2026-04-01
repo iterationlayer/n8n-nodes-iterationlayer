@@ -1,0 +1,88 @@
+{
+  "name": "Generate YouTube Thumbnail",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate YouTube Thumbnail\n\nContent creators and video platforms use this recipe to generate eye-catching thumbnails at scale. Define a bold gradient canvas, overlay a subject photo with background removal, and add large title text \u2014 ready for YouTube uploads, social previews, or content management systems.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "a91b7d97-7812-4174-a020-b99f92380391",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "b1400574-f9f8-4914-84d8-80aaa80aa203",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a3b4c5d6-dddd-4000-8000-000000000001",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 1280,
+        "heightInPx": 720,
+        "outputFormat": "png",
+        "layersJson": "[{\"index\":0,\"type\":\"gradient\",\"gradient_type\":\"linear\",\"angle_in_degrees\":135.0,\"colors\":[{\"hex_color\":\"#FF6B00\",\"position\":0.0},{\"hex_color\":\"#D90429\",\"position\":100.0}],\"position\":{\"x\":0.0,\"y\":0.0},\"dimensions\":{\"width\":1280,\"height\":720}},{\"index\":1,\"type\":\"image\",\"buffer\":\"<base64-encoded-subject-photo>\",\"should_remove_background\":true,\"position\":{\"x\":700.0,\"y\":60.0}},{\"index\":2,\"type\":\"text\",\"text\":\"I Built an App in 24 Hours\",\"font_name\":\"Montserrat\",\"font_size_in_px\":64,\"text_color\":\"#FFFFFF\",\"font_weight\":\"bold\",\"position\":{\"x\":50.0,\"y\":120.0},\"dimensions\":{\"width\":620,\"height\":280}},{\"index\":3,\"type\":\"text\",\"text\":\"Dev With Alex\",\"font_name\":\"Inter\",\"font_size_in_px\":28,\"text_color\":\"#FFF3E0\",\"position\":{\"x\":50.0,\"y\":560.0},\"dimensions\":{\"width\":400,\"height\":50}}]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "a3b4c5d6-dddd-4000-8000-000000000002",
+      "name": "Generate Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

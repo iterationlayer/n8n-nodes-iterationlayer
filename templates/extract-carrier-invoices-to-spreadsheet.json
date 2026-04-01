@@ -1,0 +1,150 @@
+{
+  "name": "Extract Carrier Invoices to Spreadsheet",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Carrier Invoices to Spreadsheet\n\nLogistics and freight operations teams receive PDF invoices from multiple carriers each month and need to reconcile all charges against shipment budgets. This pipeline extracts per-shipment charges from carrier invoices and writes them directly into a formatted XLSX cost tracker ready for finance review.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "97ca7a4d-891b-4ae3-b848-5baf12b8d4e2",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Carrier Invoice Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "69351e65-6d91-48e5-955f-6e217523f729",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Freight Cost Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "8d3e90eb-4808-4637-8c59-6dbbf5597fe0",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d4e5f6a7-b8c9-0123-4567-890abcdef012",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "[\n  {\n    \"name\": \"carrier_invoices\",\n    \"type\": \"ARRAY\",\n    \"description\": \"One entry per carrier invoice\",\n    \"children\": [\n      {\n        \"name\": \"carrier\",\n        \"type\": \"TEXT\",\n        \"description\": \"Carrier name\"\n      },\n      {\n        \"name\": \"invoice_number\",\n        \"type\": \"TEXT\",\n        \"description\": \"Invoice reference number\"\n      },\n      {\n        \"name\": \"invoice_date\",\n        \"type\": \"DATE\",\n        \"description\": \"Invoice date\"\n      },\n      {\n        \"name\": \"shipment_reference\",\n        \"type\": \"TEXT\",\n        \"description\": \"Shipment or tracking reference number\"\n      },\n      {\n        \"name\": \"service_type\",\n        \"type\": \"TEXT\",\n        \"description\": \"Service level, e.g. Express or Ground\"\n      },\n      {\n        \"name\": \"charges\",\n        \"type\": \"CURRENCY_AMOUNT\",\n        \"description\": \"Total charges for this shipment\"\n      },\n      {\n        \"name\": \"currency\",\n        \"type\": \"CURRENCY_CODE\",\n        \"description\": \"Billing currency\"\n      }\n    ]\n  }\n]",
+        "files": {
+          "fileValues": [
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/freight/ups-invoice-march.pdf"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/freight/fedex-invoice-march.pdf"
+            },
+            {
+              "inputMode": "url",
+              "fileUrl": "https://example.com/freight/dhl-invoice-march.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "e5f6a7b8-c9d0-1234-5678-90abcdef0123",
+      "name": "Extract Carrier Invoice Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Freight Cost Tracker \u2014 March 2026\",\n    \"columns\": [\n      { \"name\": \"Carrier\", \"width\": 16 },\n      { \"name\": \"Invoice #\", \"width\": 18 },\n      { \"name\": \"Date\", \"width\": 12 },\n      { \"name\": \"Shipment Ref\", \"width\": 20 },\n      { \"name\": \"Service\", \"width\": 14 },\n      { \"name\": \"Charges\", \"width\": 14 },\n      { \"name\": \"Currency\", \"width\": 10 }\n    ],\n    \"rows\": \"{{ $json.carrier_invoices }}\"\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#B45309\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "f6a7b8c9-d0e1-2345-6789-0abcdef01234",
+      "name": "Generate Freight Cost Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Carrier Invoice Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Carrier Invoice Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Freight Cost Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,7 @@
+FROM n8nio/n8n
+USER root
+RUN mkdir -p /home/node/.n8n/nodes/node_modules/n8n-nodes-iterationlayer
+COPY dist /home/node/.n8n/nodes/node_modules/n8n-nodes-iterationlayer/dist
+COPY package.json /home/node/.n8n/nodes/node_modules/n8n-nodes-iterationlayer/package.json
+RUN chown -R node:node /home/node/.n8n
+USER node

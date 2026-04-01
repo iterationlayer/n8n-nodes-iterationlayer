@@ -1,0 +1,161 @@
+{
+  "name": "image-resize-watermark",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## image-resize-watermark\n\nImage Resize and Watermark\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "2fdccccc-ecab-421e-8454-10e31094cd40",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Resize and Optimize Image\nResource: **Image Transformation**\n\nConfigure the Image Transformation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "6f4608be-8d53-4d42-a7b9-46bca2390c14",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Add Watermark\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "8074a04e-a4d0-403a-8ffc-713fc47fb98d",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "f6a7b8c9-d0e1-2345-f012-678901234567",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageTransformation",
+        "fileInputMode": "url",
+        "fileName": "product.jpg",
+        "fileUrl": "https://example.com/products/photo.jpg",
+        "operations": {
+          "operationValues": [
+            {
+              "operation": "resize",
+              "widthInPx": 1200,
+              "heightInPx": 1200,
+              "resizeMode": "cover"
+            },
+            {
+              "operation": "smart_crop",
+              "widthInPx": 1200,
+              "heightInPx": 1200
+            },
+            {
+              "operation": "sharpen",
+              "sigma": 0.5
+            },
+            {
+              "operation": "convert",
+              "outputFormat": "webp",
+              "quality": 85
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "a7b8c9d0-e1f2-3456-0123-789012345678",
+      "name": "Resize and Optimize Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 1200,
+        "heightInPx": 1200,
+        "outputFormat": "png",
+        "layersJson": "[\n  {\n    \"type\": \"solid\",\n    \"color\": \"#ffffff\",\n    \"width_in_px\": 1200,\n    \"height_in_px\": 1200\n  },\n  {\n    \"type\": \"image\",\n    \"source\": \"previous_output\",\n    \"x_in_px\": 0,\n    \"y_in_px\": 0,\n    \"width_in_px\": 1200,\n    \"height_in_px\": 1200\n  },\n  {\n    \"type\": \"text\",\n    \"text\": \"\\u00a9 My Company\",\n    \"font_size_in_px\": 24,\n    \"color\": \"#ffffff80\",\n    \"x_in_px\": 950,\n    \"y_in_px\": 1150,\n    \"font_weight\": \"bold\"\n  }\n]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "b8c9d0e1-f2a3-4567-1234-890123456789",
+      "name": "Add Watermark",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Resize and Optimize Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resize and Optimize Image": {
+      "main": [
+        [
+          {
+            "node": "Add Watermark",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "name": "Generate Sales Report Spreadsheet",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Sales Report Spreadsheet\n\nBusiness intelligence teams and reporting platforms use this recipe to generate Excel reports from structured data. Define columns, rows, and cell formats \u2014 currency, percentage, bold headers \u2014 and receive a ready-to-distribute XLSX file.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "ad633e8a-69f0-4690-9d6e-bfdda52d6f75",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "6a962e0c-c0e8-4754-9043-b3dd95d2b285",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d4bf0905-26f1-400c-a3f5-2915bf0e0953",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "sheetFormat": "xlsx",
+        "sheetsJson": "[\n  {\n    \"name\": \"Q1 Sales\",\n    \"columns\": [\n      {\n        \"name\": \"Region\",\n        \"width\": 22\n      },\n      {\n        \"name\": \"Revenue\",\n        \"width\": 18\n      },\n      {\n        \"name\": \"Growth\",\n        \"width\": 14\n      }\n    ],\n    \"rows\": [\n      [\n        {\n          \"value\": \"North America\"\n        },\n        {\n          \"value\": 4520000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 0.071,\n          \"format\": \"percentage\"\n        }\n      ],\n      [\n        {\n          \"value\": \"EMEA\"\n        },\n        {\n          \"value\": 3310000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 0.178,\n          \"format\": \"percentage\"\n        }\n      ],\n      [\n        {\n          \"value\": \"APAC\"\n        },\n        {\n          \"value\": 1400000,\n          \"format\": \"currency\"\n        },\n        {\n          \"value\": 0.273,\n          \"format\": \"percentage\"\n        }\n      ]\n    ]\n  }\n]",
+        "sheetStylesJson": "{\n  \"header\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"is_bold\": true,\n    \"background_color\": \"#1E3A5F\",\n    \"font_color\": \"#FFFFFF\"\n  },\n  \"body\": {\n    \"font_family\": \"Helvetica\",\n    \"font_size_in_pt\": 11,\n    \"font_color\": \"#333333\"\n  }\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "bf6516ea-c9fc-4669-b932-41725d97f4fa",
+      "name": "Generate Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Spreadsheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

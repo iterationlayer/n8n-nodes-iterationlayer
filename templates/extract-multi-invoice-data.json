@@ -1,0 +1,99 @@
+{
+  "name": "Extract Multi-Invoice Data",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Multi-Invoice Data\n\nAccounts payable teams and finance platforms use this recipe to process many invoices at once. Pass multiple invoice files and define an array schema to extract each invoice's vendor, date, line items, and total \u2014 ready for import into your accounting system.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "88ebde32-f53e-4b9a-bc00-b0ad32f1c536",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "08ca77ff-edfb-4300-b612-ef2c7a851ff1",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a3b4c5d6-e7f8-9012-abcd-123456789abc",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"invoices\",\"type\":\"ARRAY\",\"description\":\"One entry per invoice file\",\"item_schema\":{\"fields\":[{\"name\":\"vendor_name\",\"type\":\"TEXT\",\"description\":\"Vendor or supplier name\"},{\"name\":\"invoice_number\",\"type\":\"TEXT\",\"description\":\"Invoice reference number\"},{\"name\":\"invoice_date\",\"type\":\"DATE\",\"description\":\"Invoice date\"},{\"name\":\"line_items\",\"type\":\"ARRAY\",\"description\":\"Individual line items\",\"item_schema\":{\"fields\":[{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Item description\"},{\"name\":\"quantity\",\"type\":\"TEXT\",\"description\":\"Quantity ordered\"},{\"name\":\"amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Line item amount\"}]}},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total invoice amount\"}]}}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "invoice-acme.pdf",
+              "fileUrl": "https://example.com/invoices/invoice-acme.pdf"
+            },
+            {
+              "fileInputMode": "url",
+              "fileName": "invoice-global-freight.pdf",
+              "fileUrl": "https://example.com/invoices/invoice-global-freight.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "b4c5d6e7-f8a9-0123-bcde-234567890bcd",
+      "name": "Extract Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "Generate Event Ticket",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate Event Ticket\n\nEvent platforms and ticketing services use this recipe to generate branded, scannable tickets at scale. Define a dark canvas with a gradient accent bar, render the event name, date, venue, and seat details alongside a QR code \u2014 ready for mobile wallets, email delivery, or print-at-home.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "22f3834a-43ba-4002-8404-2918fb53e4b7",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "77469b6c-df54-4b25-81e7-c1864b91f48b",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "d4e5f6a7-4444-4000-8000-000000000001",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "widthInPx": 900,
+        "heightInPx": 400,
+        "outputFormat": "png",
+        "layersJson": "[{\"index\":0,\"type\":\"solid-color\",\"hex_color\":\"#1E1B4B\"},{\"index\":1,\"type\":\"gradient\",\"gradient_type\":\"linear\",\"angle_in_degrees\":90.0,\"colors\":[{\"hex_color\":\"#7C3AED\",\"position\":0.0},{\"hex_color\":\"#EC4899\",\"position\":100.0}],\"position\":{\"x\":0.0,\"y\":0.0},\"dimensions\":{\"width\":900,\"height\":8}},{\"index\":2,\"type\":\"text\",\"text\":\"React Summit 2026\",\"font_name\":\"Inter\",\"font_size_in_px\":36,\"text_color\":\"#FFFFFF\",\"font_weight\":\"bold\",\"position\":{\"x\":40.0,\"y\":40.0},\"dimensions\":{\"width\":560,\"height\":50}},{\"index\":3,\"type\":\"text\",\"text\":\"June 15, 2026 \\u2014 Moscone Center, San Francisco\",\"font_name\":\"Inter\",\"font_size_in_px\":18,\"text_color\":\"#A5B4FC\",\"position\":{\"x\":40.0,\"y\":110.0},\"dimensions\":{\"width\":560,\"height\":30}},{\"index\":4,\"type\":\"text\",\"text\":\"Section B \\u00b7 Row 12 \\u00b7 Seat 7\",\"font_name\":\"Inter\",\"font_size_in_px\":22,\"text_color\":\"#E0E7FF\",\"font_weight\":\"bold\",\"position\":{\"x\":40.0,\"y\":180.0},\"dimensions\":{\"width\":560,\"height\":40}},{\"index\":5,\"type\":\"qr-code\",\"value\":\"TKT-2026-RS-04821\",\"position\":{\"x\":660.0,\"y\":60.0},\"dimensions\":{\"width\":180,\"height\":180},\"fg_hex_color\":\"#FFFFFF\",\"bg_hex_color\":\"#1E1B4B\"},{\"index\":6,\"type\":\"text\",\"text\":\"Presented by ReactConf Inc.\",\"font_name\":\"Inter\",\"font_size_in_px\":14,\"text_color\":\"#6366F1\",\"position\":{\"x\":40.0,\"y\":340.0},\"dimensions\":{\"width\":400,\"height\":30}}]",
+        "fontsJson": "[]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "d4e5f6a7-4444-4000-8000-000000000002",
+      "name": "Generate Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
