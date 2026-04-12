@@ -34,8 +34,8 @@ class IterationLayerApi {
     test = {
         request: {
             baseURL: "={{$credentials.baseUrl}}",
-            url: "/image-transformation/v1/transform",
-            method: "POST",
+            url: "/v1/me",
+            method: "GET",
         },
     };
 }
