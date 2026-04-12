@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { IterationLayer } from "../src/nodes/IterationLayer/IterationLayer.node.js";
+import { IterationLayer } from "../nodes/IterationLayer/IterationLayer.node.js";
 
 function createMockExecuteFunctions(
   params: Record<string, unknown>,

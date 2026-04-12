@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { toBinaryOutput } from "../src/nodes/IterationLayer/helpers/binaryData.js";
+import { toBinaryOutput } from "../nodes/IterationLayer/helpers/binaryData.js";
 
 function createMockExecuteFunctions() {
   return {

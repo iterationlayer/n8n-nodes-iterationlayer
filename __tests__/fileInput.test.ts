@@ -1,8 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import {
-  getFileInput,
-  getMultipleFileInputs,
-} from "../src/nodes/IterationLayer/helpers/fileInput.js";
+import { getFileInput, getMultipleFileInputs } from "../nodes/IterationLayer/helpers/fileInput.js";
 
 function createMockExecuteFunctions(params: Record<string, unknown> = {}) {
   return {
