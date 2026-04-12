@@ -1,4 +1,9 @@
-import type { IAuthenticateGeneric, ICredentialType, INodeProperties } from "n8n-workflow";
+import type {
+  IAuthenticateGeneric,
+  ICredentialTestRequest,
+  ICredentialType,
+  INodeProperties,
+} from "n8n-workflow";
 
 export class IterationLayerApi implements ICredentialType {
   name = "iterationLayerApi";
@@ -30,6 +35,14 @@ export class IterationLayerApi implements ICredentialType {
       headers: {
         Authorization: "=Bearer {{$credentials.apiKey}}",
       },
+    },
+  };
+
+  test: ICredentialTestRequest = {
+    request: {
+      baseURL: "={{$credentials.baseUrl}}",
+      url: "/image-transformation/v1/transform",
+      method: "POST",
     },
   };
 }
