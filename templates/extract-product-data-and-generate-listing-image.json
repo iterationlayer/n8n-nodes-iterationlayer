@@ -1,0 +1,143 @@
+{
+  "name": "Extract product data and generate listing image in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Product Data and Generate a Listing Image\n\nE-commerce agencies managing multiple storefronts use this pipeline to turn supplier data sheets into ready-to-publish listing images — extracting product specs and generating branded visuals without manual design rounds.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f01234567801",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Product Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f01234567802",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Listing Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f01234567803",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f01234567804",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"product_name\",\"type\":\"TEXT\",\"description\":\"Product name or title\"},{\"name\":\"sku\",\"type\":\"TEXT\",\"description\":\"Product SKU or article number\"},{\"name\":\"retail_price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Recommended retail price\"},{\"name\":\"short_description\",\"type\":\"TEXT\",\"description\":\"One-line product description\"},{\"name\":\"material\",\"type\":\"TEXT\",\"description\":\"Primary material or fabric\"},{\"name\":\"weight\",\"type\":\"TEXT\",\"description\":\"Product weight with unit\"},{\"name\":\"available_colors\",\"type\":\"TEXT\",\"description\":\"Available color options\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "supplier-datasheet.pdf",
+              "fileUrl": "https://example.com/suppliers/alpine-gear-datasheet.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f01234567805",
+      "name": "Extract Product Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "width": 1200,
+        "height": 1200,
+        "layersJson": "[\n  { \"type\": \"solid-color\", \"index\": 0, \"hex_color\": \"#FFFFFF\" },\n  { \"type\": \"solid-color\", \"index\": 1, \"hex_color\": \"#0D1B2A\", \"position\": { \"x\": 0, \"y\": 0 }, \"dimensions\": { \"width\": 1200, \"height\": 200 } },\n  { \"type\": \"text\", \"index\": 2, \"text\": \"{{ $json.product_name }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 42, \"text_color\": \"#FFFFFF\", \"position\": { \"x\": 60, \"y\": 50 }, \"dimensions\": { \"width\": 1080, \"height\": 60 }, \"font_weight\": \"bold\" },\n  { \"type\": \"text\", \"index\": 3, \"text\": \"{{ $json.material }} | {{ $json.weight }} | {{ $json.available_colors }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 24, \"text_color\": \"#B0BEC5\", \"position\": { \"x\": 60, \"y\": 130 }, \"dimensions\": { \"width\": 1080, \"height\": 40 } },\n  { \"type\": \"text\", \"index\": 4, \"text\": \"{{ $json.retail_price }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 64, \"text_color\": \"#0D1B2A\", \"position\": { \"x\": 60, \"y\": 900 }, \"dimensions\": { \"width\": 1080, \"height\": 90 }, \"font_weight\": \"bold\" },\n  { \"type\": \"text\", \"index\": 5, \"text\": \"SKU: {{ $json.sku }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 20, \"text_color\": \"#78909C\", \"position\": { \"x\": 60, \"y\": 1010 }, \"dimensions\": { \"width\": 1080, \"height\": 30 } },\n  { \"type\": \"text\", \"index\": 6, \"text\": \"{{ $json.short_description }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 26, \"text_color\": \"#37474F\", \"position\": { \"x\": 60, \"y\": 1080 }, \"dimensions\": { \"width\": 1080, \"height\": 60 } }\n]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "b2c3d4e5-f6a7-8901-bcde-f01234567806",
+      "name": "Generate Listing Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Product Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Product Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Listing Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

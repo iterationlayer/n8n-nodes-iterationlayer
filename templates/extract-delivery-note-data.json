@@ -1,0 +1,71 @@
+{
+  "name": "Extract delivery note data in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Delivery Note Data\n\nLogistics agencies and warehouse operators use this recipe to digitize delivery notes — extracting shipment references, item quantities, and receiving details for inventory reconciliation and goods-received workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "d0e1f2a3-b4c5-6789-defa-789012345601",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Delivery Note Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "d0e1f2a3-b4c5-6789-defa-789012345602",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "d0e1f2a3-b4c5-6789-defa-789012345603",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"delivery_note_number\",\"type\":\"TEXT\",\"description\":\"Delivery note or consignment number\"},{\"name\":\"delivery_date\",\"type\":\"DATE\",\"description\":\"Date of delivery\"},{\"name\":\"supplier_name\",\"type\":\"TEXT\",\"description\":\"Supplier or sender name\"},{\"name\":\"purchase_order_ref\",\"type\":\"TEXT\",\"description\":\"Related purchase order reference\"},{\"name\":\"carrier\",\"type\":\"TEXT\",\"description\":\"Carrier or transport company\"},{\"name\":\"delivery_address\",\"type\":\"ADDRESS\",\"description\":\"Delivery destination address\"},{\"name\":\"items\",\"type\":\"ARRAY\",\"description\":\"Delivered items\",\"item_schema\":{\"fields\":[{\"name\":\"item_code\",\"type\":\"TEXT\",\"description\":\"Item or SKU code\"},{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Item description\"},{\"name\":\"quantity_ordered\",\"type\":\"INTEGER\",\"description\":\"Quantity ordered\"},{\"name\":\"quantity_delivered\",\"type\":\"INTEGER\",\"description\":\"Quantity delivered\"},{\"name\":\"unit\",\"type\":\"TEXT\",\"description\":\"Unit of measure\"}]}},{\"name\":\"total_packages\",\"type\":\"INTEGER\",\"description\":\"Total packages\"},{\"name\":\"receiver_name\",\"type\":\"TEXT\",\"description\":\"Receiver name\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "delivery-note-DN-2026-1147.pdf",
+              "fileUrl": "https://example.com/warehouse/delivery-note-DN-2026-1147.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "d0e1f2a3-b4c5-6789-defa-789012345604",
+      "name": "Extract Delivery Note Data",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Delivery Note Data", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

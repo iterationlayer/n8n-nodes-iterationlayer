@@ -1,0 +1,71 @@
+{
+  "name": "Extract KYC onboarding data in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract KYC Onboarding Data\n\nCompliance agencies and financial service providers use this recipe to accelerate client onboarding — extracting identity documents, company registrations, and beneficial ownership details for KYC verification workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "c9d0e1f2-a3b4-5678-cdef-678901234501",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract KYC Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "c9d0e1f2-a3b4-5678-cdef-678901234502",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "c9d0e1f2-a3b4-5678-cdef-678901234503",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"company_name\",\"type\":\"TEXT\",\"description\":\"Legal company name\"},{\"name\":\"registration_number\",\"type\":\"TEXT\",\"description\":\"Company registration number\"},{\"name\":\"country_of_incorporation\",\"type\":\"COUNTRY\",\"description\":\"Country of incorporation\"},{\"name\":\"incorporation_date\",\"type\":\"DATE\",\"description\":\"Date of incorporation\"},{\"name\":\"registered_address\",\"type\":\"ADDRESS\",\"description\":\"Registered business address\"},{\"name\":\"tax_id\",\"type\":\"TEXT\",\"description\":\"Tax identification number\"},{\"name\":\"business_type\",\"type\":\"TEXT\",\"description\":\"Type of business\"},{\"name\":\"contact_person\",\"type\":\"TEXT\",\"description\":\"Primary contact person\"},{\"name\":\"contact_email\",\"type\":\"EMAIL\",\"description\":\"Contact email\"},{\"name\":\"beneficial_owners\",\"type\":\"ARRAY\",\"description\":\"Beneficial owners\",\"item_schema\":{\"fields\":[{\"name\":\"owner_name\",\"type\":\"TEXT\",\"description\":\"Owner name\"},{\"name\":\"nationality\",\"type\":\"COUNTRY\",\"description\":\"Nationality\"},{\"name\":\"ownership_percentage\",\"type\":\"DECIMAL\",\"description\":\"Ownership percentage\"},{\"name\":\"date_of_birth\",\"type\":\"DATE\",\"description\":\"Date of birth\"}]}},{\"name\":\"id_document_type\",\"type\":\"TEXT\",\"description\":\"ID document type\"},{\"name\":\"id_document_number\",\"type\":\"TEXT\",\"description\":\"ID document number\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "kyc-packet-meridian-holdings.pdf",
+              "fileUrl": "https://example.com/kyc/meridian-holdings-onboarding.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "c9d0e1f2-a3b4-5678-cdef-678901234504",
+      "name": "Extract KYC Data",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract KYC Data", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

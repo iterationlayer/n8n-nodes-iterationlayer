@@ -1,0 +1,59 @@
+{
+  "name": "Extract legal invoice data in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Legal Invoice Data\n\nCorporate legal departments and legal ops agencies use this recipe to process outside counsel invoices — extracting timekeeper rates, hours, disbursements, and matter codes for e-billing systems and cost analysis.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "c5d6e7f8-a9b0-1234-cdef-234567890101",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Legal Invoice\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "c5d6e7f8-a9b0-1234-cdef-234567890102",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "c5d6e7f8-a9b0-1234-cdef-234567890103",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"law_firm\",\"type\":\"TEXT\",\"description\":\"Law firm name\"},{\"name\":\"invoice_number\",\"type\":\"TEXT\",\"description\":\"Invoice number\"},{\"name\":\"invoice_date\",\"type\":\"DATE\",\"description\":\"Invoice date\"},{\"name\":\"client_name\",\"type\":\"TEXT\",\"description\":\"Client name\"},{\"name\":\"matter_number\",\"type\":\"TEXT\",\"description\":\"Matter number\"},{\"name\":\"matter_description\",\"type\":\"TEXT\",\"description\":\"Matter description\"},{\"name\":\"billing_period\",\"type\":\"TEXT\",\"description\":\"Billing period\"},{\"name\":\"time_entries\",\"type\":\"ARRAY\",\"description\":\"Time entries\",\"item_schema\":{\"fields\":[{\"name\":\"timekeeper\",\"type\":\"TEXT\",\"description\":\"Timekeeper\"},{\"name\":\"date\",\"type\":\"DATE\",\"description\":\"Date\"},{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Work description\"},{\"name\":\"hours\",\"type\":\"DECIMAL\",\"description\":\"Hours\"},{\"name\":\"rate\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Rate\"},{\"name\":\"amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Amount\"}]}},{\"name\":\"total_fees\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total fees\"},{\"name\":\"total_disbursements\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Disbursements\"},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total amount\"},{\"name\":\"payment_terms\",\"type\":\"TEXT\",\"description\":\"Payment terms\"}]}",
+        "files": {
+          "fileValues": [{ "fileInputMode": "url", "fileName": "legal-invoice-HW-2026-0341.pdf", "fileUrl": "https://example.com/legal-billing/invoice-HW-2026-0341.pdf" }]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "c5d6e7f8-a9b0-1234-cdef-234567890104",
+      "name": "Extract Legal Invoice",
+      "credentials": { "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" } }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Extract Legal Invoice", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

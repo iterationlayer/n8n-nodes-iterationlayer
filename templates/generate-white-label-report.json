@@ -1,0 +1,34 @@
+{
+  "name": "Generate white-label PDF report in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate a White-Label PDF Report\n\nAgencies delivering reports under their clients' branding use this recipe to generate white-label PDF reports — with custom headers, color schemes, and content sections.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280, "width": 500, "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote", "typeVersion": 1, "position": [200, 40],
+      "id": "d6e7f8a9-b0c1-2345-defa-345678901201", "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Report\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160, "width": 300, "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote", "typeVersion": 1, "position": [475, 100],
+      "id": "d6e7f8a9-b0c1-2345-defa-345678901202", "name": "Step 1 Note"
+    },
+    { "parameters": {}, "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [250, 300], "id": "d6e7f8a9-b0c1-2345-defa-345678901203", "name": "Manual Trigger" },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "pdf",
+        "documentJson": "{\n  \"metadata\": { \"title\": \"Monthly Performance Report — March 2026\", \"author\": \"Northbridge Analytics\" },\n  \"page\": { \"size\": { \"preset\": \"A4\" }, \"margins\": { \"top_in_pt\": 54, \"right_in_pt\": 54, \"bottom_in_pt\": 54, \"left_in_pt\": 54 } },\n  \"content\": [\n    { \"type\": \"headline\", \"level\": \"h1\", \"text\": \"Cedarwood Financial Group\" },\n    { \"type\": \"headline\", \"level\": \"h2\", \"text\": \"Monthly Performance Report — March 2026\" },\n    { \"type\": \"separator\" },\n    { \"type\": \"headline\", \"level\": \"h3\", \"text\": \"Portfolio Summary\" },\n    { \"type\": \"table\", \"header\": { \"cells\": [{ \"text\": \"Metric\" }, { \"text\": \"Value\" }] }, \"rows\": [{ \"cells\": [{ \"text\": \"Total AUM\" }, { \"text\": \"$14,250,000\" }] }, { \"cells\": [{ \"text\": \"Monthly Return\" }, { \"text\": \"+1.8%\" }] }] },\n    { \"type\": \"separator\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"Confidential — Prepared by Northbridge Analytics.\" }] }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer", "typeVersion": 1, "position": [500, 300],
+      "id": "d6e7f8a9-b0c1-2345-defa-345678901204", "name": "Generate Report",
+      "credentials": { "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" } }
+    }
+  ],
+  "connections": { "Manual Trigger": { "main": [[{ "node": "Generate Report", "type": "main", "index": 0 }]] } },
+  "settings": { "executionOrder": "v1" }
+}

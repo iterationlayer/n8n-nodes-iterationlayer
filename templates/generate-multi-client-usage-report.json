@@ -1,0 +1,34 @@
+{
+  "name": "Generate multi-client usage report in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Generate a Multi-Client Usage Report\n\nAgencies reselling API services to multiple clients use this recipe to generate consolidated monthly usage reports — with one sheet per client.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280, "width": 500, "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote", "typeVersion": 1, "position": [200, 40],
+      "id": "e7f8a9b0-c1d2-3456-efab-456789012301", "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Generate Report\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160, "width": 300, "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote", "typeVersion": 1, "position": [475, 100],
+      "id": "e7f8a9b0-c1d2-3456-efab-456789012302", "name": "Step 1 Note"
+    },
+    { "parameters": {}, "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [250, 300], "id": "e7f8a9b0-c1d2-3456-efab-456789012303", "name": "Manual Trigger" },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "format": "xlsx",
+        "sheetsJson": "[{\"name\":\"Summary\",\"columns\":[{\"name\":\"Client\",\"width\":25},{\"name\":\"Plan\",\"width\":15},{\"name\":\"Credits Used\",\"width\":15},{\"name\":\"Credits Remaining\",\"width\":18},{\"name\":\"Requests\",\"width\":12},{\"name\":\"Amount Billed\",\"width\":16}],\"rows\":[[\"Greenfield Organics\",\"Professional\",4200,800,312,{\"value\":420.00,\"format\":\"currency\",\"currency_code\":\"EUR\"}],[\"Atlas Logistics\",\"Enterprise\",12800,7200,891,{\"value\":1280.00,\"format\":\"currency\",\"currency_code\":\"EUR\"}]]}]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer", "typeVersion": 1, "position": [500, 300],
+      "id": "e7f8a9b0-c1d2-3456-efab-456789012304", "name": "Generate Usage Report",
+      "credentials": { "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" } }
+    }
+  ],
+  "connections": { "Manual Trigger": { "main": [[{ "node": "Generate Usage Report", "type": "main", "index": 0 }]] } },
+  "settings": { "executionOrder": "v1" }
+}

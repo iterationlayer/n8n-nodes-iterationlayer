@@ -1,0 +1,102 @@
+{
+  "name": "Extract terms and generate summary in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Terms and Generate a Simplified Summary\n\nLegal agencies and compliance teams use this pipeline to process vendor or partner terms — extracting key clauses and generating a plain-language summary for non-legal stakeholders.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "a3b4c5d6-e7f8-9012-abcd-012345678901",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Terms\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "a3b4c5d6-e7f8-9012-abcd-012345678902",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Summary PDF\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [725, 100],
+      "id": "a3b4c5d6-e7f8-9012-abcd-012345678903",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "a3b4c5d6-e7f8-9012-abcd-012345678904",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"document_title\",\"type\":\"TEXT\",\"description\":\"Title of the terms document\"},{\"name\":\"effective_date\",\"type\":\"DATE\",\"description\":\"Effective date\"},{\"name\":\"termination_clause\",\"type\":\"TEXTAREA\",\"description\":\"Termination conditions\"},{\"name\":\"liability_limitation\",\"type\":\"TEXTAREA\",\"description\":\"Liability limitation\"},{\"name\":\"data_handling\",\"type\":\"TEXTAREA\",\"description\":\"Data processing provisions\"},{\"name\":\"governing_law\",\"type\":\"TEXT\",\"description\":\"Governing law\"},{\"name\":\"payment_terms\",\"type\":\"TEXT\",\"description\":\"Payment terms\"},{\"name\":\"auto_renewal\",\"type\":\"BOOLEAN\",\"description\":\"Auto-renewal\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "vendor-terms-cloudpeak.pdf",
+              "fileUrl": "https://example.com/contracts/vendor-terms-cloudpeak-2026.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "a3b4c5d6-e7f8-9012-abcd-012345678905",
+      "name": "Extract Terms",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "pdf",
+        "documentJson": "{\n  \"metadata\": { \"title\": \"T&C Summary — {{ $json.document_title }}\", \"author\": \"Whitmore Legal Advisors\" },\n  \"page\": { \"size\": { \"preset\": \"A4\" }, \"margins\": { \"top_in_pt\": 54, \"right_in_pt\": 54, \"bottom_in_pt\": 54, \"left_in_pt\": 54 } },\n  \"content\": [\n    { \"type\": \"headline\", \"level\": \"h1\", \"text\": \"Terms & Conditions Summary\" },\n    { \"type\": \"headline\", \"level\": \"h2\", \"text\": \"{{ $json.document_title }}\" },\n    { \"type\": \"separator\" },\n    { \"type\": \"headline\", \"level\": \"h3\", \"text\": \"Termination\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"{{ $json.termination_clause }}\" }] },\n    { \"type\": \"headline\", \"level\": \"h3\", \"text\": \"Liability\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"{{ $json.liability_limitation }}\" }] },\n    { \"type\": \"headline\", \"level\": \"h3\", \"text\": \"Data Handling\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"{{ $json.data_handling }}\" }] },\n    { \"type\": \"headline\", \"level\": \"h3\", \"text\": \"Governing Law\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"{{ $json.governing_law }}\" }] },\n    { \"type\": \"separator\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"Prepared by Whitmore Legal Advisors.\" }] }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [750, 300],
+      "id": "a3b4c5d6-e7f8-9012-abcd-012345678906",
+      "name": "Generate Summary PDF",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Terms", "type": "main", "index": 0 }]]
+    },
+    "Extract Terms": {
+      "main": [[{ "node": "Generate Summary PDF", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "Extract court filing data in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Court Filing Data\n\nLegal process outsourcing agencies and law firm operations teams use this recipe to digitize court filings — extracting case metadata, party details, and filing information for case management systems.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "e1f2a3b4-c5d6-7890-efab-890123456701",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Court Filing Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "e1f2a3b4-c5d6-7890-efab-890123456702",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "e1f2a3b4-c5d6-7890-efab-890123456703",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"case_number\",\"type\":\"TEXT\",\"description\":\"Court case or docket number\"},{\"name\":\"court_name\",\"type\":\"TEXT\",\"description\":\"Name of the court\"},{\"name\":\"jurisdiction\",\"type\":\"TEXT\",\"description\":\"Jurisdiction\"},{\"name\":\"filing_date\",\"type\":\"DATE\",\"description\":\"Date filed\"},{\"name\":\"document_type\",\"type\":\"TEXT\",\"description\":\"Type of filing\"},{\"name\":\"plaintiff\",\"type\":\"TEXT\",\"description\":\"Plaintiff name\"},{\"name\":\"defendant\",\"type\":\"TEXT\",\"description\":\"Defendant name\"},{\"name\":\"plaintiff_counsel\",\"type\":\"TEXT\",\"description\":\"Plaintiff attorney\"},{\"name\":\"defendant_counsel\",\"type\":\"TEXT\",\"description\":\"Defendant attorney\"},{\"name\":\"cause_of_action\",\"type\":\"TEXT\",\"description\":\"Cause of action\"},{\"name\":\"relief_sought\",\"type\":\"TEXTAREA\",\"description\":\"Relief sought\"},{\"name\":\"judge_assigned\",\"type\":\"TEXT\",\"description\":\"Assigned judge\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "complaint-2026-CV-04821.pdf",
+              "fileUrl": "https://example.com/legal/complaint-2026-CV-04821.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "e1f2a3b4-c5d6-7890-efab-890123456704",
+      "name": "Extract Court Filing Data",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Court Filing Data", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

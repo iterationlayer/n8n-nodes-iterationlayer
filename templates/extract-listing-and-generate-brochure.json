@@ -1,0 +1,191 @@
+{
+  "name": "Extract listing data and generate brochure in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Listing Data and Generate a Brochure\n\nReal estate agencies use this pipeline to turn raw listing PDFs into polished marketing materials — a branded brochure PDF for print and a social media image for Instagram or Facebook — without manual design work.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456701",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Listing Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456702",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Brochure PDF\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        725,
+        100
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456703",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 3: Generate Social Image\nResource: **Image Generation**\n\nConfigure the Image Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        975,
+        100
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456704",
+      "name": "Step 3 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456705",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"property_address\",\"type\":\"TEXT\",\"description\":\"Full street address of the property\"},{\"name\":\"city\",\"type\":\"TEXT\",\"description\":\"City or town\"},{\"name\":\"listing_price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Asking price\"},{\"name\":\"bedrooms\",\"type\":\"INTEGER\",\"description\":\"Number of bedrooms\"},{\"name\":\"bathrooms\",\"type\":\"DECIMAL\",\"description\":\"Number of bathrooms\"},{\"name\":\"square_footage\",\"type\":\"INTEGER\",\"description\":\"Living area in square feet\"},{\"name\":\"year_built\",\"type\":\"INTEGER\",\"description\":\"Year the property was built\"},{\"name\":\"description\",\"type\":\"TEXTAREA\",\"description\":\"Marketing description of the property\"},{\"name\":\"agent_name\",\"type\":\"TEXT\",\"description\":\"Listing agent name\"},{\"name\":\"agent_phone\",\"type\":\"TEXT\",\"description\":\"Listing agent phone number\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "listing-42-oakwood.pdf",
+              "fileUrl": "https://example.com/listings/42-oakwood-drive.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456706",
+      "name": "Extract Listing Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "pdf",
+        "documentJson": "{\n  \"metadata\": {\n    \"title\": \"{{ $json.property_address }} — Property Brochure\",\n    \"author\": \"Crestview Realty Group\"\n  },\n  \"page\": {\n    \"size\": { \"preset\": \"A4\" },\n    \"margins\": { \"top_in_pt\": 48, \"right_in_pt\": 48, \"bottom_in_pt\": 48, \"left_in_pt\": 48 }\n  },\n  \"content\": [\n    { \"type\": \"headline\", \"level\": \"h1\", \"text\": \"{{ $json.property_address }}\" },\n    { \"type\": \"headline\", \"level\": \"h2\", \"text\": \"{{ $json.city }} — {{ $json.listing_price }}\" },\n    { \"type\": \"separator\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"{{ $json.description }}\" }] },\n    { \"type\": \"separator\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"Listed by: \", \"font_weight\": \"bold\" }, { \"text\": \"{{ $json.agent_name }} — Crestview Realty Group\\n\" }, { \"text\": \"Phone: \", \"font_weight\": \"bold\" }, { \"text\": \"{{ $json.agent_phone }}\" }] }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456707",
+      "name": "Generate Brochure PDF",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "imageGeneration",
+        "width": 1080,
+        "height": 1080,
+        "layersJson": "[\n  { \"type\": \"solid-color\", \"index\": 0, \"hex_color\": \"#1B3A4B\" },\n  { \"type\": \"text\", \"index\": 1, \"text\": \"JUST LISTED\", \"font_name\": \"Arial\", \"font_size_in_px\": 32, \"text_color\": \"#F0C040\", \"position\": { \"x\": 60, \"y\": 60 }, \"dimensions\": { \"width\": 960, \"height\": 50 }, \"font_weight\": \"bold\" },\n  { \"type\": \"text\", \"index\": 2, \"text\": \"{{ $json.property_address }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 56, \"text_color\": \"#FFFFFF\", \"position\": { \"x\": 60, \"y\": 140 }, \"dimensions\": { \"width\": 960, \"height\": 80 }, \"font_weight\": \"bold\" },\n  { \"type\": \"text\", \"index\": 3, \"text\": \"{{ $json.city }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 28, \"text_color\": \"#B0C4DE\", \"position\": { \"x\": 60, \"y\": 240 }, \"dimensions\": { \"width\": 960, \"height\": 40 } },\n  { \"type\": \"text\", \"index\": 4, \"text\": \"{{ $json.listing_price }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 64, \"text_color\": \"#FFFFFF\", \"position\": { \"x\": 60, \"y\": 400 }, \"dimensions\": { \"width\": 960, \"height\": 90 }, \"font_weight\": \"bold\" },\n  { \"type\": \"text\", \"index\": 5, \"text\": \"{{ $json.bedrooms }} BD  |  {{ $json.bathrooms }} BA  |  {{ $json.square_footage }} SQ FT\", \"font_name\": \"Arial\", \"font_size_in_px\": 28, \"text_color\": \"#FFFFFF\", \"position\": { \"x\": 60, \"y\": 520 }, \"dimensions\": { \"width\": 960, \"height\": 40 } },\n  { \"type\": \"text\", \"index\": 6, \"text\": \"{{ $json.agent_name }} — Crestview Realty Group\\n{{ $json.agent_phone }}\", \"font_name\": \"Arial\", \"font_size_in_px\": 22, \"text_color\": \"#B0C4DE\", \"position\": { \"x\": 60, \"y\": 920 }, \"dimensions\": { \"width\": 960, \"height\": 100 } }\n]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        300
+      ],
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef0123456708",
+      "name": "Generate Social Image",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Listing Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Listing Data": {
+      "main": [
+        [
+          {
+            "node": "Generate Brochure PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Brochure PDF": {
+      "main": [
+        [
+          {
+            "node": "Generate Social Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

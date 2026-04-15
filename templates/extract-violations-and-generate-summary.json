@@ -1,0 +1,102 @@
+{
+  "name": "Extract violations and generate fine summary in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Violations and Generate a Fine Summary\n\nFleet management agencies use this pipeline to process stacks of traffic fine notices — extracting violation details and generating a consolidated spreadsheet for client review, accounting, and driver accountability.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789001",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Violation Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789002",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Summary Spreadsheet\nResource: **Sheet Generation**\n\nConfigure the Sheet Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [725, 100],
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789003",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789004",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"violation_number\",\"type\":\"TEXT\",\"description\":\"Violation or ticket reference number\"},{\"name\":\"violation_date\",\"type\":\"DATE\",\"description\":\"Date the violation occurred\"},{\"name\":\"vehicle_plate\",\"type\":\"TEXT\",\"description\":\"License plate number\"},{\"name\":\"driver_name\",\"type\":\"TEXT\",\"description\":\"Name of the driver if listed\"},{\"name\":\"violation_type\",\"type\":\"TEXT\",\"description\":\"Type of violation\"},{\"name\":\"location\",\"type\":\"TEXT\",\"description\":\"Location where the violation occurred\"},{\"name\":\"fine_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Fine amount\"},{\"name\":\"due_date\",\"type\":\"DATE\",\"description\":\"Payment due date\"},{\"name\":\"points\",\"type\":\"INTEGER\",\"description\":\"Penalty points assigned\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "fine-notice-TRF-2026-4471.pdf",
+              "fileUrl": "https://example.com/fines/fine-notice-TRF-2026-4471.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789005",
+      "name": "Extract Violation Data",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "sheetGeneration",
+        "format": "xlsx",
+        "sheetsJson": "[{\"name\":\"Violation Summary\",\"columns\":[{\"name\":\"Violation #\",\"width\":20},{\"name\":\"Date\",\"width\":14},{\"name\":\"Plate\",\"width\":14},{\"name\":\"Driver\",\"width\":22},{\"name\":\"Type\",\"width\":18},{\"name\":\"Location\",\"width\":30},{\"name\":\"Fine\",\"width\":14},{\"name\":\"Due Date\",\"width\":14},{\"name\":\"Points\",\"width\":10}],\"rows\":[[{\"value\":\"{{ $json.violation_number }}\"},{\"value\":\"{{ $json.violation_date }}\",\"format\":\"date\"},{\"value\":\"{{ $json.vehicle_plate }}\"},{\"value\":\"{{ $json.driver_name }}\"},{\"value\":\"{{ $json.violation_type }}\"},{\"value\":\"{{ $json.location }}\"},{\"value\":\"{{ $json.fine_amount }}\",\"format\":\"currency\",\"currency_code\":\"EUR\"},{\"value\":\"{{ $json.due_date }}\",\"format\":\"date\"},{\"value\":\"{{ $json.points }}\",\"format\":\"number\"}]]}]"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [750, 300],
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789006",
+      "name": "Generate Summary Spreadsheet",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Violation Data", "type": "main", "index": 0 }]]
+    },
+    "Extract Violation Data": {
+      "main": [[{ "node": "Generate Summary Spreadsheet", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

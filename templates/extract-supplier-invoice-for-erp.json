@@ -1,0 +1,71 @@
+{
+  "name": "Extract supplier invoice data for ERP import in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Supplier Invoice Data for ERP Import\n\nFinance agencies and outsourced AP teams use this recipe to process supplier invoices into structured data that maps directly to ERP import fields — vendor ID, GL codes, tax breakdowns, and payment terms — eliminating manual data entry.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "a7b8c9d0-e1f2-3456-abcd-456789012301",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Invoice Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "a7b8c9d0-e1f2-3456-abcd-456789012302",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "a7b8c9d0-e1f2-3456-abcd-456789012303",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"vendor_name\",\"type\":\"TEXT\",\"description\":\"Supplier or vendor company name\"},{\"name\":\"vendor_tax_id\",\"type\":\"TEXT\",\"description\":\"Vendor VAT or tax identification number\"},{\"name\":\"vendor_iban\",\"type\":\"IBAN\",\"description\":\"Vendor bank account IBAN\"},{\"name\":\"invoice_number\",\"type\":\"TEXT\",\"description\":\"Supplier invoice number\"},{\"name\":\"invoice_date\",\"type\":\"DATE\",\"description\":\"Invoice issue date\"},{\"name\":\"due_date\",\"type\":\"DATE\",\"description\":\"Payment due date\"},{\"name\":\"payment_terms\",\"type\":\"TEXT\",\"description\":\"Payment terms\"},{\"name\":\"currency\",\"type\":\"CURRENCY_CODE\",\"description\":\"Invoice currency\"},{\"name\":\"line_items\",\"type\":\"ARRAY\",\"description\":\"Invoice line items\",\"item_schema\":{\"fields\":[{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Item or service description\"},{\"name\":\"gl_code\",\"type\":\"TEXT\",\"description\":\"General ledger account code\"},{\"name\":\"quantity\",\"type\":\"DECIMAL\",\"description\":\"Quantity\"},{\"name\":\"unit_price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Unit price\"},{\"name\":\"line_total\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Line item total\"}]}},{\"name\":\"subtotal\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Subtotal before tax\"},{\"name\":\"tax_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total tax amount\"},{\"name\":\"tax_rate\",\"type\":\"DECIMAL\",\"description\":\"Tax rate as a percentage\"},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total amount due\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "supplier-invoice-SI-8842.pdf",
+              "fileUrl": "https://example.com/invoices/supplier-invoice-SI-8842.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "a7b8c9d0-e1f2-3456-abcd-456789012304",
+      "name": "Extract Invoice Data",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Invoice Data", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

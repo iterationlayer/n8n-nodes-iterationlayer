@@ -1,0 +1,71 @@
+{
+  "name": "Extract property deed data in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Property Deed Data\n\nReal estate agencies and title companies use this recipe to process property deeds — extracting grantor/grantee details, legal descriptions, and encumbrances for title searches and transaction management.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "f2a3b4c5-d6e7-8901-fabc-901234567801",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Deed Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "f2a3b4c5-d6e7-8901-fabc-901234567802",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "f2a3b4c5-d6e7-8901-fabc-901234567803",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"recording_number\",\"type\":\"TEXT\",\"description\":\"Recording or instrument number\"},{\"name\":\"recording_date\",\"type\":\"DATE\",\"description\":\"Date recorded\"},{\"name\":\"deed_type\",\"type\":\"TEXT\",\"description\":\"Type of deed\"},{\"name\":\"grantor\",\"type\":\"TEXT\",\"description\":\"Grantor name\"},{\"name\":\"grantee\",\"type\":\"TEXT\",\"description\":\"Grantee name\"},{\"name\":\"property_address\",\"type\":\"ADDRESS\",\"description\":\"Property address\"},{\"name\":\"legal_description\",\"type\":\"TEXTAREA\",\"description\":\"Legal description\"},{\"name\":\"parcel_number\",\"type\":\"TEXT\",\"description\":\"Parcel number\"},{\"name\":\"consideration_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Consideration amount\"},{\"name\":\"encumbrances\",\"type\":\"TEXTAREA\",\"description\":\"Encumbrances\"},{\"name\":\"notary_name\",\"type\":\"TEXT\",\"description\":\"Notary name\"},{\"name\":\"county\",\"type\":\"TEXT\",\"description\":\"County\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "deed-2026-DR-18742.pdf",
+              "fileUrl": "https://example.com/deeds/deed-2026-DR-18742.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "f2a3b4c5-d6e7-8901-fabc-901234567804",
+      "name": "Extract Deed Data",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract Deed Data", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

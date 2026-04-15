@@ -1,0 +1,102 @@
+{
+  "name": "Extract KPIs and generate client report in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract KPIs and Generate a Client Report\n\nMarketing and consulting agencies use this pipeline to automate monthly client reporting — extracting performance metrics from analytics exports or campaign summaries and generating branded PDF reports ready for delivery.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678901",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract KPIs\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678902",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {
+        "content": "### Step 2: Generate Report PDF\nResource: **Document Generation**\n\nConfigure the Document Generation parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [725, 100],
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678903",
+      "name": "Step 2 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678904",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"client_name\",\"type\":\"TEXT\",\"description\":\"Client or company name\"},{\"name\":\"report_period\",\"type\":\"TEXT\",\"description\":\"Reporting period\"},{\"name\":\"total_impressions\",\"type\":\"INTEGER\",\"description\":\"Total ad impressions\"},{\"name\":\"total_clicks\",\"type\":\"INTEGER\",\"description\":\"Total ad clicks\"},{\"name\":\"click_through_rate\",\"type\":\"DECIMAL\",\"description\":\"Click-through rate as a percentage\"},{\"name\":\"total_conversions\",\"type\":\"INTEGER\",\"description\":\"Total conversions\"},{\"name\":\"cost_per_conversion\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Average cost per conversion\"},{\"name\":\"total_spend\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total advertising spend\"},{\"name\":\"return_on_ad_spend\",\"type\":\"DECIMAL\",\"description\":\"Return on ad spend ratio\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "campaign-summary-q1.pdf",
+              "fileUrl": "https://example.com/reports/campaign-summary-q1-2026.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678905",
+      "name": "Extract KPIs",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "documentGeneration",
+        "format": "pdf",
+        "documentJson": "{\n  \"metadata\": {\n    \"title\": \"{{ $json.report_period }} Campaign Performance — {{ $json.client_name }}\",\n    \"author\": \"Spark Digital Agency\"\n  },\n  \"page\": {\n    \"size\": { \"preset\": \"A4\" },\n    \"margins\": { \"top_in_pt\": 54, \"right_in_pt\": 54, \"bottom_in_pt\": 54, \"left_in_pt\": 54 }\n  },\n  \"content\": [\n    { \"type\": \"headline\", \"level\": \"h1\", \"text\": \"Spark Digital Agency\" },\n    { \"type\": \"headline\", \"level\": \"h2\", \"text\": \"Campaign Performance Report — {{ $json.report_period }}\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"Prepared for: \", \"font_weight\": \"bold\" }, { \"text\": \"{{ $json.client_name }}\" }] },\n    { \"type\": \"separator\" },\n    { \"type\": \"headline\", \"level\": \"h3\", \"text\": \"Key Performance Indicators\" },\n    { \"type\": \"table\", \"header\": { \"cells\": [{ \"text\": \"Metric\" }, { \"text\": \"Value\" }] }, \"rows\": [{ \"cells\": [{ \"text\": \"Total Impressions\" }, { \"text\": \"{{ $json.total_impressions }}\" }] }, { \"cells\": [{ \"text\": \"Total Clicks\" }, { \"text\": \"{{ $json.total_clicks }}\" }] }, { \"cells\": [{ \"text\": \"CTR\" }, { \"text\": \"{{ $json.click_through_rate }}%\" }] }, { \"cells\": [{ \"text\": \"Total Conversions\" }, { \"text\": \"{{ $json.total_conversions }}\" }] }, { \"cells\": [{ \"text\": \"Cost per Conversion\" }, { \"text\": \"{{ $json.cost_per_conversion }}\" }] }, { \"cells\": [{ \"text\": \"Total Spend\" }, { \"text\": \"{{ $json.total_spend }}\" }] }, { \"cells\": [{ \"text\": \"ROAS\" }, { \"text\": \"{{ $json.return_on_ad_spend }}x\" }] }] },\n    { \"type\": \"separator\" },\n    { \"type\": \"paragraph\", \"runs\": [{ \"text\": \"Report generated by Spark Digital Agency.\" }] }\n  ]\n}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [750, 300],
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678906",
+      "name": "Generate Report PDF",
+      "credentials": {
+        "iterationLayerApi": { "id": "1", "name": "Iteration Layer API" }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Extract KPIs", "type": "main", "index": 0 }]]
+    },
+    "Extract KPIs": {
+      "main": [[{ "node": "Generate Report PDF", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

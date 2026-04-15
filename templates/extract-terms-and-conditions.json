@@ -1,0 +1,82 @@
+{
+  "name": "Extract terms and conditions in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Terms and Conditions\n\nLegal agencies, compliance teams, and e-commerce platforms use this recipe to extract key clauses from vendor or partner terms — pulling out termination conditions, liability caps, data handling provisions, and governing law for contract review and risk assessment.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "a4b5c6d7-e8f9-0123-abcd-890123456701",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Terms and Conditions\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "a4b5c6d7-e8f9-0123-abcd-890123456702",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "a4b5c6d7-e8f9-0123-abcd-890123456703",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"document_title\",\"type\":\"TEXT\",\"description\":\"Title of the terms document\"},{\"name\":\"effective_date\",\"type\":\"DATE\",\"description\":\"Effective date of the terms\"},{\"name\":\"parties\",\"type\":\"TEXT\",\"description\":\"Parties to the agreement\"},{\"name\":\"termination_clause\",\"type\":\"TEXTAREA\",\"description\":\"Termination conditions and notice period\"},{\"name\":\"liability_limitation\",\"type\":\"TEXTAREA\",\"description\":\"Liability limitation or cap\"},{\"name\":\"indemnification\",\"type\":\"TEXTAREA\",\"description\":\"Indemnification obligations\"},{\"name\":\"data_handling\",\"type\":\"TEXTAREA\",\"description\":\"Data processing and privacy provisions\"},{\"name\":\"governing_law\",\"type\":\"TEXT\",\"description\":\"Governing law and jurisdiction\"},{\"name\":\"payment_terms\",\"type\":\"TEXT\",\"description\":\"Payment terms and conditions\"},{\"name\":\"auto_renewal\",\"type\":\"BOOLEAN\",\"description\":\"Whether the agreement auto-renews\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "vendor-terms-cloudpeak.pdf",
+              "fileUrl": "https://example.com/contracts/vendor-terms-cloudpeak-2026.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "a4b5c6d7-e8f9-0123-abcd-890123456704",
+      "name": "Extract Terms and Conditions",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Terms and Conditions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

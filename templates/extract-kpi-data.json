@@ -1,0 +1,82 @@
+{
+  "name": "Extract KPI data in Iteration Layer",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract KPI Data\n\nMarketing agencies, analytics teams, and finance departments use this recipe to extract performance metrics from campaign summaries or quarterly reports — pulling out KPIs like impressions, conversions, spend, and ROAS for dashboards and automated reporting.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 40],
+      "id": "e2f3a4b5-c6d7-8901-efab-678901234501",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract KPI Data\nResource: **Document Extraction**\n\nConfigure the Document Extraction parameters below, then connect your credentials.",
+        "height": 160,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [475, 100],
+      "id": "e2f3a4b5-c6d7-8901-efab-678901234502",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "id": "e2f3a4b5-c6d7-8901-efab-678901234503",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "documentExtraction",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"client_name\",\"type\":\"TEXT\",\"description\":\"Client or company name\"},{\"name\":\"report_period\",\"type\":\"TEXT\",\"description\":\"Reporting period\"},{\"name\":\"total_impressions\",\"type\":\"INTEGER\",\"description\":\"Total ad impressions\"},{\"name\":\"total_clicks\",\"type\":\"INTEGER\",\"description\":\"Total ad clicks\"},{\"name\":\"click_through_rate\",\"type\":\"DECIMAL\",\"description\":\"Click-through rate as a percentage\"},{\"name\":\"total_conversions\",\"type\":\"INTEGER\",\"description\":\"Total conversions or leads generated\"},{\"name\":\"cost_per_conversion\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Average cost per conversion\"},{\"name\":\"total_spend\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total advertising spend\"},{\"name\":\"return_on_ad_spend\",\"type\":\"DECIMAL\",\"description\":\"Return on ad spend ratio\"}]}",
+        "files": {
+          "fileValues": [
+            {
+              "fileInputMode": "url",
+              "fileName": "campaign-summary-q1.pdf",
+              "fileUrl": "https://example.com/reports/campaign-summary-q1-2026.pdf"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "id": "e2f3a4b5-c6d7-8901-efab-678901234504",
+      "name": "Extract KPI Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract KPI Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
