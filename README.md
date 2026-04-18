@@ -93,6 +93,7 @@ All resources support async mode. Enable it and provide a webhook URL — the AP
 
 ## Links
 
+- [npm Package](https://www.npmjs.com/package/n8n-nodes-iterationlayer)
 - [Iteration Layer Docs](https://iterationlayer.com/docs)
 - [n8n Integration Guide](https://iterationlayer.com/docs/n8n)
 - [API Reference](https://iterationlayer.com/docs/document-extraction)
