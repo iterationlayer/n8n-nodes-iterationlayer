@@ -4,119 +4,83 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const N8N_DIR = join(__dirname, "..");
 
 const N8N_URL = process.env.N8N_URL || "http://localhost:5678";
-const API_KEY = process.env.IL_API_KEY;
-const BASE_URL = process.env.IL_BASE_URL || "http://api.localhost:4000";
-const VIDEO_DIR = join(__dirname, "demo-videos");
-const OUTPUT_PATH = join(__dirname, "demo.webm");
+const AUTH_COOKIE = process.env.N8N_AUTH_COOKIE;
+const OUTPUT_DIR = process.env.DEMO_OUTPUT_DIR || N8N_DIR;
+const VIDEO_DIR = join(OUTPUT_DIR, "demo-videos");
+const OUTPUT_PATH = join(OUTPUT_DIR, "demo.webm");
+const PAUSE_IN_MS = 800;
+const RESULT_PAUSE_IN_MS = 4_000;
 
-if (!API_KEY) {
-  console.error("IL_API_KEY environment variable is required");
+if (!AUTH_COOKIE) {
+  console.error("N8N_AUTH_COOKIE environment variable is required");
   process.exit(1);
 }
 
 mkdirSync(VIDEO_DIR, { recursive: true });
 
-// --- Setup via n8n REST API ---
-
-let authCookie = null;
-
-async function n8nApi(method, path, body) {
-  const options = {
-    method,
-    headers: { "content-type": "application/json" },
-  };
-
-  if (authCookie) {
-    options.headers.cookie = authCookie;
-  }
-
-  if (body) {
-    options.body = JSON.stringify(body);
-  }
-
-  const response = await fetch(`${N8N_URL}${path}`, options);
-  const setCookie = response.headers.getSetCookie?.() ?? [];
-  const maybeAuth = setCookie.find((cookie) =>
-    cookie.startsWith("n8n-auth="),
-  );
-
-  if (maybeAuth) {
-    authCookie = maybeAuth.split(";").at(0);
-  }
-
-  return response.json();
-}
-
-console.log("1. Setting up n8n via REST API...");
-
-await n8nApi("POST", "/rest/owner/setup", {
-  email: "demo@iterationlayer.com",
-  password: "DemoPassword123!",
-  firstName: "Demo",
-  lastName: "User",
-});
-
-if (!authCookie) {
-  await n8nApi("POST", "/rest/login", {
-    emailOrLdapLoginId: "demo@iterationlayer.com",
-    password: "DemoPassword123!",
-  });
-}
-
-if (!authCookie) {
-  throw new Error("Could not authenticate with n8n");
-}
-
-console.log("   Account ready");
-
-console.log("2. Installing community node...");
-await n8nApi("POST", "/rest/community-packages", {
-  name: "n8n-nodes-iterationlayer",
-});
-console.log("   Node installed");
-
-console.log("3. Creating credential...");
-const credentialResult = await n8nApi("POST", "/rest/credentials", {
-  name: "Iteration Layer account",
-  type: "iterationLayerApi",
-  data: { apiKey: API_KEY, baseUrl: BASE_URL },
-});
-console.log(
-  `   Credential created (id: ${credentialResult.data?.id ?? credentialResult.id})`,
-);
-
-// --- Browser automation ---
-
 const browser = await chromium.launch({
   executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined,
 });
 
+const authCookieEntry = {
+  name: AUTH_COOKIE.split("=").at(0),
+  value: AUTH_COOKIE.split("=").slice(1).join("="),
+  domain: new URL(N8N_URL).hostname,
+  path: "/",
+};
+
+// Dismiss onboarding in an unrecorded context
+const setupContext = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+await setupContext.addCookies([authCookieEntry]);
+const setupPage = await setupContext.newPage();
+await setupPage.goto(`${N8N_URL}/home/workflows`);
+await setupPage.waitForTimeout(2_000);
+
+for (const buttonName of ["Skip", "Get started", "Close", "Dismiss", "Not now"]) {
+  const button = setupPage.getByRole("button", { name: buttonName });
+
+  if (await button.isVisible({ timeout: 300 }).catch(() => false)) {
+    await button.click();
+    await setupPage.waitForTimeout(300);
+  }
+}
+
+await setupPage.keyboard.press("Escape");
+await setupPage.waitForTimeout(300);
+await setupPage.close();
+await setupContext.close();
+
+// Start recorded context
 const context = await browser.newContext({
   viewport: { width: 1280, height: 720 },
   recordVideo: { dir: VIDEO_DIR, size: { width: 1280, height: 720 } },
 });
 
+await context.addInitScript(() => {
+  const style = document.createElement("style");
+  style.textContent = "* { cursor: none !important; }";
+  document.head.appendChild(style);
+});
+
+await context.addCookies([authCookieEntry]);
 const page = await context.newPage();
 
-// Inject auth cookie
-const cookieParts = authCookie.split("=");
-await context.addCookies([
-  {
-    name: cookieParts.at(0),
-    value: cookieParts.slice(1).join("="),
-    domain: new URL(N8N_URL).hostname,
-    path: "/",
-  },
-]);
+// Helpers
 
-// --- Helpers ---
+async function pause() {
+  await page.waitForTimeout(PAUSE_IN_MS);
+}
+
+async function showResult() {
+  await page.waitForTimeout(RESULT_PAUSE_IN_MS);
+}
 
 async function waitForExecution(timeoutInMs = 60_000) {
   const startedAt = Date.now();
 
-  // First wait for execution to start (🔄 in title)
   while (Date.now() - startedAt < timeoutInMs) {
     const title = await page.title();
 
@@ -125,14 +89,12 @@ async function waitForExecution(timeoutInMs = 60_000) {
     }
 
     if (title.includes("⚠️") || title.includes("▶️")) {
-      // Already finished (very fast execution)
       return;
     }
 
     await page.waitForTimeout(200);
   }
 
-  // Then wait for execution to complete
   while (Date.now() - startedAt < timeoutInMs) {
     const title = await page.title();
 
@@ -147,14 +109,18 @@ async function waitForExecution(timeoutInMs = 60_000) {
 }
 
 async function selectResource(optionText) {
+  await pause();
   await page
     .locator('[data-test-id="parameter-input-resource"]')
     .getByRole("combobox", { name: "Select" })
     .click();
+  await pause();
   await page.getByRole("option", { name: optionText }).click();
+  await pause();
 }
 
 async function executeAndExpectSuccess() {
+  await pause();
   await page.locator('[data-test-id="node-execute-button"]').click();
   await waitForExecution();
   const title = await page.title();
@@ -162,6 +128,8 @@ async function executeAndExpectSuccess() {
   if (title.includes("⚠️")) {
     throw new Error("Execution failed (⚠️ in title)");
   }
+
+  await showResult();
 }
 
 async function fillInput(parameterName, value) {
@@ -170,6 +138,7 @@ async function fillInput(parameterName, value) {
       `[data-test-id="parameter-input-${parameterName}"] [data-test-id="parameter-input-field"]`,
     )
     .fill(value);
+  await pause();
 }
 
 async function selectOption(parameterName, optionText) {
@@ -177,86 +146,74 @@ async function selectOption(parameterName, optionText) {
     .locator(`[data-test-id="parameter-input-${parameterName}"]`)
     .getByRole("combobox", { name: "Select" })
     .click();
+  await pause();
   await page.getByRole("option", { name: optionText }).click();
+  await pause();
 }
 
-// --- Test flow ---
+// Test flow
 
 try {
-  // Dismiss onboarding
-  console.log("4. Dismissing onboarding...");
-  await page.goto(`${N8N_URL}/home/workflows`);
-  await page.waitForTimeout(2000);
-
-  for (const buttonName of [
-    "Skip",
-    "Get started",
-    "Close",
-    "Dismiss",
-    "Not now",
-  ]) {
-    const button = page.getByRole("button", { name: buttonName });
-
-    if (await button.isVisible({ timeout: 500 }).catch(() => false)) {
-      await button.click();
-      await page.waitForTimeout(500);
-    }
-  }
-
-  // Create workflow
-  console.log("5. Creating workflow...");
+  console.log("Creating workflow...");
   await page.goto(`${N8N_URL}/workflow/new`);
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(2_000);
   await page.keyboard.press("Escape");
-  await page.waitForTimeout(500);
+  await pause();
 
   await page.getByRole("group").click();
+  await pause();
   await page
     .locator('[data-test-id="node-creator-node-item"]')
     .first()
     .click();
+  await pause();
 
-  // Add Iteration Layer node
-  console.log("6. Adding Iteration Layer node...");
+  console.log("Adding Iteration Layer node...");
   await page
     .locator('[data-test-id="node-creator-plus-button"]')
     .click();
+  await pause();
   await page
     .locator('[data-test-id="node-creator-search-bar"]')
     .fill("Iteration Layer");
+  await pause();
   await page.locator('[data-test-id="node-creator-node-item"]').click();
+  await pause();
   await page.getByRole("button", { name: "Add to workflow" }).click();
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(1_000);
   await page
     .locator('[data-test-id="node-execute-button"]')
     .waitFor({ timeout: 5_000 });
+  await pause();
 
-  // --- Document Extraction ---
-  console.log("7. Testing Document Extraction...");
+  // Document Extraction
+  console.log("Testing Document Extraction...");
   await page.getByRole("button", { name: "Add File" }).first().click();
+  await pause();
   await selectOption("fileInputMode", "URL");
   await fillInput("fileUrl", "https://pdfobject.com/pdf/sample.pdf");
   await fillInput("fileName", "sample.pdf");
 
   await page.getByRole("button", { name: "Add Field" }).first().click();
+  await pause();
   await fillInput("name", "title");
   await fillInput("description", "The title of the document");
 
   await executeAndExpectSuccess();
-  console.log("   ✓ Document Extraction passed");
+  console.log("  ✓ Document Extraction passed");
 
-  // --- Document to Markdown ---
-  console.log("8. Testing Document to Markdown...");
+  // Document to Markdown
+  console.log("Testing Document to Markdown...");
   await selectResource("Document to Markdown Convert");
   await selectOption("fileInputMode", "URL");
   await fillInput("fileUrl", "https://pdfobject.com/pdf/sample.pdf");
   await fillInput("fileName", "sample.pdf");
 
   await executeAndExpectSuccess();
-  console.log("   ✓ Document to Markdown passed");
+  console.log("  ✓ Document to Markdown passed");
 
-  // --- Image Transformation ---
-  console.log("9. Testing Image Transformation...");
+  // Image Transformation
+  console.log("Testing Image Transformation...");
   await selectResource("Image Transformation Resize,");
   await fillInput("fileUrl", "https://picsum.photos/id/237/800/600");
   await fillInput("fileName", "photo.jpg");
@@ -264,35 +221,36 @@ try {
     .getByRole("button", { name: "Add Operation" })
     .first()
     .click();
+  await pause();
 
   await executeAndExpectSuccess();
-  console.log("   ✓ Image Transformation passed");
+  console.log("  ✓ Image Transformation passed");
 
-  // --- Image Generation ---
-  console.log("10. Testing Image Generation...");
+  // Image Generation
+  console.log("Testing Image Generation...");
   await selectResource("Image Generation Generate");
 
   await executeAndExpectSuccess();
-  console.log("   ✓ Image Generation passed");
+  console.log("  ✓ Image Generation passed");
 
-  // --- Document Generation ---
-  console.log("11. Testing Document Generation...");
+  // Document Generation
+  console.log("Testing Document Generation...");
   await selectResource("Document Generation Generate");
 
   await executeAndExpectSuccess();
-  console.log("   ✓ Document Generation passed");
+  console.log("  ✓ Document Generation passed");
 
-  // --- Sheet Generation ---
-  console.log("12. Testing Sheet Generation...");
+  // Sheet Generation
+  console.log("Testing Sheet Generation...");
   await selectResource("Sheet Generation Generate");
 
   await executeAndExpectSuccess();
-  console.log("   ✓ Sheet Generation passed");
+  console.log("  ✓ Sheet Generation passed");
 
   console.log("\nAll tests passed!");
 } catch (error) {
   console.error(`\nFailed: ${error.message}`);
-  await page.screenshot({ path: join(__dirname, "debug-failure.png") });
+  await page.screenshot({ path: join(OUTPUT_DIR, "debug-failure.png") });
   process.exitCode = 1;
 } finally {
   await page.close();

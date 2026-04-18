@@ -4,6 +4,10 @@ n8n community node for the [Iteration Layer](https://iterationlayer.com) API.
 
 Extract data from documents, transform images, generate images, and create documents — all from your n8n workflows.
 
+## Demo
+
+<video src="https://github.com/iterationlayer/n8n-nodes-iterationlayer/raw/main/demo.mp4" width="100%" autoplay loop muted></video>
+
 ## Installation
 
 ### Via n8n UI (recommended)
@@ -31,7 +35,7 @@ Restart n8n after installation.
 
 ## Resources
 
-The node provides four resources, one for each Iteration Layer API:
+The node provides one resource per Iteration Layer API:
 
 ### Document Extraction
 
@@ -62,11 +66,26 @@ Generate PDF, DOCX, EPUB, or PPTX documents from structured JSON definitions inc
 - **Format**: PDF, DOCX, EPUB, or PPTX
 - **Document**: JSON object with the full document definition (see [API docs](https://iterationlayer.com/docs/document-generation))
 
+### Document to Markdown
+
+Convert PDFs, DOCX, PPTX, and other documents into clean, structured Markdown.
+
+- **File input**: Binary data or URL
+- **Output**: Markdown text with the document's content
+
+### Sheet Generation
+
+Generate XLSX, CSV, or Markdown spreadsheets from structured JSON definitions.
+
+- **Sheets**: JSON array defining sheet names, columns, and row data
+- **Styles**: Optional header and body cell styles
+- **Output format**: XLSX, CSV, or Markdown
+
 ## Binary Data
 
-Image Transformation, Image Generation, and Document Generation return binary data. The output is available as n8n binary data that you can pass to downstream nodes (e.g., write to disk, send via email, upload to S3).
+Image Transformation, Image Generation, Document Generation, and Sheet Generation return binary data. The output is available as n8n binary data that you can pass to downstream nodes (e.g., write to disk, send via email, upload to S3).
 
-Document Extraction returns JSON data with extracted field values and confidence scores.
+Document Extraction returns JSON data with extracted field values and confidence scores. Document to Markdown returns JSON with the markdown text.
 
 ## Async Mode
 
@@ -78,6 +97,10 @@ All resources support async mode. Enable it and provide a webhook URL — the AP
 - [n8n Integration Guide](https://iterationlayer.com/docs/n8n)
 - [API Reference](https://iterationlayer.com/docs/document-extraction)
 - [Get an API Key](https://platform.iterationlayer.com)
+
+## Issues & Feedback
+
+Please report bugs and request features in the [issues repository](https://github.com/iterationlayer/issues).
 
 ## License
 
