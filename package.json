@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-iterationlayer",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "n8n community node for the Iteration Layer API — document extraction, image transformation, image generation, document generation, and sheet generation.",
   "keywords": [
     "n8n-community-node-package"
