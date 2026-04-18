@@ -570,7 +570,7 @@ describe("IterationLayer Node", () => {
       const requestBody = mockFunctions.helpers.httpRequestWithAuthentication.mock.calls
         .at(0)
         ?.at(1)?.body;
-      expect(requestBody.dimensions).toEqual({ width_in_px: 1200, height_in_px: 630 });
+      expect(requestBody.dimensions).toEqual({ width: 1200, height: 630 });
       expect(requestBody.layers).toEqual([{ type: "solid-color", index: 0, hex_color: "#FFFFFF" }]);
       expect(requestBody.output_format).toBe("png");
 

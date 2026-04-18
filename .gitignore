@@ -1,2 +1,5 @@
 node_modules/
 *.tsbuildinfo
+demo-videos/
+demo.webm
+demo.mp4

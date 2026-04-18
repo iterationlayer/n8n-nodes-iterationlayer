@@ -1,6 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sheetGenerationProperties = void 0;
+const DEFAULT_SHEETS = [
+    {
+        name: "Sheet 1",
+        columns: [{ name: "Name" }, { name: "Amount" }],
+        rows: [
+            ["Item A", 100],
+            ["Item B", 200],
+        ],
+    },
+];
 const FORMAT_OPTIONS = [
     { name: "XLSX", value: "xlsx" },
     { name: "CSV", value: "csv" },
@@ -24,7 +34,7 @@ exports.sheetGenerationProperties = [
         displayName: "Sheets (JSON)",
         name: "sheetsJson",
         type: "json",
-        default: '[\n  {\n    "name": "Sheet 1",\n    "columns": [\n      {\n        "name": "Name"\n      },\n      {\n        "name": "Amount"\n      }\n    ],\n    "rows": [\n      [\n        "Item A",\n        100\n      ],\n      [\n        "Item B",\n        200\n      ]\n    ]\n  }\n]',
+        default: JSON.stringify(DEFAULT_SHEETS, null, 2),
         description: "JSON array of sheets. Each sheet has a name, columns (with name and optional width), and rows of cell values. See https://iterationlayer.com/docs/sheet-generation for the full schema.",
         displayOptions: {
             show: {

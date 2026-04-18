@@ -313,7 +313,10 @@ async function executeImageGeneration(executeFunctions, itemIndex, baseUrl, mayb
     const layers = typeof layersJsonRaw === "string" ? JSON.parse(layersJsonRaw) : layersJsonRaw;
     const fonts = typeof fontsJsonRaw === "string" ? JSON.parse(fontsJsonRaw) : fontsJsonRaw;
     const requestBody = {
-        dimensions: { width_in_px: widthInPx, height_in_px: heightInPx },
+        dimensions: {
+            width: widthInPx,
+            height: heightInPx,
+        },
         layers,
         output_format: outputFormat,
     };

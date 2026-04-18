@@ -460,7 +460,10 @@ async function executeImageGeneration(
   const fonts = typeof fontsJsonRaw === "string" ? JSON.parse(fontsJsonRaw) : fontsJsonRaw;
 
   const requestBody = {
-    dimensions: { width_in_px: widthInPx, height_in_px: heightInPx },
+    dimensions: {
+      width: widthInPx,
+      height: heightInPx,
+    },
     layers,
     output_format: outputFormat,
   } as unknown as IDataObject;

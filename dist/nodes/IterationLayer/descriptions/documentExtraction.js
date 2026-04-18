@@ -149,7 +149,15 @@ exports.documentExtractionProperties = [
         displayName: "Schema JSON",
         name: "schemaJson",
         type: "json",
-        default: '{\n  "fields": [\n    {\n      "name": "invoice_number",\n      "type": "TEXT",\n      "description": "The invoice number"\n    }\n  ]\n}',
+        default: JSON.stringify({
+            fields: [
+                {
+                    name: "invoice_number",
+                    type: "TEXT",
+                    description: "The invoice number",
+                },
+            ],
+        }, null, 2),
         description: "Full schema as JSON. Required for advanced field types like ARRAY (nested schemas) and CALCULATED fields.",
         displayOptions: {
             show: {

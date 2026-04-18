@@ -1,6 +1,37 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.imageGenerationProperties = void 0;
+const DEFAULT_LAYERS = [
+    {
+        type: "solid-color",
+        index: 0,
+        hex_color: "#FFFFFF",
+        position: {
+            x_in_px: 0,
+            y_in_px: 0,
+        },
+        dimensions: {
+            width_in_px: 1_200,
+            height_in_px: 630,
+        },
+    },
+    {
+        type: "text",
+        index: 1,
+        text: "Hello World",
+        font_name: "Roboto",
+        font_size_in_px: 48,
+        text_color: "#000000",
+        position: {
+            x_in_px: 50,
+            y_in_px: 50,
+        },
+        dimensions: {
+            width_in_px: 1_100,
+            height_in_px: 100,
+        },
+    },
+];
 const OUTPUT_FORMAT_OPTIONS = [
     { name: "PNG", value: "png" },
     { name: "JPEG", value: "jpeg" },
@@ -50,7 +81,7 @@ exports.imageGenerationProperties = [
         displayName: "Layers (JSON)",
         name: "layersJson",
         type: "json",
-        default: '[\n  {\n    "type": "solid-color",\n    "index": 0,\n    "hex_color": "#FFFFFF",\n    "position": { "x_in_px": 0, "y_in_px": 0 },\n    "dimensions": { "width_in_px": 1200, "height_in_px": 630 }\n  },\n  {\n    "type": "text",\n    "index": 1,\n    "text": "Hello World",\n    "font_name": "Roboto",\n    "font_size_in_px": 48,\n    "text_color": "#000000",\n    "position": { "x_in_px": 50, "y_in_px": 50 },\n    "dimensions": { "width_in_px": 1100, "height_in_px": 100 }\n  }\n]',
+        default: JSON.stringify(DEFAULT_LAYERS, null, 2),
         description: "JSON array of layers. Supports types: solid-color, text, image, qr-code, barcode, gradient. See https://iterationlayer.com/docs/image-generation for the full schema.",
         displayOptions: {
             show: {
