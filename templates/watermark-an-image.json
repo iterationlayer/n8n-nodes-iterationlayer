@@ -50,7 +50,7 @@
         "widthInPx": 1200,
         "heightInPx": 800,
         "outputFormat": "png",
-        "layersJson": "[\n  {\n    \"index\": 0,\n    \"type\": \"image\",\n    \"buffer\": \"<base64-encoded-photo>\"\n  },\n  {\n    \"index\": 1,\n    \"type\": \"text\",\n    \"text\": \"\\u00a9 2026 Your Brand\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 48,\n    \"text_color\": \"#FFFFFF\",\n    \"text_align\": \"center\",\n    \"vertical_align\": \"center\",\n    \"position\": {\n      \"x\": 0.0,\n      \"y\": 0.0\n    },\n    \"dimensions\": {\n      \"width\": 1200,\n      \"height\": 800\n    },\n    \"opacity\": 30,\n    \"rotation_in_degrees\": -30.0\n  }\n]",
+        "layersJson": "[\n  {\n    \"index\": 0,\n    \"type\": \"image\",\n    \"buffer\": \"<base64-encoded-photo>\"\n  },\n  {\n    \"index\": 1,\n    \"type\": \"text\",\n    \"text\": \"\\u00a9 2026 Your Brand\",\n    \"font_name\": \"Inter\",\n    \"font_size_in_px\": 48,\n    \"text_color\": \"#FFFFFF\",\n    \"text_align\": \"center\",\n    \"vertical_align\": \"center\",\n    \"position\": {\n      \"x_in_px\": 0.0,\n      \"y_in_px\": 0.0\n    },\n    \"dimensions\": {\n      \"width_in_px\": 1200,\n      \"height_in_px\": 800\n    },\n    \"opacity\": 30,\n    \"rotation_in_degrees\": -30.0\n  }\n]",
         "fontsJson": "[]"
       },
       "type": "n8n-nodes-iterationlayer.iterationLayer",

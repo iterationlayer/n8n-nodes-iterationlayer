@@ -48,7 +48,7 @@
       "parameters": {
         "resource": "documentExtraction",
         "schemaInputMode": "rawJson",
-        "schemaJson": "{\"fields\":[{\"name\":\"vendor\",\"type\":\"TEXT\",\"description\":\"Vendor or supplier name\"},{\"name\":\"invoice_number\",\"type\":\"TEXT\",\"description\":\"Invoice reference number\"},{\"name\":\"date\",\"type\":\"DATE\",\"description\":\"Invoice date\"},{\"name\":\"line_items\",\"type\":\"ARRAY\",\"description\":\"Individual line items\",\"item_schema\":{\"fields\":[{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Item description\"},{\"name\":\"quantity\",\"type\":\"INTEGER\",\"description\":\"Quantity ordered\"},{\"name\":\"unit_price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Price per unit\"}]}},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total invoice amount\"}]}",
+        "schemaJson": "{\"fields\":[{\"name\":\"vendor\",\"type\":\"TEXT\",\"description\":\"Vendor or supplier name\"},{\"name\":\"invoice_number\",\"type\":\"TEXT\",\"description\":\"Invoice reference number\"},{\"name\":\"date\",\"type\":\"DATE\",\"description\":\"Invoice date\"},{\"name\":\"line_items\",\"type\":\"ARRAY\",\"description\":\"Individual line items\",\"fields\":[{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Item description\"},{\"name\":\"quantity\",\"type\":\"INTEGER\",\"description\":\"Quantity ordered\"},{\"name\":\"unit_price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Price per unit\"}]},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total invoice amount\"}]}",
         "files": {
           "fileValues": [
             {

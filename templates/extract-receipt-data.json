@@ -48,7 +48,7 @@
       "parameters": {
         "resource": "documentExtraction",
         "schemaInputMode": "rawJson",
-        "schemaJson": "{\"fields\":[{\"name\":\"merchant_name\",\"type\":\"TEXT\",\"description\":\"Name of the merchant or store\"},{\"name\":\"date\",\"type\":\"DATE\",\"description\":\"Date of the transaction\"},{\"name\":\"items\",\"type\":\"ARRAY\",\"description\":\"Individual line items on the receipt\",\"item_schema\":{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Item name or description\"},{\"name\":\"amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Item price\"}]}},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total amount charged\"},{\"name\":\"currency\",\"type\":\"CURRENCY_CODE\",\"description\":\"Currency code (e.g. USD, EUR)\"}]}",
+        "schemaJson": "{\"fields\":[{\"name\":\"merchant_name\",\"type\":\"TEXT\",\"description\":\"Name of the merchant or store\"},{\"name\":\"date\",\"type\":\"DATE\",\"description\":\"Date of the transaction\"},{\"name\":\"items\",\"type\":\"ARRAY\",\"description\":\"Individual line items on the receipt\",\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Item name or description\"},{\"name\":\"amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Item price\"}]},{\"name\":\"total_amount\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Total amount charged\"},{\"name\":\"currency\",\"type\":\"CURRENCY_CODE\",\"description\":\"Currency code (e.g. USD, EUR)\"}]}",
         "files": {
           "fileValues": [
             {

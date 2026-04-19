@@ -48,7 +48,7 @@
       "parameters": {
         "resource": "documentExtraction",
         "schemaInputMode": "rawJson",
-        "schemaJson": "{\"fields\":[{\"name\":\"patient_name\",\"type\":\"TEXT\",\"description\":\"Full name of the patient\"},{\"name\":\"date_of_birth\",\"type\":\"DATE\",\"description\":\"Patient date of birth\"},{\"name\":\"diagnoses\",\"type\":\"ARRAY\",\"description\":\"List of diagnoses\",\"item_schema\":{\"fields\":[{\"name\":\"code\",\"type\":\"TEXT\",\"description\":\"Diagnosis or ICD code\"},{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Diagnosis description\"}]}},{\"name\":\"medications\",\"type\":\"ARRAY\",\"description\":\"List of prescribed medications\",\"item_schema\":{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Medication name\"},{\"name\":\"dosage\",\"type\":\"TEXT\",\"description\":\"Prescribed dosage\"}]}}]}",
+        "schemaJson": "{\"fields\":[{\"name\":\"patient_name\",\"type\":\"TEXT\",\"description\":\"Full name of the patient\"},{\"name\":\"date_of_birth\",\"type\":\"DATE\",\"description\":\"Patient date of birth\"},{\"name\":\"diagnoses\",\"type\":\"ARRAY\",\"description\":\"List of diagnoses\",\"fields\":[{\"name\":\"code\",\"type\":\"TEXT\",\"description\":\"Diagnosis or ICD code\"},{\"name\":\"description\",\"type\":\"TEXT\",\"description\":\"Diagnosis description\"}]},{\"name\":\"medications\",\"type\":\"ARRAY\",\"description\":\"List of prescribed medications\",\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Medication name\"},{\"name\":\"dosage\",\"type\":\"TEXT\",\"description\":\"Prescribed dosage\"}]}]}",
         "files": {
           "fileValues": [
             {

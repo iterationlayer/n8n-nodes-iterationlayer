@@ -48,7 +48,7 @@
       "parameters": {
         "resource": "documentExtraction",
         "schemaInputMode": "rawJson",
-        "schemaJson": "{\"fields\":[{\"name\":\"products\",\"type\":\"ARRAY\",\"description\":\"List of products in the catalog\",\"item_schema\":{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Product name\"},{\"name\":\"sku\",\"type\":\"TEXT\",\"description\":\"Stock keeping unit identifier\"},{\"name\":\"price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Product price\"},{\"name\":\"description\",\"type\":\"TEXTAREA\",\"description\":\"Product description\"}]}}]}",
+        "schemaJson": "{\"fields\":[{\"name\":\"products\",\"type\":\"ARRAY\",\"description\":\"List of products in the catalog\",\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Product name\"},{\"name\":\"sku\",\"type\":\"TEXT\",\"description\":\"Stock keeping unit identifier\"},{\"name\":\"price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Product price\"},{\"name\":\"description\",\"type\":\"TEXTAREA\",\"description\":\"Product description\"}]}]}",
         "files": {
           "fileValues": [
             {

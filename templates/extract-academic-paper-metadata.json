@@ -48,7 +48,7 @@
       "parameters": {
         "resource": "documentExtraction",
         "schemaInputMode": "rawJson",
-        "schemaJson": "{\"fields\":[{\"name\":\"title\",\"type\":\"TEXT\",\"description\":\"Title of the academic paper\"},{\"name\":\"authors\",\"type\":\"ARRAY\",\"description\":\"List of paper authors\",\"item_schema\":{\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Full name of the author\"}]}},{\"name\":\"abstract\",\"type\":\"TEXTAREA\",\"description\":\"Paper abstract\"},{\"name\":\"published_date\",\"type\":\"DATE\",\"description\":\"Publication date of the paper\"},{\"name\":\"keywords\",\"type\":\"ARRAY\",\"description\":\"Subject keywords or tags\",\"item_schema\":{\"fields\":[{\"name\":\"keyword\",\"type\":\"TEXT\",\"description\":\"A keyword or topic tag\"}]}}]}",
+        "schemaJson": "{\"fields\":[{\"name\":\"title\",\"type\":\"TEXT\",\"description\":\"Title of the academic paper\"},{\"name\":\"authors\",\"type\":\"ARRAY\",\"description\":\"List of paper authors\",\"fields\":[{\"name\":\"name\",\"type\":\"TEXT\",\"description\":\"Full name of the author\"}]},{\"name\":\"abstract\",\"type\":\"TEXTAREA\",\"description\":\"Paper abstract\"},{\"name\":\"published_date\",\"type\":\"DATE\",\"description\":\"Publication date of the paper\"},{\"name\":\"keywords\",\"type\":\"ARRAY\",\"description\":\"Subject keywords or tags\",\"fields\":[{\"name\":\"keyword\",\"type\":\"TEXT\",\"description\":\"A keyword or topic tag\"}]}]}",
         "files": {
           "fileValues": [
             {
