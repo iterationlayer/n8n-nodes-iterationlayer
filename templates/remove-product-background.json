@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Remove Product Background\n\nE-commerce teams remove backgrounds from product photos for clean white-background listings or transparent PNGs for compositing. Upload a raw product photo, remove the background with AI-powered segmentation, and convert to PNG \u2014 ready for your storefront or design tool.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Remove Product Background\n\nE-commerce teams remove backgrounds from product photos for clean white-background listings or transparent PNGs for compositing. Upload a raw product photo, remove the background with AI-powered segmentation, and convert to PNG \u2014 ready for your storefront or design tool.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

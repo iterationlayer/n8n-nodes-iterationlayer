@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Optimize Product Image for Shopify\n\nShopify merchants and agencies use this recipe to normalize supplier product photos for their storefront. One API call resizes to the recommended square format, sharpens for display clarity, and outputs WebP \u2014 smaller files, faster load times, better Core Web Vitals.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Optimize Product Image for Shopify\n\nShopify merchants and agencies use this recipe to normalize supplier product photos for their storefront. One API call resizes to the recommended square format, sharpens for display clarity, and outputs WebP \u2014 smaller files, faster load times, better Core Web Vitals.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

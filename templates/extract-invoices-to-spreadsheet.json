@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Invoices and Build Accounts Payable Spreadsheet\n\nAccounts payable teams receive PDF invoices from multiple vendors and need to log them into a spreadsheet for the approval workflow. This recipe extracts structured data from all invoices in a single call, then feeds the results directly into an XLSX tracker with one row per invoice.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Invoices and Build Accounts Payable Spreadsheet\n\nAccounts payable teams receive PDF invoices from multiple vendors and need to log them into a spreadsheet for the approval workflow. This recipe extracts structured data from all invoices in a single call, then feeds the results directly into an XLSX tracker with one row per invoice.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

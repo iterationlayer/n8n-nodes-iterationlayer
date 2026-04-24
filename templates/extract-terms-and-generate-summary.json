@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Terms and Generate a Simplified Summary\n\nLegal agencies and compliance teams use this pipeline to process vendor or partner terms — extracting key clauses and generating a plain-language summary for non-legal stakeholders.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Terms and Generate a Simplified Summary\n\nLegal agencies and compliance teams use this pipeline to process vendor or partner terms — extracting key clauses and generating a plain-language summary for non-legal stakeholders.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

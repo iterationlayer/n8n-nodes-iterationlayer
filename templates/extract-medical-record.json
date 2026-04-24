@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Medical Record\n\nHealthcare providers and clinical software platforms use this recipe to digitize a patient record. Upload a medical document and receive structured JSON with patient details, diagnosis codes, and medication list \u2014 ready for integration with your EHR or clinical database.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Medical Record\n\nHealthcare providers and clinical software platforms use this recipe to digitize a patient record. Upload a medical document and receive structured JSON with patient details, diagnosis codes, and medication list \u2014 ready for integration with your EHR or clinical database.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

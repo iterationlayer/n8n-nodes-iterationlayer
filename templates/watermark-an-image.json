@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Watermark an Image\n\nPhotography studios and content platforms use this recipe to protect an image. Use the Image Generation API to composite a base photo with a semi-transparent text watermark overlay \u2014 ready for publishing with brand protection built in.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Watermark an Image\n\nPhotography studios and content platforms use this recipe to protect an image. Use the Image Generation API to composite a base photo with a semi-transparent text watermark overlay \u2014 ready for publishing with brand protection built in.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

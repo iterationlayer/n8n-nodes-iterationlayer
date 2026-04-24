@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Resize, Watermark, and Convert Image\n\nE-commerce teams and content platforms use this recipe to process product images for web. Resize to standard dimensions, add brand watermark, and convert to WebP \u2014 in two API calls with no image processing infrastructure.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Resize, Watermark, and Convert Image\n\nE-commerce teams and content platforms use this recipe to process product images for web. Resize to standard dimensions, add brand watermark, and convert to WebP \u2014 in two API calls with no image processing infrastructure.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

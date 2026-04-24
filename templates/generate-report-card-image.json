@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Report Card Image\n\nAnalytics platforms, SaaS dashboards, and agencies use this recipe to generate shareable report card images from live data. Feed in numbers and labels to get a clean branded card ready for Slack, email, or embedded in a PDF \u2014 no charting libraries, no screenshots.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Report Card Image\n\nAnalytics platforms, SaaS dashboards, and agencies use this recipe to generate shareable report card images from live data. Feed in numbers and labels to get a clean branded card ready for Slack, email, or embedded in a PDF \u2014 no charting libraries, no screenshots.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Resize Image for Print Publishing\n\nSelf-publishers and book production teams use this recipe to prepare manuscript images for KDP or IngramSpark. Constrain images to the printable area (1500x2400 pixels for a 6x9 inch page at 300 DPI), sharpen after downscale, and convert to JPEG at high quality \u2014 ready for interior pages.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Resize Image for Print Publishing\n\nSelf-publishers and book production teams use this recipe to prepare manuscript images for KDP or IngramSpark. Constrain images to the printable area (1500x2400 pixels for a 6x9 inch page at 300 DPI), sharpen after downscale, and convert to JPEG at high quality \u2014 ready for interior pages.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

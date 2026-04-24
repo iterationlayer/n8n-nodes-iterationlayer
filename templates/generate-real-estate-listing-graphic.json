@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Real Estate Listing Graphic\n\nReal estate agencies and property platforms use this recipe to generate listing graphics for social media, email campaigns, and digital signage. Feed in property data and a photo URL to get a print-ready branded card \u2014 no design software, no manual exports.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Real Estate Listing Graphic\n\nReal estate agencies and property platforms use this recipe to generate listing graphics for social media, email campaigns, and digital signage. Feed in property data and a photo URL to get a print-ready branded card \u2014 no design software, no manual exports.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

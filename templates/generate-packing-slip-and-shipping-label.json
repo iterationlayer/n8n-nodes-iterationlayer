@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Packing Slip and Shipping Label\n\nFulfillment centers and e-commerce platforms generate a PDF packing slip and a PNG shipping label from the same order data in a single workflow \u2014 both documents ready for printing without entering data twice.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Packing Slip and Shipping Label\n\nFulfillment centers and e-commerce platforms generate a PDF packing slip and a PNG shipping label from the same order data in a single workflow \u2014 both documents ready for printing without entering data twice.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

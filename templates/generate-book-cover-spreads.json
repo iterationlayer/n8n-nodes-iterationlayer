@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Book Cover Spreads\n\nSelf-publishing platforms and print-on-demand services use this recipe to generate complete book cover spreads for KDP, IngramSpark, or other print-on-demand platforms. Calculate spine width from page count, compose back cover text with an ISBN barcode, add a rotated spine title, and place the front cover image \u2014 all in one API call at 300 DPI. Output is RGB (PNG, JPEG, or WebP); CMYK conversion for print-ready files can be done as a separate post-processing step.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Book Cover Spreads\n\nSelf-publishing platforms and print-on-demand services use this recipe to generate complete book cover spreads for KDP, IngramSpark, or other print-on-demand platforms. Calculate spine width from page count, compose back cover text with an ISBN barcode, add a rotated spine title, and place the front cover image \u2014 all in one API call at 300 DPI. Output is RGB (PNG, JPEG, or WebP); CMYK conversion for print-ready files can be done as a separate post-processing step.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

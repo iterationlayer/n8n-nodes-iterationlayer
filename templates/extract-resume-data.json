@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Resume Data\n\nRecruiting teams and HR platforms use this recipe to automate resume screening. Upload a resume in PDF or DOCX format and receive structured JSON with candidate name, email, work history, and skills \u2014 ready for your ATS or candidate pipeline.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Resume Data\n\nRecruiting teams and HR platforms use this recipe to automate resume screening. Upload a resume in PDF or DOCX format and receive structured JSON with candidate name, email, work history, and skills \u2014 ready for your ATS or candidate pipeline.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

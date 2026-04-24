@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Legal Invoice Data\n\nCorporate legal departments and legal ops agencies use this recipe to process outside counsel invoices — extracting timekeeper rates, hours, disbursements, and matter codes for e-billing systems and cost analysis.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Legal Invoice Data\n\nCorporate legal departments and legal ops agencies use this recipe to process outside counsel invoices — extracting timekeeper rates, hours, disbursements, and matter codes for e-billing systems and cost analysis.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

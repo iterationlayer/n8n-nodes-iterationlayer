@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Thumbnail\n\nWeb developers and CMS platforms use this recipe to generate a thumbnail from a high-resolution image. Upload one image, resize it to a target dimension, and convert to WebP \u2014 ready for galleries, cards, and preview grids.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Thumbnail\n\nWeb developers and CMS platforms use this recipe to generate a thumbnail from a high-resolution image. Upload one image, resize it to a target dimension, and convert to WebP \u2014 ready for galleries, cards, and preview grids.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

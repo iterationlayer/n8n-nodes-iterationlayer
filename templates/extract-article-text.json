@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Article Text\n\nContent aggregators and newsletter platforms use this recipe to extract clean article content from PDFs, Word documents, and saved web pages. Define fields for title, author, date, body, and summary \u2014 the parser pulls the content and ignores headers, footers, navigation, and sidebars.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Article Text\n\nContent aggregators and newsletter platforms use this recipe to extract clean article content from PDFs, Word documents, and saved web pages. Define fields for title, author, date, body, and summary \u2014 the parser pulls the content and ignores headers, footers, navigation, and sidebars.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

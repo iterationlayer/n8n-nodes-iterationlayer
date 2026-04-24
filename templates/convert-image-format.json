@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Convert Image Format\n\nWeb development teams and CDN operators use this recipe to convert an image to a modern format like WebP for faster page loads. Upload an image and convert it to your target format with precise quality control \u2014 ready for optimized delivery.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Convert Image Format\n\nWeb development teams and CDN operators use this recipe to convert an image to a modern format like WebP for faster page loads. Upload an image and convert it to your target format with precise quality control \u2014 ready for optimized delivery.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Terms and Conditions\n\nLegal agencies, compliance teams, and e-commerce platforms use this recipe to extract key clauses from vendor or partner terms — pulling out termination conditions, liability caps, data handling provisions, and governing law for contract review and risk assessment.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Terms and Conditions\n\nLegal agencies, compliance teams, and e-commerce platforms use this recipe to extract key clauses from vendor or partner terms — pulling out termination conditions, liability caps, data handling provisions, and governing law for contract review and risk assessment.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Inventory Report\n\nE-commerce platforms and warehouse management systems use this recipe to export current stock levels, reorder points, and inventory valuation to XLSX for purchasing teams. Define your product catalog with quantities and costs, and let formulas compute total value per item automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Inventory Report\n\nE-commerce platforms and warehouse management systems use this recipe to export current stock levels, reorder points, and inventory valuation to XLSX for purchasing teams. Define your product catalog with quantities and costs, and let formulas compute total value per item automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

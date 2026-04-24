@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate EPUB Book\n\nTechnical publishers and self-publishing platforms use this recipe to generate an EPUB e-book from structured content. Define chapters with headings, paragraphs, and a table of contents \u2014 the API handles formatting and packaging into a valid EPUB file ready for distribution.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate EPUB Book\n\nTechnical publishers and self-publishing platforms use this recipe to generate an EPUB e-book from structured content. Define chapters with headings, paragraphs, and a table of contents \u2014 the API handles formatting and packaging into a valid EPUB file ready for distribution.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

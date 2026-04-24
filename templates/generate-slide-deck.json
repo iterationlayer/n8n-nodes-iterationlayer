@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Slide Deck\n\nSales and marketing teams use this recipe to generate a branded slide deck programmatically. Build a complete presentation with a title slide, problem and solution framing, feature highlights, pricing tables, and a call to action \u2014 delivered as a ready-to-present PPTX file.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Slide Deck\n\nSales and marketing teams use this recipe to generate a branded slide deck programmatically. Build a complete presentation with a title slide, problem and solution framing, feature highlights, pricing tables, and a call to action \u2014 delivered as a ready-to-present PPTX file.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

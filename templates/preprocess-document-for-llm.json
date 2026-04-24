@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Preprocess Document for LLM Classification\n\nBackend teams building document automation pipelines use this recipe to normalize incoming files \u2014 PDFs, scans, Word docs \u2014 into clean markdown before classifying or routing them with an LLM.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Preprocess Document for LLM Classification\n\nBackend teams building document automation pipelines use this recipe to normalize incoming files \u2014 PDFs, scans, Word docs \u2014 into clean markdown before classifying or routing them with an LLM.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

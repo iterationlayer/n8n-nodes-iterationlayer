@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Product Data and Generate a Listing Image\n\nE-commerce agencies managing multiple storefronts use this pipeline to turn supplier data sheets into ready-to-publish listing images — extracting product specs and generating branded visuals without manual design rounds.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Product Data and Generate a Listing Image\n\nE-commerce agencies managing multiple storefronts use this pipeline to turn supplier data sheets into ready-to-publish listing images — extracting product specs and generating branded visuals without manual design rounds.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

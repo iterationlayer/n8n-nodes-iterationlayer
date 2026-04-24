@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Customs Declarations to Spreadsheet\n\nImport operations and trade compliance teams receive customs declaration documents for every inbound shipment and need to log HS codes, declared values, and duty amounts for compliance reporting and cost reconciliation. This pipeline extracts the key fields from each declaration and writes them into a formatted XLSX duty tracker.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Customs Declarations to Spreadsheet\n\nImport operations and trade compliance teams receive customs declaration documents for every inbound shipment and need to log HS codes, declared values, and duty amounts for compliance reporting and cost reconciliation. This pipeline extracts the key fields from each declaration and writes them into a formatted XLSX duty tracker.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

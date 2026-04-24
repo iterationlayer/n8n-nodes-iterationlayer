@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Fleet Vehicle Registration Data\n\nFleet management agencies use this recipe to digitize vehicle registration documents — extracting VIN numbers, registration dates, insurance details, and technical specs for centralized fleet databases.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Fleet Vehicle Registration Data\n\nFleet management agencies use this recipe to digitize vehicle registration documents — extracting VIN numbers, registration dates, insurance details, and technical specs for centralized fleet databases.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

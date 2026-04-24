@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate PDF Manuscript\n\nSelf-publishing authors and publishing platforms use this recipe to generate a print-ready PDF manuscript for KDP or IngramSpark. Define a 6x9 inch page with proper margins, title page, table of contents, and chapter content — ready for print-on-demand submission.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate PDF Manuscript\n\nSelf-publishing authors and publishing platforms use this recipe to generate a print-ready PDF manuscript for KDP or IngramSpark. Define a 6x9 inch page with proper margins, title page, table of contents, and chapter content — ready for print-on-demand submission.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

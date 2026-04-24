@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract NDA Terms and Generate a Compliance Checklist\n\nLegal agencies managing NDAs across multiple clients use this pipeline to extract key confidentiality terms and generate standardized compliance checklists.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract NDA Terms and Generate a Compliance Checklist\n\nLegal agencies managing NDAs across multiple clients use this pipeline to extract key confidentiality terms and generate standardized compliance checklists.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

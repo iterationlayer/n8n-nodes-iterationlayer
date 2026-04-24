@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Convert Contract to Markdown\n\nLegal and compliance teams use this recipe to convert contract PDFs to structured markdown before feeding them into LLM analysis pipelines or clause extraction workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Convert Contract to Markdown\n\nLegal and compliance teams use this recipe to convert contract PDFs to structured markdown before feeding them into LLM analysis pipelines or clause extraction workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

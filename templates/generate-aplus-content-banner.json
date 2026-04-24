@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate A+ Content Banner\n\nSelf-publishing authors and book marketing teams use this recipe to generate Amazon A+ Content banners at the standard 970x600 module size. Compose a book cover image, title text, series name, genre label, and availability badge \u2014 ready to upload to Amazon Author Central.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate A+ Content Banner\n\nSelf-publishing authors and book marketing teams use this recipe to generate Amazon A+ Content banners at the standard 970x600 module size. Compose a book cover image, title text, series name, genre label, and availability badge \u2014 ready to upload to Amazon Author Central.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

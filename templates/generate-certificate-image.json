@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Certificate Image\n\nOnline course platforms and training providers use this recipe to generate a completion certificate on the fly. Define a canvas with an elegant background, add a decorative border, and render the recipient's name, course title, and date \u2014 ready for digital sharing, social media, or email delivery.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Certificate Image\n\nOnline course platforms and training providers use this recipe to generate a completion certificate on the fly. Define a canvas with an elegant background, add a decorative border, and render the recipient's name, course title, and date \u2014 ready for digital sharing, social media, or email delivery.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

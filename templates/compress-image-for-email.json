@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Compress Image for Email\n\nMarketing teams and email platforms use this recipe to prepare images for email campaigns. Resize to email-friendly dimensions, sharpen after downscale, convert to JPEG for universal client support, and compress to a target file size \u2014 all in one API call.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Compress Image for Email\n\nMarketing teams and email platforms use this recipe to prepare images for email campaigns. Resize to email-friendly dimensions, sharpen after downscale, convert to JPEG for universal client support, and compress to a target file size \u2014 all in one API call.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

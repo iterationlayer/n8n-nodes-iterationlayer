@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Invoice Spreadsheet\n\nFinance teams and billing platforms use this recipe to generate branded invoice spreadsheets on demand. Define your company details, line items with quantities and rates, and let formulas compute subtotals, tax, and totals automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Invoice Spreadsheet\n\nFinance teams and billing platforms use this recipe to generate branded invoice spreadsheets on demand. Define your company details, line items with quantities and rates, and let formulas compute subtotals, tax, and totals automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

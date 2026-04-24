@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Resize Image for Social Media\n\nSocial media managers and marketing teams use this recipe to create a correctly sized image for a specific platform. Upload one source image and resize it to platform-specific dimensions \u2014 ready for publishing on Instagram, Twitter, LinkedIn, and more.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Resize Image for Social Media\n\nSocial media managers and marketing teams use this recipe to create a correctly sized image for a specific platform. Upload one source image and resize it to platform-specific dimensions \u2014 ready for publishing on Instagram, Twitter, LinkedIn, and more.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

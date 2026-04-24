@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Multi-Invoice Data\n\nAccounts payable teams and finance platforms use this recipe to process many invoices at once. Pass multiple invoice files and define an array schema to extract each invoice's vendor, date, line items, and total \u2014 ready for import into your accounting system.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Multi-Invoice Data\n\nAccounts payable teams and finance platforms use this recipe to process many invoices at once. Pass multiple invoice files and define an array schema to extract each invoice's vendor, date, line items, and total \u2014 ready for import into your accounting system.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Contract Clause Data\n\nLegal teams and contract management platforms use this recipe to automate contract review. Upload a contract and receive structured JSON with involved parties, key dates, and individual clauses \u2014 ready for a compliance check, risk analysis, or contract database.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Contract Clause Data\n\nLegal teams and contract management platforms use this recipe to automate contract review. Upload a contract and receive structured JSON with involved parties, key dates, and individual clauses \u2014 ready for a compliance check, risk analysis, or contract database.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

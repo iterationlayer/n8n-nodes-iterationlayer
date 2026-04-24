@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Shipping Label\n\nE-commerce platforms and fulfillment centers use this recipe to generate a shipping label on demand. Define sender and recipient addresses in a grid layout with a barcode for scanning \u2014 ready to print and attach to an outgoing package.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Shipping Label\n\nE-commerce platforms and fulfillment centers use this recipe to generate a shipping label on demand. Define sender and recipient addresses in a grid layout with a barcode for scanning \u2014 ready to print and attach to an outgoing package.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

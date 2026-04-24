@@ -1,9 +1,9 @@
 {
-  "name": "Extract listing data and generate brochure in Iteration Layer",
+  "name": "Extract Listing Data and Generate a Brochure",
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Listing Data and Generate a Brochure\n\nReal estate agencies use this pipeline to turn raw listing PDFs into polished marketing materials — a branded brochure PDF for print and a social media image for Instagram or Facebook — without manual design work.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Listing Data and Generate a Brochure\n\nReal estate agencies use this pipeline to turn raw listing PDFs into polished marketing materials — a branded brochure PDF for print and a social media image for Instagram or Facebook — without manual design work.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

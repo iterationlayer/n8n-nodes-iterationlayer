@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Receipts and Generate Expense Report\n\nEmployees and finance teams submit photos or scans of receipts and need them consolidated into an expense report for reimbursement or bookkeeping. This recipe extracts structured data from all receipts in a single call, then generates a formatted XLSX report with a SUM total row ready for approval.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Receipts and Generate Expense Report\n\nEmployees and finance teams submit photos or scans of receipts and need them consolidated into an expense report for reimbursement or bookkeeping. This recipe extracts structured data from all receipts in a single call, then generates a formatted XLSX report with a SUM total row ready for approval.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

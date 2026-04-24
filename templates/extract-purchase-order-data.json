@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Purchase Order Data\n\nB2B suppliers, procurement teams, and warehouse operators use this recipe to extract purchase order details at scale — pulling out line items, quantities, pricing, and delivery dates for ERP ingestion or order fulfillment workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Purchase Order Data\n\nB2B suppliers, procurement teams, and warehouse operators use this recipe to extract purchase order details at scale — pulling out line items, quantities, pricing, and delivery dates for ERP ingestion or order fulfillment workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Invoice to PDF Report\n\nFinance teams and invoice processing platforms use this recipe to automate the extract-to-report pipeline. Upload an invoice, extract structured data with confidence scores, and generate a branded PDF summary \u2014 all through two API calls.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Invoice to PDF Report\n\nFinance teams and invoice processing platforms use this recipe to automate the extract-to-report pipeline. Upload an invoice, extract structured data with confidence scores, and generate a branded PDF summary \u2014 all through two API calls.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

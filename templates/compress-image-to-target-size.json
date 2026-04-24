@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Compress Image to Target File Size\n\nMarketing teams and content platforms use this recipe to compress images for email attachments, CMS upload limits, or mobile app asset budgets. Specify a target file size in bytes and the API handles the quality-dimension tradeoff automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Compress Image to Target File Size\n\nMarketing teams and content platforms use this recipe to compress images for email attachments, CMS upload limits, or mobile app asset budgets. Specify a target file size in bytes and the API handles the quality-dimension tradeoff automatically.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

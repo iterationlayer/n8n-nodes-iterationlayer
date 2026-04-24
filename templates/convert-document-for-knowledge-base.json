@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Convert Document for Knowledge Base\n\nTeams maintaining internal wikis or knowledge bases use this recipe to ingest external documents \u2014 vendor specs, partner contracts, agency reports \u2014 as clean, searchable markdown.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Convert Document for Knowledge Base\n\nTeams maintaining internal wikis or knowledge bases use this recipe to ingest external documents \u2014 vendor specs, partner contracts, agency reports \u2014 as clean, searchable markdown.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

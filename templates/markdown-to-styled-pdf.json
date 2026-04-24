@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Convert Markdown to Styled PDF\n\nContent teams and publishing platforms use this recipe to produce PDF documents from Markdown source files. Define page layout, typography, and branding \u2014 the API renders the Markdown into a polished PDF with headers, footers, and page numbers.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Convert Markdown to Styled PDF\n\nContent teams and publishing platforms use this recipe to produce PDF documents from Markdown source files. Define page layout, typography, and branding \u2014 the API renders the Markdown into a polished PDF with headers, footers, and page numbers.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Supplier Catalog to Spreadsheet\n\nE-commerce buyers and merchandising teams use this recipe to onboard new suppliers without manual data entry. Drop in a catalog PDF, extract every product into structured rows, and export a clean XLSX ready to import into Shopify, a PIM, or an internal inventory system.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Supplier Catalog to Spreadsheet\n\nE-commerce buyers and merchandising teams use this recipe to onboard new suppliers without manual data entry. Drop in a catalog PDF, extract every product into structured rows, and export a clean XLSX ready to import into Shopify, a PIM, or an internal inventory system.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

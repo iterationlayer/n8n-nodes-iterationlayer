@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Generate Product Slide\n\nMarketing teams and SaaS companies use this recipe to generate branded slides at scale \u2014 for pitch decks, product launches, or social media carousels. Use layout layers to arrange headlines, feature pills, and CTAs without manual pixel positioning. Swap in your brand colors, logo, and copy to produce consistent slides across campaigns.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Generate Product Slide\n\nMarketing teams and SaaS companies use this recipe to generate branded slides at scale \u2014 for pitch decks, product launches, or social media carousels. Use layout layers to arrange headlines, feature pills, and CTAs without manual pixel positioning. Swap in your brand colors, logo, and copy to produce consistent slides across campaigns.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

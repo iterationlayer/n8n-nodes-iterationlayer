@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Extract Product Catalog Entry\n\nE-commerce teams and marketplace operators use this recipe to digitize a supplier catalog entry. Upload a catalog PDF and receive structured JSON with product name, SKU, price, and description \u2014 ready for import into your product database or storefront.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Extract Product Catalog Entry\n\nE-commerce teams and marketplace operators use this recipe to digitize a supplier catalog entry. Upload a catalog PDF and receive structured JSON with product name, SKU, price, and description \u2014 ready for import into your product database or storefront.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

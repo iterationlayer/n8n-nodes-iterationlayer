@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Remove Background and Generate Product Card\n\nE-commerce sellers and marketplace teams take a raw product photo, remove the background to get a clean cutout, then compose it into a branded listing card with the product name, price, and brand \u2014 ready for Amazon, Shopify, or social media.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Remove Background and Generate Product Card\n\nE-commerce sellers and marketplace teams take a raw product photo, remove the background to get a clean cutout, then compose it into a branded listing card with the product name, price, and brand \u2014 ready for Amazon, Shopify, or social media.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2

@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Convert Invoice to Markdown\n\nFinance teams and automation platforms use this recipe to convert PDF invoices to clean markdown before feeding them into LLM workflows, archiving pipelines, or custom extraction scripts.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "content": "## Convert Invoice to Markdown\n\nFinance teams and automation platforms use this recipe to convert PDF invoices to clean markdown before feeding them into LLM workflows, archiving pipelines, or custom extraction scripts.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes on self-hosted n8n, or add it directly on n8n Cloud with Verified Community Nodes enabled.",
         "height": 280,
         "width": 500,
         "color": 2
