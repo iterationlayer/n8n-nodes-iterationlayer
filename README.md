@@ -6,7 +6,7 @@ Extract data from documents, transform images, generate images, and create docum
 
 ## Demo
 
-https://github.com/user-attachments/assets/de9cb4fc-972d-47a5-bf41-7023bb309f4f
+[Watch the demo video](./demo.mp4)
 
 ## Installation
 
@@ -43,6 +43,13 @@ Extract structured data from PDFs, images, DOCX, and more. Define a schema with 
 
 - **File input**: Binary data from a previous node or a public URL
 - **Schema**: Build via the UI (17 field types) or provide raw JSON for advanced schemas (arrays, calculated fields)
+
+### Website Extraction
+
+Extract structured data from public website pages with the same schema builder used by Document Extraction.
+
+- **Website URL**: Public HTTPS URL, with optional custom user agent, locale, timeout, and JavaScript rendering
+- **Schema**: Build via the UI or provide raw JSON for advanced schemas
 
 ### Image Transformation
 

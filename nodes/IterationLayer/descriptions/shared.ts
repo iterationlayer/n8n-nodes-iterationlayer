@@ -45,6 +45,84 @@ export const fileUrlProperty: INodeProperties = {
   },
 };
 
+export const fileFetchLocaleProperty: INodeProperties = {
+  displayName: "Locale",
+  name: "fileFetchLocale",
+  type: "string",
+  default: "",
+  description: "Optional locale for website retrieval",
+  displayOptions: {
+    show: {
+      fileInputMode: ["url"],
+    },
+  },
+};
+
+export const fileFetchUserAgentProperty: INodeProperties = {
+  displayName: "User Agent",
+  name: "fileFetchUserAgent",
+  type: "string",
+  default: "",
+  description: "Optional custom user agent for website retrieval",
+  displayOptions: {
+    show: {
+      fileInputMode: ["url"],
+    },
+  },
+};
+
+export const fileFetchAuthProperty: INodeProperties = {
+  displayName: "Auth",
+  name: "fileFetchAuth",
+  type: "json",
+  default: "{}",
+  description: 'Optional website authentication, for example {"type":"bearer","token":"..."}',
+  displayOptions: {
+    show: {
+      fileInputMode: ["url"],
+    },
+  },
+};
+
+export const fileFetchHeadersProperty: INodeProperties = {
+  displayName: "Headers",
+  name: "fileFetchHeaders",
+  type: "json",
+  default: "{}",
+  description: 'Optional website request headers, for example {"x-api-key":"..."}',
+  displayOptions: {
+    show: {
+      fileInputMode: ["url"],
+    },
+  },
+};
+
+export const fileFetchTimeoutMsProperty: INodeProperties = {
+  displayName: "Timeout (Ms)",
+  name: "fileFetchTimeoutMs",
+  type: "number",
+  default: 0,
+  description: "Optional website fetch timeout in milliseconds. Leave 0 to use the API default.",
+  displayOptions: {
+    show: {
+      fileInputMode: ["url"],
+    },
+  },
+};
+
+export const fileFetchShouldRenderJavascriptProperty: INodeProperties = {
+  displayName: "Render JavaScript",
+  name: "fileFetchShouldRenderJavascript",
+  type: "boolean",
+  default: false,
+  description: "Use Chromium browser rendering before extraction",
+  displayOptions: {
+    show: {
+      fileInputMode: ["url"],
+    },
+  },
+};
+
 export const fileNameProperty: INodeProperties = {
   displayName: "File Name",
   name: "fileName",
@@ -52,7 +130,7 @@ export const fileNameProperty: INodeProperties = {
   default: "",
   placeholder: "document.pdf",
   description:
-    "Name of the file including extension (e.g., invoice.pdf). Used to determine the file type.",
+    "Optional file name including extension (e.g., invoice.pdf). Used to determine the file type for file URLs.",
 };
 
 export const asyncModeProperty: INodeProperties = {

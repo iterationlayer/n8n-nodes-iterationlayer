@@ -55,7 +55,7 @@ describe("IterationLayer Node", () => {
     expect(node.description.credentials?.at(0)?.name).toBe("iterationLayerApi");
   });
 
-  it("has six resource options", () => {
+  it("has seven resource options", () => {
     const node = new IterationLayer();
     const resourceProperty = node.description.properties.find((prop) => prop.name === "resource");
 
@@ -68,6 +68,7 @@ describe("IterationLayer Node", () => {
     expect(resourceValues).toContain("imageGeneration");
     expect(resourceValues).toContain("documentGeneration");
     expect(resourceValues).toContain("documentToMarkdown");
+    expect(resourceValues).toContain("websiteExtraction");
     expect(resourceValues).toContain("sheetGeneration");
   });
 
@@ -242,6 +243,131 @@ describe("IterationLayer Node", () => {
       expect(requestBody.files.at(0).type).toBe("base64");
       expect(requestBody.files.at(0).name).toBe("scan.pdf");
       expect(requestBody.files.at(0).base64).toBe(Buffer.from("file content").toString("base64"));
+    });
+
+    it("passes fetch options through URL inputs", async () => {
+      const mockFunctions = createMockExecuteFunctions(
+        {
+          resource: "documentExtraction",
+          isAsync: false,
+          schemaInputMode: "uiBuilder",
+          files: {
+            fileValues: [
+              {
+                fileInputMode: "url",
+                fileUrl: "https://example.com/docs",
+                fileFetchLocale: "de-DE",
+                fileFetchUserAgent: "IterationLayerTest/1.0",
+                fileFetchAuth: { type: "bearer", token: "secret-token" },
+                fileFetchHeaders: { "x-tenant-id": "tenant-123" },
+                fileFetchTimeoutMs: 10_000,
+              },
+            ],
+          },
+          schemaFields: { fieldValues: [] },
+        },
+        { success: true, data: {} },
+      );
+
+      const node = new IterationLayer();
+      await node.execute.call(mockFunctions as never);
+
+      const requestBody = mockFunctions.helpers.httpRequestWithAuthentication.mock.calls
+        .at(0)
+        ?.at(1)?.body;
+      expect(requestBody.files).toEqual([
+        {
+          type: "url",
+          url: "https://example.com/docs",
+          fetch_options: {
+            auth: { type: "bearer", token: "secret-token" },
+            headers: { "x-tenant-id": "tenant-123" },
+            locale: "de-DE",
+            user_agent: "IterationLayerTest/1.0",
+            timeout_ms: 10_000,
+          },
+        },
+      ]);
+    });
+  });
+
+  describe("Website Extraction", () => {
+    it("sends correct request and returns extracted data", async () => {
+      const apiResponse = {
+        success: true,
+        data: {
+          title: {
+            value: "API Docs",
+            confidence: 0.99,
+            citations: ["API Docs"],
+            source: "https://example.com/docs",
+            type: "TEXT",
+          },
+        },
+      };
+
+      const mockFunctions = createMockExecuteFunctions(
+        {
+          resource: "websiteExtraction",
+          isAsync: false,
+          fileInputMode: "url",
+          fileUrl: "https://example.com/docs",
+          fileFetchAuth: { type: "custom_header", name: "x-api-key", value: "secret-key" },
+          fileFetchHeaders: { "x-tenant-id": "tenant-123" },
+          fileFetchShouldRenderJavascript: true,
+          schemaInputMode: "uiBuilder",
+          schemaFields: {
+            fieldValues: [
+              {
+                name: "title",
+                description: "The page title",
+                type: "TEXT",
+                isRequired: true,
+              },
+            ],
+          },
+        },
+        apiResponse,
+      );
+
+      const node = new IterationLayer();
+      const result = await node.execute.call(mockFunctions as never);
+
+      expect(mockFunctions.helpers.httpRequestWithAuthentication).toHaveBeenCalledWith(
+        "iterationLayerApi",
+        expect.objectContaining({
+          method: "POST",
+          url: "https://api.iterationlayer.com/website-extraction/v1/extract",
+        }),
+      );
+
+      const requestBody = mockFunctions.helpers.httpRequestWithAuthentication.mock.calls
+        .at(0)
+        ?.at(1)?.body;
+      expect(requestBody).toEqual({
+        file: {
+          type: "url",
+          url: "https://example.com/docs",
+          fetch_options: {
+            auth: { type: "custom_header", name: "x-api-key", value: "secret-key" },
+            headers: { "x-tenant-id": "tenant-123" },
+            should_render_javascript: true,
+          },
+        },
+        schema: {
+          fields: [
+            {
+              name: "title",
+              description: "The page title",
+              type: "TEXT",
+              is_required: true,
+            },
+          ],
+        },
+      });
+
+      const [firstItem] = result.at(0) ?? [];
+      expect(firstItem?.json).toEqual(apiResponse.data);
     });
   });
 
@@ -570,7 +696,7 @@ describe("IterationLayer Node", () => {
       const requestBody = mockFunctions.helpers.httpRequestWithAuthentication.mock.calls
         .at(0)
         ?.at(1)?.body;
-      expect(requestBody.dimensions).toEqual({ width: 1200, height: 630 });
+      expect(requestBody.dimensions).toEqual({ width_in_px: 1200, height_in_px: 630 });
       expect(requestBody.layers).toEqual([{ type: "solid-color", index: 0, hex_color: "#FFFFFF" }]);
       expect(requestBody.output_format).toBe("png");
 

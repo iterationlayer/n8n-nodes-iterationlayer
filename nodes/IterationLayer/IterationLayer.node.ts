@@ -13,6 +13,7 @@ import { documentToMarkdownProperties } from "./descriptions/documentToMarkdown.
 import { imageGenerationProperties } from "./descriptions/imageGeneration.js";
 import { imageTransformationProperties } from "./descriptions/imageTransformation.js";
 import { sheetGenerationProperties } from "./descriptions/sheetGeneration.js";
+import { websiteExtractionProperties } from "./descriptions/websiteExtraction.js";
 import { toBinaryOutput } from "./helpers/binaryData.js";
 import { getFileInput, getMultipleFileInputs } from "./helpers/fileInput.js";
 
@@ -219,6 +220,11 @@ export class IterationLayer implements INodeType {
             description: "Convert documents to clean, structured Markdown",
           },
           {
+            name: "Website Extraction",
+            value: "websiteExtraction",
+            description: "Extract structured data from website URLs",
+          },
+          {
             name: "Sheet Generation",
             value: "sheetGeneration",
             description: "Generate XLSX, CSV, or Markdown spreadsheets",
@@ -228,6 +234,7 @@ export class IterationLayer implements INodeType {
       },
       ...documentExtractionProperties,
       ...documentToMarkdownProperties,
+      ...websiteExtractionProperties,
       ...imageTransformationProperties,
       ...imageGenerationProperties,
       ...documentGenerationProperties,
@@ -271,6 +278,9 @@ export class IterationLayer implements INodeType {
           returnData.push(result);
         } else if (resource === "documentToMarkdown") {
           const result = await executeDocumentToMarkdown(this, itemIndex, baseUrl);
+          returnData.push(result);
+        } else if (resource === "websiteExtraction") {
+          const result = await executeWebsiteExtraction(this, itemIndex, baseUrl, maybeWebhookUrl);
           returnData.push(result);
         } else if (resource === "sheetGeneration") {
           const result = await executeSheetGeneration(this, itemIndex, baseUrl, maybeWebhookUrl);
@@ -461,8 +471,8 @@ async function executeImageGeneration(
 
   const requestBody = {
     dimensions: {
-      width: widthInPx,
-      height: heightInPx,
+      width_in_px: widthInPx,
+      height_in_px: heightInPx,
     },
     layers,
     output_format: outputFormat,
@@ -585,6 +595,210 @@ async function executeDocumentToMarkdown(
     json: (response as ApiSuccessResponse).data,
     pairedItem: { item: itemIndex },
   };
+}
+
+async function executeWebsiteExtraction(
+  executeFunctions: IExecuteFunctions,
+  itemIndex: number,
+  baseUrl: string,
+  maybeWebhookUrl: string | undefined,
+): Promise<INodeExecutionData> {
+  const fileUrl = getRequiredNodeParameter(executeFunctions, itemIndex, "fileUrl") as string;
+  const fetchOptions = getWebsiteFetchOptions(executeFunctions, itemIndex);
+
+  const schemaInputMode = getRequiredNodeParameter(
+    executeFunctions,
+    itemIndex,
+    "schemaInputMode",
+  ) as string;
+
+  let schema: IDataObject;
+
+  if (schemaInputMode === "rawJson") {
+    const schemaJson = getRequiredNodeParameter(
+      executeFunctions,
+      itemIndex,
+      "schemaJson",
+    ) as string;
+    schema = (typeof schemaJson === "string" ? JSON.parse(schemaJson) : schemaJson) as IDataObject;
+  } else {
+    const schemaFieldsCollection = getRequiredNodeParameter(
+      "schemaFields",
+      executeFunctions,
+      itemIndex,
+    ) as {
+      fieldValues?: Array<{
+        name: string;
+        description: string;
+        type: string;
+        isRequired: boolean;
+      }>;
+    };
+
+    const fields = (schemaFieldsCollection.fieldValues ?? []).map((field) => ({
+      name: field.name,
+      description: field.description,
+      type: field.type,
+      is_required: field.isRequired,
+    }));
+
+    schema = { fields };
+  }
+
+  const requestBody = {
+    file: {
+      type: "url",
+      url: fileUrl,
+    },
+    schema,
+  } as unknown as IDataObject;
+
+  if (fetchOptions !== undefined) {
+    requestBody.file = {
+      ...(requestBody.file as IDataObject),
+      fetch_options: fetchOptions,
+    };
+  }
+
+  if (maybeWebhookUrl) {
+    requestBody.webhook_url = maybeWebhookUrl;
+  }
+
+  const response = await makeApiRequest(
+    executeFunctions,
+    "POST",
+    "/website-extraction/v1/extract",
+    baseUrl,
+    requestBody,
+  );
+
+  handleApiResponse(executeFunctions, response, itemIndex);
+
+  if ("async" in response && response.async) {
+    return {
+      json: { async: true, message: response.message },
+      pairedItem: { item: itemIndex },
+    };
+  }
+
+  return {
+    json: (response as ApiSuccessResponse).data,
+    pairedItem: { item: itemIndex },
+  };
+}
+
+function getWebsiteFetchOptions(
+  executeFunctions: IExecuteFunctions,
+  itemIndex: number,
+): IDataObject | undefined {
+  const locale = executeFunctions.getNodeParameter("fileFetchLocale", itemIndex, "") as string;
+  const userAgent = executeFunctions.getNodeParameter(
+    "fileFetchUserAgent",
+    itemIndex,
+    "",
+  ) as string;
+  const auth = executeFunctions.getNodeParameter("fileFetchAuth", itemIndex, {}) as
+    | IDataObject
+    | string;
+  const headers = executeFunctions.getNodeParameter("fileFetchHeaders", itemIndex, {}) as
+    | IDataObject
+    | string;
+  const timeoutMs = executeFunctions.getNodeParameter("fileFetchTimeoutMs", itemIndex, 0) as number;
+  const shouldRenderJavascript = executeFunctions.getNodeParameter(
+    "fileFetchShouldRenderJavascript",
+    itemIndex,
+    false,
+  ) as boolean;
+  const legacyJavascript = executeFunctions.getNodeParameter(
+    "fileFetchJavascript",
+    itemIndex,
+    false,
+  ) as boolean;
+
+  const fetchOptions = {} as IDataObject;
+
+  if (locale !== "") {
+    fetchOptions.locale = locale;
+  }
+
+  if (userAgent !== "") {
+    fetchOptions.user_agent = userAgent;
+  }
+
+  const parsedAuth = parseOptionalObject(auth);
+
+  if (parsedAuth !== undefined) {
+    fetchOptions.auth = parsedAuth;
+  }
+
+  const parsedHeaders = parseOptionalObject(headers);
+
+  if (parsedHeaders !== undefined) {
+    fetchOptions.headers = parsedHeaders;
+  }
+
+  if (timeoutMs > 0) {
+    fetchOptions.timeout_ms = timeoutMs;
+  }
+
+  if (shouldRenderJavascript || legacyJavascript) {
+    fetchOptions.should_render_javascript = true;
+  }
+
+  if (Object.keys(fetchOptions).length === 0) {
+    return undefined;
+  }
+
+  return fetchOptions;
+}
+
+function parseOptionalObject(value: IDataObject | string | undefined): IDataObject | undefined {
+  if (typeof value === "string") {
+    const trimmedValue = value.trim();
+
+    if (trimmedValue === "") {
+      return undefined;
+    }
+
+    return parseOptionalObject(JSON.parse(trimmedValue) as IDataObject);
+  }
+
+  if (value === undefined || Object.keys(value).length === 0) {
+    return undefined;
+  }
+
+  return value;
+}
+
+function getRequiredNodeParameter(
+  executeFunctions: IExecuteFunctions,
+  itemIndex: number,
+  parameterName: string,
+): unknown;
+function getRequiredNodeParameter(
+  parameterName: string,
+  executeFunctions: IExecuteFunctions,
+  itemIndex: number,
+): unknown;
+function getRequiredNodeParameter(
+  first: IExecuteFunctions | string,
+  second: number | IExecuteFunctions,
+  third: string | number,
+): unknown {
+  const executeFunctions =
+    typeof first === "string" ? (second as IExecuteFunctions) : (first as IExecuteFunctions);
+  const itemIndex = (typeof first === "string" ? third : second) as number;
+  const parameterName = (typeof first === "string" ? first : third) as string;
+
+  try {
+    return executeFunctions.getNodeParameter(parameterName, itemIndex);
+  } catch (error) {
+    throw new NodeOperationError(
+      executeFunctions.getNode(),
+      `Could not get parameter '${parameterName}'`,
+      { itemIndex, description: (error as Error).message },
+    );
+  }
 }
 
 async function executeSheetGeneration(

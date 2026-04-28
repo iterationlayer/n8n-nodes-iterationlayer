@@ -1,4 +1,4 @@
-import type { IExecuteFunctions } from "n8n-workflow";
+import type { IDataObject, IExecuteFunctions } from "n8n-workflow";
 interface FileInputBase64 {
     type: "base64";
     name: string;
@@ -6,8 +6,16 @@ interface FileInputBase64 {
 }
 interface FileInputUrl {
     type: "url";
-    name: string;
+    name?: string;
     url: string;
+    fetch_options?: {
+        auth?: IDataObject;
+        headers?: IDataObject;
+        locale?: string;
+        user_agent?: string;
+        timeout_ms?: number;
+        should_render_javascript?: boolean;
+    };
 }
 type FileInput = FileInputBase64 | FileInputUrl;
 export declare function getFileInput(executeFunctions: IExecuteFunctions, itemIndex: number): Promise<FileInput>;

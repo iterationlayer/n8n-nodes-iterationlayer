@@ -1,0 +1,86 @@
+{
+  "name": "Extract Public Registry Page",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Public Registry Page\n\nCompliance teams use this recipe to convert public registry pages into structured facts for onboarding and audit workflows. Extract company identity, registration status, dates, and officers.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "576db1cb-e2f7-59c7-bc9a-9f50532b2446",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Website Data\nResource: **Website Extraction**\n\nConfigure the public website URL and schema below, then connect your credentials.",
+        "height": 160,
+        "width": 320,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "5fb7f61e-ded3-59b1-9c95-85ad62f64ace",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "f8f3490f-0e62-5ff9-9ec2-dcc14c4d0494",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "websiteExtraction",
+        "fileUrl": "https://example.com/registry/acme-ltd",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"organization_name\",\"type\":\"TEXT\",\"description\":\"Registered organization name\"},{\"name\":\"registration_number\",\"type\":\"TEXT\",\"description\":\"Registry identifier\"},{\"name\":\"status\",\"type\":\"TEXT\",\"description\":\"Current registry status\"},{\"name\":\"registration_date\",\"type\":\"DATE\",\"description\":\"Registration date\"},{\"name\":\"officers\",\"type\":\"ARRAY\",\"description\":\"Listed officers or directors\",\"fields\":[{\"name\":\"officer\",\"type\":\"TEXT\",\"description\":\"Officer name and role\"}]}]}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "id": "b0373126-cd56-57b6-a0a5-5e745be85bba",
+      "name": "Extract Website Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Website Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

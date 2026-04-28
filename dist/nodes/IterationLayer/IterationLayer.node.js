@@ -8,6 +8,7 @@ const documentToMarkdown_js_1 = require("./descriptions/documentToMarkdown.js");
 const imageGeneration_js_1 = require("./descriptions/imageGeneration.js");
 const imageTransformation_js_1 = require("./descriptions/imageTransformation.js");
 const sheetGeneration_js_1 = require("./descriptions/sheetGeneration.js");
+const websiteExtraction_js_1 = require("./descriptions/websiteExtraction.js");
 const binaryData_js_1 = require("./helpers/binaryData.js");
 const fileInput_js_1 = require("./helpers/fileInput.js");
 function buildTransformOperation(entry) {
@@ -163,6 +164,11 @@ class IterationLayer {
                         description: "Convert documents to clean, structured Markdown",
                     },
                     {
+                        name: "Website Extraction",
+                        value: "websiteExtraction",
+                        description: "Extract structured data from website URLs",
+                    },
+                    {
                         name: "Sheet Generation",
                         value: "sheetGeneration",
                         description: "Generate XLSX, CSV, or Markdown spreadsheets",
@@ -172,6 +178,7 @@ class IterationLayer {
             },
             ...documentExtraction_js_1.documentExtractionProperties,
             ...documentToMarkdown_js_1.documentToMarkdownProperties,
+            ...websiteExtraction_js_1.websiteExtractionProperties,
             ...imageTransformation_js_1.imageTransformationProperties,
             ...imageGeneration_js_1.imageGenerationProperties,
             ...documentGeneration_js_1.documentGenerationProperties,
@@ -208,6 +215,10 @@ class IterationLayer {
                 }
                 else if (resource === "documentToMarkdown") {
                     const result = await executeDocumentToMarkdown(this, itemIndex, baseUrl);
+                    returnData.push(result);
+                }
+                else if (resource === "websiteExtraction") {
+                    const result = await executeWebsiteExtraction(this, itemIndex, baseUrl, maybeWebhookUrl);
                     returnData.push(result);
                 }
                 else if (resource === "sheetGeneration") {
@@ -314,8 +325,8 @@ async function executeImageGeneration(executeFunctions, itemIndex, baseUrl, mayb
     const fonts = typeof fontsJsonRaw === "string" ? JSON.parse(fontsJsonRaw) : fontsJsonRaw;
     const requestBody = {
         dimensions: {
-            width: widthInPx,
-            height: heightInPx,
+            width_in_px: widthInPx,
+            height_in_px: heightInPx,
         },
         layers,
         output_format: outputFormat,
@@ -375,6 +386,112 @@ async function executeDocumentToMarkdown(executeFunctions, itemIndex, baseUrl) {
         json: response.data,
         pairedItem: { item: itemIndex },
     };
+}
+async function executeWebsiteExtraction(executeFunctions, itemIndex, baseUrl, maybeWebhookUrl) {
+    const fileUrl = getRequiredNodeParameter(executeFunctions, itemIndex, "fileUrl");
+    const fetchOptions = getWebsiteFetchOptions(executeFunctions, itemIndex);
+    const schemaInputMode = getRequiredNodeParameter(executeFunctions, itemIndex, "schemaInputMode");
+    let schema;
+    if (schemaInputMode === "rawJson") {
+        const schemaJson = getRequiredNodeParameter(executeFunctions, itemIndex, "schemaJson");
+        schema = (typeof schemaJson === "string" ? JSON.parse(schemaJson) : schemaJson);
+    }
+    else {
+        const schemaFieldsCollection = getRequiredNodeParameter("schemaFields", executeFunctions, itemIndex);
+        const fields = (schemaFieldsCollection.fieldValues ?? []).map((field) => ({
+            name: field.name,
+            description: field.description,
+            type: field.type,
+            is_required: field.isRequired,
+        }));
+        schema = { fields };
+    }
+    const requestBody = {
+        file: {
+            type: "url",
+            url: fileUrl,
+        },
+        schema,
+    };
+    if (fetchOptions !== undefined) {
+        requestBody.file = {
+            ...requestBody.file,
+            fetch_options: fetchOptions,
+        };
+    }
+    if (maybeWebhookUrl) {
+        requestBody.webhook_url = maybeWebhookUrl;
+    }
+    const response = await makeApiRequest(executeFunctions, "POST", "/website-extraction/v1/extract", baseUrl, requestBody);
+    handleApiResponse(executeFunctions, response, itemIndex);
+    if ("async" in response && response.async) {
+        return {
+            json: { async: true, message: response.message },
+            pairedItem: { item: itemIndex },
+        };
+    }
+    return {
+        json: response.data,
+        pairedItem: { item: itemIndex },
+    };
+}
+function getWebsiteFetchOptions(executeFunctions, itemIndex) {
+    const locale = executeFunctions.getNodeParameter("fileFetchLocale", itemIndex, "");
+    const userAgent = executeFunctions.getNodeParameter("fileFetchUserAgent", itemIndex, "");
+    const auth = executeFunctions.getNodeParameter("fileFetchAuth", itemIndex, {});
+    const headers = executeFunctions.getNodeParameter("fileFetchHeaders", itemIndex, {});
+    const timeoutMs = executeFunctions.getNodeParameter("fileFetchTimeoutMs", itemIndex, 0);
+    const shouldRenderJavascript = executeFunctions.getNodeParameter("fileFetchShouldRenderJavascript", itemIndex, false);
+    const legacyJavascript = executeFunctions.getNodeParameter("fileFetchJavascript", itemIndex, false);
+    const fetchOptions = {};
+    if (locale !== "") {
+        fetchOptions.locale = locale;
+    }
+    if (userAgent !== "") {
+        fetchOptions.user_agent = userAgent;
+    }
+    const parsedAuth = parseOptionalObject(auth);
+    if (parsedAuth !== undefined) {
+        fetchOptions.auth = parsedAuth;
+    }
+    const parsedHeaders = parseOptionalObject(headers);
+    if (parsedHeaders !== undefined) {
+        fetchOptions.headers = parsedHeaders;
+    }
+    if (timeoutMs > 0) {
+        fetchOptions.timeout_ms = timeoutMs;
+    }
+    if (shouldRenderJavascript || legacyJavascript) {
+        fetchOptions.should_render_javascript = true;
+    }
+    if (Object.keys(fetchOptions).length === 0) {
+        return undefined;
+    }
+    return fetchOptions;
+}
+function parseOptionalObject(value) {
+    if (typeof value === "string") {
+        const trimmedValue = value.trim();
+        if (trimmedValue === "") {
+            return undefined;
+        }
+        return parseOptionalObject(JSON.parse(trimmedValue));
+    }
+    if (value === undefined || Object.keys(value).length === 0) {
+        return undefined;
+    }
+    return value;
+}
+function getRequiredNodeParameter(first, second, third) {
+    const executeFunctions = typeof first === "string" ? second : first;
+    const itemIndex = (typeof first === "string" ? third : second);
+    const parameterName = (typeof first === "string" ? first : third);
+    try {
+        return executeFunctions.getNodeParameter(parameterName, itemIndex);
+    }
+    catch (error) {
+        throw new n8n_workflow_1.NodeOperationError(executeFunctions.getNode(), `Could not get parameter '${parameterName}'`, { itemIndex, description: error.message });
+    }
 }
 async function executeSheetGeneration(executeFunctions, itemIndex, baseUrl, maybeWebhookUrl) {
     const sheetFormat = executeFunctions.getNodeParameter("sheetFormat", itemIndex);

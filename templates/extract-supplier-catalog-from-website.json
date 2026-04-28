@@ -1,0 +1,86 @@
+{
+  "name": "Extract Supplier Catalog from Website",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Supplier Catalog from Website\n\nProcurement teams use this recipe to turn public supplier catalog pages into structured records. Extract SKUs, unit prices, stock status, and minimum order quantities for sourcing workflows.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "b223f26d-5e5b-55b7-8533-2224bd81f7d2",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Website Data\nResource: **Website Extraction**\n\nConfigure the public website URL and schema below, then connect your credentials.",
+        "height": 160,
+        "width": 320,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "97a3f12c-71c8-5662-bbe4-c2da7f216991",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "fbd31168-1ff3-5c5c-bca7-beb0d940b9f2",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "websiteExtraction",
+        "fileUrl": "https://example.com/catalog/industrial-fasteners",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"catalog_items\",\"type\":\"ARRAY\",\"description\":\"Supplier catalog items\",\"fields\":[{\"name\":\"sku\",\"type\":\"TEXT\",\"description\":\"Supplier SKU\"},{\"name\":\"product_name\",\"type\":\"TEXT\",\"description\":\"Product name\"},{\"name\":\"unit_price\",\"type\":\"CURRENCY_AMOUNT\",\"description\":\"Unit price\"},{\"name\":\"availability\",\"type\":\"TEXT\",\"description\":\"Availability status\"},{\"name\":\"minimum_order_quantity\",\"type\":\"INTEGER\",\"description\":\"Minimum order quantity\"}]}]}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "id": "e0867029-09ea-535a-87bd-85324e11a6b6",
+      "name": "Extract Website Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Website Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

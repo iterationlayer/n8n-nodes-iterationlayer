@@ -1,0 +1,86 @@
+{
+  "name": "Extract Job Listings from Website",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Extract Job Listings from Website\n\nRecruiting teams use this recipe to convert public job posts into structured records for matching and reporting. Extract role details, requirements, salary ranges, and application links from career pages.\n\n**Note:** This workflow uses the Iteration Layer community node (`n8n-nodes-iterationlayer`). Install it via Settings > Community Nodes before importing. Self-hosted n8n only.",
+        "height": 280,
+        "width": 500,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        200,
+        40
+      ],
+      "id": "bfce2742-61e9-5ce0-9b37-cf99740685b3",
+      "name": "Overview"
+    },
+    {
+      "parameters": {
+        "content": "### Step 1: Extract Website Data\nResource: **Website Extraction**\n\nConfigure the public website URL and schema below, then connect your credentials.",
+        "height": 160,
+        "width": 320,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        475,
+        100
+      ],
+      "id": "f854d791-1d89-5d0b-8836-106b65106258",
+      "name": "Step 1 Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "47b5ee48-e49d-5c8f-ad13-aac100a6329c",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "websiteExtraction",
+        "fileUrl": "https://example.com/careers/senior-platform-engineer",
+        "schemaInputMode": "rawJson",
+        "schemaJson": "{\"fields\":[{\"name\":\"role_title\",\"type\":\"TEXT\",\"description\":\"Job title\"},{\"name\":\"location\",\"type\":\"TEXT\",\"description\":\"Job location or remote policy\"},{\"name\":\"salary_range\",\"type\":\"TEXT\",\"description\":\"Compensation or salary range\"},{\"name\":\"requirements\",\"type\":\"ARRAY\",\"description\":\"Required qualifications\",\"fields\":[{\"name\":\"requirement\",\"type\":\"TEXT\",\"description\":\"One requirement\"}]},{\"name\":\"application_url\",\"type\":\"TEXT\",\"description\":\"URL or instructions for applying\"}]}"
+      },
+      "type": "n8n-nodes-iterationlayer.iterationLayer",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "id": "966c2c61-d9c3-53a9-94dd-15426091d99f",
+      "name": "Extract Website Data",
+      "credentials": {
+        "iterationLayerApi": {
+          "id": "1",
+          "name": "Iteration Layer API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Website Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

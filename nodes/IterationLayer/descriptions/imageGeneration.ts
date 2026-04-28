@@ -5,8 +5,8 @@ const DEFAULT_LAYERS = [
     type: "solid-color",
     index: 0,
     hex_color: "#FFFFFF",
-    position: { x: 0, y: 0 },
-    dimensions: { width: 1_200, height: 630 },
+    position: { x_in_px: 0, y_in_px: 0 },
+    dimensions: { width_in_px: 1_200, height_in_px: 630 },
   },
   {
     type: "text",
@@ -15,8 +15,8 @@ const DEFAULT_LAYERS = [
     font_name: "Roboto",
     font_size_in_px: 48,
     text_color: "#000000",
-    position: { x: 50, y: 50 },
-    dimensions: { width: 1_100, height: 100 },
+    position: { x_in_px: 50, y_in_px: 50 },
+    dimensions: { width_in_px: 1_100, height_in_px: 100 },
   },
 ];
 
