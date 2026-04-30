@@ -315,6 +315,7 @@ async function makeApiRequest(
     {
       method: method as IHttpRequestMethods,
       url: `${baseUrl}${endpoint}`,
+      headers: { "X-IterationLayer-Integration": "n8n" },
       body: body as IDataObject,
       json: true,
     },

@@ -245,6 +245,7 @@ async function makeApiRequest(executeFunctions, method, endpoint, baseUrl, body)
     return (await executeFunctions.helpers.httpRequestWithAuthentication.call(executeFunctions, "iterationLayerApi", {
         method: method,
         url: `${baseUrl}${endpoint}`,
+        headers: { "X-IterationLayer-Integration": "n8n" },
         body: body,
         json: true,
     }));

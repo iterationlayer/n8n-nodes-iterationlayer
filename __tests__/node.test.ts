@@ -91,6 +91,7 @@ describe("IterationLayer Node", () => {
     expect(mockFunctions.helpers.httpRequestWithAuthentication).toHaveBeenCalledWith(
       "iterationLayerApi",
       expect.objectContaining({
+        headers: { "X-IterationLayer-Integration": "n8n" },
         url: "https://api.iterationlayer.com/document-extraction/v1/extract",
       }),
     );
